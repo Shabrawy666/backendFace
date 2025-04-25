@@ -1138,3 +1138,9 @@ DETAIL:  Failing row contains (null, 1212, 20221442260, 2025-04-18, 15:55:29.628
 2025-04-25 19:41:36,466 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 2025-04-25 19:41:36,466 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 20:38:03,210 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 20:38:03,210 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 21:29:13,287 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 21:29:13,287 - INFO - [33mPress CTRL+C to quit[0m

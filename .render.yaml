@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: attendance-backend
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: DATABASE_URL
+        value: your_postgres_connection_string
