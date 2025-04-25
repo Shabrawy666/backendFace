@@ -1,0 +1,1137 @@
+2024-12-31 06:57:05,576 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-12-31 06:57:05,576 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-31 06:57:19,997 - INFO - 127.0.0.1 - - [31/Dec/2024 06:57:19] "GET / HTTP/1.1" 200 -
+2024-12-31 06:57:51,093 - INFO - 127.0.0.1 - - [31/Dec/2024 06:57:51] "GET / HTTP/1.1" 200 -
+2024-12-31 06:57:55,435 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2024-12-31 06:57:55,435 - INFO - 127.0.0.1 - - [31/Dec/2024 06:57:55] "[33mGET /error HTTP/1.1[0m" 404 -
+2024-12-31 06:58:24,592 - INFO - 127.0.0.1 - - [31/Dec/2024 06:58:24] "GET / HTTP/1.1" 200 -
+2024-12-31 06:59:41,018 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2024-12-31 06:59:41,020 - INFO - 127.0.0.1 - - [31/Dec/2024 06:59:41] "[33mGET /404 HTTP/1.1[0m" 404 -
+2024-12-31 07:00:00,155 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2024-12-31 07:00:00,155 - INFO - 127.0.0.1 - - [31/Dec/2024 07:00:00] "[33mGET /404 HTTP/1.1[0m" 404 -
+2024-12-31 19:11:30,369 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-12-31 19:11:30,369 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-31 19:11:30,370 - INFO -  * Restarting with stat
+2024-12-31 19:11:39,468 - WARNING -  * Debugger is active!
+2024-12-31 19:11:39,479 - INFO -  * Debugger PIN: 537-763-198
+2024-12-31 19:14:26,912 - INFO - 127.0.0.1 - - [31/Dec/2024 19:14:26] "GET / HTTP/1.1" 200 -
+2024-12-31 19:14:27,426 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2024-12-31 19:14:27,427 - INFO - 127.0.0.1 - - [31/Dec/2024 19:14:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-12-31 19:14:52,289 - INFO - 127.0.0.1 - - [31/Dec/2024 19:14:52] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2024-12-31 19:17:06,188 - INFO - 127.0.0.1 - - [31/Dec/2024 19:17:06] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2024-12-31 19:18:48,742 - INFO -  * Detected change in 'C:\\Users\\Lenovo\\Desktop\\attendance_system\\models.py', reloading
+2024-12-31 19:18:48,838 - INFO -  * Restarting with stat
+2024-12-31 19:18:57,929 - WARNING -  * Debugger is active!
+2024-12-31 19:18:57,930 - INFO -  * Debugger PIN: 537-763-198
+2024-12-31 19:19:24,425 - INFO -  * Detected change in 'C:\\Users\\Lenovo\\Desktop\\attendance_system\\models.py', reloading
+2024-12-31 19:19:24,538 - INFO -  * Restarting with stat
+2024-12-31 19:19:33,606 - WARNING -  * Debugger is active!
+2024-12-31 19:19:33,607 - INFO -  * Debugger PIN: 537-763-198
+2024-12-31 19:19:50,475 - INFO -  * Detected change in 'C:\\Users\\Lenovo\\Desktop\\attendance_system\\models.py', reloading
+2024-12-31 19:19:50,682 - INFO -  * Restarting with stat
+2024-12-31 19:19:59,733 - WARNING -  * Debugger is active!
+2024-12-31 19:19:59,735 - INFO -  * Debugger PIN: 537-763-198
+2024-12-31 19:20:00,141 - INFO - 127.0.0.1 - - [31/Dec/2024 19:20:00] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2024-12-31 19:21:17,273 - INFO -  * Detected change in 'C:\\Users\\Lenovo\\Desktop\\attendance_system\\models.py', reloading
+2024-12-31 19:21:17,395 - INFO -  * Restarting with stat
+2024-12-31 19:21:26,471 - WARNING -  * Debugger is active!
+2024-12-31 19:21:26,473 - INFO -  * Debugger PIN: 537-763-198
+2024-12-31 19:21:31,384 - INFO - 127.0.0.1 - - [31/Dec/2024 19:21:31] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2024-12-31 19:29:01,796 - INFO -  * Detected change in 'C:\\Users\\Lenovo\\Desktop\\attendance_system\\routes\\student.py', reloading
+2024-12-31 19:29:01,935 - INFO -  * Restarting with stat
+2024-12-31 19:29:11,014 - WARNING -  * Debugger is active!
+2024-12-31 19:29:11,016 - INFO -  * Debugger PIN: 537-763-198
+2024-12-31 19:29:24,769 - INFO -  * Detected change in 'C:\\Users\\Lenovo\\Desktop\\attendance_system\\routes\\student.py', reloading
+2024-12-31 19:29:24,882 - INFO -  * Restarting with stat
+2024-12-31 19:29:33,863 - WARNING -  * Debugger is active!
+2024-12-31 19:29:33,865 - INFO -  * Debugger PIN: 537-763-198
+2024-12-31 19:35:58,754 - INFO - 127.0.0.1 - - [31/Dec/2024 19:35:58] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2024-12-31 19:37:21,996 - INFO -  * Detected change in 'C:\\Users\\Lenovo\\Desktop\\attendance_system\\models.py', reloading
+2024-12-31 19:37:22,079 - INFO -  * Restarting with stat
+2024-12-31 19:37:31,095 - WARNING -  * Debugger is active!
+2024-12-31 19:37:31,097 - INFO -  * Debugger PIN: 537-763-198
+2024-12-31 19:38:35,486 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-12-31 19:38:35,486 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-31 19:38:38,221 - INFO - 127.0.0.1 - - [31/Dec/2024 19:38:38] "GET / HTTP/1.1" 200 -
+2024-12-31 19:38:46,163 - INFO - 127.0.0.1 - - [31/Dec/2024 19:38:46] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 201 -
+2024-12-31 19:56:51,768 - ERROR - Error: Directory migrations already exists and is not empty
+2024-12-31 20:03:52,089 - ERROR - Error: Directory migrations already exists and is not empty
+2024-12-31 20:15:14,312 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-12-31 20:15:14,312 - INFO - [33mPress CTRL+C to quit[0m
+2024-12-31 20:15:17,866 - INFO - 127.0.0.1 - - [31/Dec/2024 20:15:17] "GET / HTTP/1.1" 200 -
+2024-12-31 20:15:54,622 - INFO - 127.0.0.1 - - [31/Dec/2024 20:15:54] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2024-12-31 20:20:45,425 - INFO - 127.0.0.1 - - [31/Dec/2024 20:20:45] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2024-12-31 20:21:05,482 - INFO - 127.0.0.1 - - [31/Dec/2024 20:21:05] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 18:02:08,345 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-01 18:02:08,345 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-01 18:02:08,545 - INFO - 127.0.0.1 - - [01/Jan/2025 18:02:08] "GET / HTTP/1.1" 200 -
+2025-01-01 18:02:08,573 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-01-01 18:02:08,573 - INFO - 127.0.0.1 - - [01/Jan/2025 18:02:08] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-01-01 18:02:14,585 - INFO - 127.0.0.1 - - [01/Jan/2025 18:02:14] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 18:03:37,096 - INFO - 127.0.0.1 - - [01/Jan/2025 18:03:37] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 18:05:07,531 - INFO - 127.0.0.1 - - [01/Jan/2025 18:05:07] "[31m[1mPOST /api/student/register HTTP/1.1[0m" 400 -
+2025-01-01 18:05:13,973 - INFO - 127.0.0.1 - - [01/Jan/2025 18:05:13] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 18:05:23,453 - INFO - 127.0.0.1 - - [01/Jan/2025 18:05:23] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 18:17:57,510 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-01 18:17:57,510 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-01 18:18:01,451 - INFO - 127.0.0.1 - - [01/Jan/2025 18:18:01] "GET / HTTP/1.1" 200 -
+2025-01-01 18:18:14,448 - INFO - 127.0.0.1 - - [01/Jan/2025 18:18:14] "[31m[1mPOST /api/student/register HTTP/1.1[0m" 400 -
+2025-01-01 18:21:17,005 - INFO - 127.0.0.1 - - [01/Jan/2025 18:21:17] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 18:24:31,851 - INFO - 127.0.0.1 - - [01/Jan/2025 18:24:31] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:10:46,984 - INFO - 127.0.0.1 - - [01/Jan/2025 19:10:46] "GET / HTTP/1.1" 200 -
+2025-01-01 19:10:57,913 - INFO - 127.0.0.1 - - [01/Jan/2025 19:10:57] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:11:49,152 - INFO - 127.0.0.1 - - [01/Jan/2025 19:11:49] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:12:11,798 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-01 19:12:11,798 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-01 19:12:12,007 - INFO - 127.0.0.1 - - [01/Jan/2025 19:12:12] "GET / HTTP/1.1" 200 -
+2025-01-01 19:12:17,735 - INFO - 127.0.0.1 - - [01/Jan/2025 19:12:17] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:13:12,591 - INFO - 127.0.0.1 - - [01/Jan/2025 19:13:12] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:13:21,647 - INFO - 127.0.0.1 - - [01/Jan/2025 19:13:21] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:14:09,051 - INFO - 127.0.0.1 - - [01/Jan/2025 19:14:09] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:14:44,880 - INFO - 127.0.0.1 - - [01/Jan/2025 19:14:44] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:14:59,906 - INFO - 127.0.0.1 - - [01/Jan/2025 19:14:59] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:15:07,039 - INFO - 127.0.0.1 - - [01/Jan/2025 19:15:07] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:15:50,610 - INFO - 127.0.0.1 - - [01/Jan/2025 19:15:50] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:17:10,206 - INFO - 127.0.0.1 - - [01/Jan/2025 19:17:10] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:17:14,816 - INFO - 127.0.0.1 - - [01/Jan/2025 19:17:14] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:19:58,588 - INFO - 127.0.0.1 - - [01/Jan/2025 19:19:58] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:20:53,566 - INFO - 127.0.0.1 - - [01/Jan/2025 19:20:53] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:21:44,322 - INFO - 127.0.0.1 - - [01/Jan/2025 19:21:44] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:22:29,023 - INFO - 127.0.0.1 - - [01/Jan/2025 19:22:29] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:23:22,006 - INFO - 127.0.0.1 - - [01/Jan/2025 19:23:22] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:23:34,212 - INFO - 127.0.0.1 - - [01/Jan/2025 19:23:34] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:23:38,974 - INFO - 127.0.0.1 - - [01/Jan/2025 19:23:38] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-01 19:23:46,817 - INFO - 127.0.0.1 - - [01/Jan/2025 19:23:46] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 00:41:33,491 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-02 00:41:33,491 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-02 00:41:38,743 - INFO - 127.0.0.1 - - [02/Jan/2025 00:41:38] "GET / HTTP/1.1" 200 -
+2025-01-02 00:42:22,004 - INFO - 127.0.0.1 - - [02/Jan/2025 00:42:22] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 00:43:48,643 - INFO - 127.0.0.1 - - [02/Jan/2025 00:43:48] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 00:44:01,710 - INFO - 127.0.0.1 - - [02/Jan/2025 00:44:01] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 00:44:23,002 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-02 00:44:23,002 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-02 00:44:24,208 - INFO - 127.0.0.1 - - [02/Jan/2025 00:44:24] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 00:45:44,637 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-02 00:45:44,638 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-02 00:45:45,438 - INFO - 127.0.0.1 - - [02/Jan/2025 00:45:45] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 00:50:14,769 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-02 00:50:14,769 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-02 00:50:32,620 - INFO - 127.0.0.1 - - [02/Jan/2025 00:50:32] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 01:16:34,637 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-02 01:16:34,638 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-02 01:16:39,733 - INFO - 127.0.0.1 - - [02/Jan/2025 01:16:39] "GET / HTTP/1.1" 200 -
+2025-01-02 01:16:48,008 - INFO - 127.0.0.1 - - [02/Jan/2025 01:16:48] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 01:16:59,008 - INFO - 127.0.0.1 - - [02/Jan/2025 01:16:59] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 01:17:40,355 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-02 01:17:40,355 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-02 01:17:46,940 - INFO - 127.0.0.1 - - [02/Jan/2025 01:17:46] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 500 -
+2025-01-02 01:24:35,676 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-02 01:24:35,676 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-02 01:24:58,885 - INFO - 127.0.0.1 - - [02/Jan/2025 01:24:58] "[35m[1mPOST /api/student/register HTTP/1.1[0m" 201 -
+2025-01-18 14:41:27,031 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 14:41:27,032 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 14:41:41,427 - INFO - 127.0.0.1 - - [18/Jan/2025 14:41:41] "[31m[1mGET /api/teacher/login HTTP/1.1[0m" 405 -
+2025-01-18 14:41:50,670 - INFO - 127.0.0.1 - - [18/Jan/2025 14:41:50] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 14:42:01,015 - INFO - 127.0.0.1 - - [18/Jan/2025 14:42:01] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 14:48:58,811 - INFO - 127.0.0.1 - - [18/Jan/2025 14:48:58] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 14:49:03,259 - INFO - 127.0.0.1 - - [18/Jan/2025 14:49:03] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 14:50:16,414 - INFO - 127.0.0.1 - - [18/Jan/2025 14:50:16] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 400 -
+2025-01-18 14:52:12,382 - INFO - 127.0.0.1 - - [18/Jan/2025 14:52:12] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 400 -
+2025-01-18 14:52:16,290 - INFO - 127.0.0.1 - - [18/Jan/2025 14:52:16] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 400 -
+2025-01-18 14:52:51,072 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 14:52:51,072 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 14:52:56,294 - INFO - 127.0.0.1 - - [18/Jan/2025 14:52:56] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 14:54:35,450 - INFO - 127.0.0.1 - - [18/Jan/2025 14:54:35] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 15:00:12,669 - INFO - 127.0.0.1 - - [18/Jan/2025 15:00:12] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 15:00:30,460 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 15:00:30,460 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 15:01:04,606 - INFO - 127.0.0.1 - - [18/Jan/2025 15:01:04] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 15:01:39,472 - INFO - 127.0.0.1 - - [18/Jan/2025 15:01:39] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 15:01:44,583 - INFO - 127.0.0.1 - - [18/Jan/2025 15:01:44] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 15:01:53,649 - INFO - 127.0.0.1 - - [18/Jan/2025 15:01:53] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 15:02:07,261 - INFO - 127.0.0.1 - - [18/Jan/2025 15:02:07] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 16:21:50,092 - INFO - 127.0.0.1 - - [18/Jan/2025 16:21:50] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 16:21:51,925 - INFO - 127.0.0.1 - - [18/Jan/2025 16:21:51] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 16:22:15,609 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 16:22:15,609 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 16:22:24,106 - INFO - 127.0.0.1 - - [18/Jan/2025 16:22:24] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 16:22:28,168 - INFO - 127.0.0.1 - - [18/Jan/2025 16:22:28] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 16:23:39,877 - INFO - 127.0.0.1 - - [18/Jan/2025 16:23:39] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 16:28:29,580 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 16:28:29,580 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 16:28:30,333 - INFO - 127.0.0.1 - - [18/Jan/2025 16:28:30] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:28:30,871 - INFO - 127.0.0.1 - - [18/Jan/2025 16:28:30] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:30:01,757 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 16:30:01,757 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 16:30:02,895 - INFO - 127.0.0.1 - - [18/Jan/2025 16:30:02] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 16:32:15,092 - INFO - 127.0.0.1 - - [18/Jan/2025 16:32:15] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:33:39,353 - INFO - 127.0.0.1 - - [18/Jan/2025 16:33:39] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 16:34:22,550 - INFO - 127.0.0.1 - - [18/Jan/2025 16:34:22] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 401 -
+2025-01-18 16:37:32,129 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 16:37:32,129 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 16:37:45,206 - ERROR - Error during login: Password is not readable.
+2025-01-18 16:37:45,207 - INFO - 127.0.0.1 - - [18/Jan/2025 16:37:45] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:38:37,736 - ERROR - Error during login: Password is not readable.
+2025-01-18 16:38:37,737 - INFO - 127.0.0.1 - - [18/Jan/2025 16:38:37] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:38:42,986 - ERROR - Error during login: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+2025-01-18 16:38:42,986 - INFO - 127.0.0.1 - - [18/Jan/2025 16:38:42] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:38:49,988 - ERROR - Error during login: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+2025-01-18 16:38:49,988 - INFO - 127.0.0.1 - - [18/Jan/2025 16:38:49] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:38:57,172 - ERROR - Error during login: Password is not readable.
+2025-01-18 16:38:57,173 - INFO - 127.0.0.1 - - [18/Jan/2025 16:38:57] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:40:55,765 - ERROR - Error during login: Password is not readable.
+2025-01-18 16:40:55,765 - INFO - 127.0.0.1 - - [18/Jan/2025 16:40:55] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:41:10,237 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 16:41:10,237 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 16:41:12,932 - ERROR - Error during login: Password is not readable.
+2025-01-18 16:41:12,932 - INFO - 127.0.0.1 - - [18/Jan/2025 16:41:12] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:42:37,255 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 16:42:37,255 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 16:42:39,988 - DEBUG - Password from request: StrongPass1
+2025-01-18 16:42:39,989 - ERROR - Error during login: Password is not readable.
+2025-01-18 16:42:39,989 - INFO - 127.0.0.1 - - [18/Jan/2025 16:42:39] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:56:56,387 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 16:56:56,387 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 16:56:59,294 - DEBUG - Password from request: StrongPass1
+2025-01-18 16:56:59,294 - ERROR - Error during login: Password is not readable.
+2025-01-18 16:56:59,295 - INFO - 127.0.0.1 - - [18/Jan/2025 16:56:59] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 16:57:00,646 - DEBUG - Password from request: StrongPass1
+2025-01-18 16:57:00,646 - ERROR - Error during login: Password is not readable.
+2025-01-18 16:57:00,648 - INFO - 127.0.0.1 - - [18/Jan/2025 16:57:00] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-01-18 17:06:49,417 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-01-18 17:06:49,417 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-18 17:06:55,375 - INFO - 127.0.0.1 - - [18/Jan/2025 17:06:55] "POST /api/teacher/login HTTP/1.1" 200 -
+2025-04-11 16:21:22,424 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-11 16:21:22,424 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 16:21:49,401 - INFO - 127.0.0.1 - - [11/Apr/2025 16:21:49] "GET / HTTP/1.1" 200 -
+2025-04-11 16:21:49,425 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-11 16:21:49,425 - INFO - 127.0.0.1 - - [11/Apr/2025 16:21:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-11 16:21:53,298 - INFO - 127.0.0.1 - - [11/Apr/2025 16:21:53] "[31m[1mPOST /api/student/login HTTP/1.1[0m" 400 -
+2025-04-11 16:22:39,667 - INFO - 127.0.0.1 - - [11/Apr/2025 16:22:39] "[35m[1mPOST /api/student/login HTTP/1.1[0m" 500 -
+2025-04-11 16:31:13,543 - INFO - 127.0.0.1 - - [11/Apr/2025 16:31:13] "[35m[1mPOST /api/student/login HTTP/1.1[0m" 500 -
+2025-04-11 16:55:00,679 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-11 16:55:00,679 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-11 16:55:46,540 - INFO - 127.0.0.1 - - [11/Apr/2025 16:55:46] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-14 15:46:54,343 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-14 15:46:54,343 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-14 15:51:59,410 - INFO - 127.0.0.1 - - [14/Apr/2025 15:51:59] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-14 15:52:20,344 - INFO - 127.0.0.1 - - [14/Apr/2025 15:52:20] "POST /api/student/update_face_encoding HTTP/1.1" 200 -
+2025-04-14 16:00:36,229 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-14 16:00:36,229 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-14 16:01:17,862 - INFO - 127.0.0.1 - - [14/Apr/2025 16:01:17] "[35m[1mPOST /api/student/login HTTP/1.1[0m" 500 -
+2025-04-14 16:06:52,035 - INFO - 127.0.0.1 - - [14/Apr/2025 16:06:52] "[35m[1mPOST /api/student/login HTTP/1.1[0m" 500 -
+2025-04-14 16:07:24,298 - INFO - 127.0.0.1 - - [14/Apr/2025 16:07:24] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-14 16:08:17,928 - INFO - 127.0.0.1 - - [14/Apr/2025 16:08:17] "[31m[1mPOST /api/student/capture_face HTTP/1.1[0m" 400 -
+2025-04-14 16:08:26,504 - INFO - 127.0.0.1 - - [14/Apr/2025 16:08:26] "POST /api/student/capture_face HTTP/1.1" 200 -
+2025-04-14 16:13:05,578 - INFO - 127.0.0.1 - - [14/Apr/2025 16:13:05] "POST /api/student/capture_face HTTP/1.1" 200 -
+2025-04-14 16:29:08,269 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-14 16:29:08,269 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-14 17:59:12,897 - INFO - 127.0.0.1 - - [14/Apr/2025 17:59:12] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-14 18:00:11,634 - INFO - 127.0.0.1 - - [14/Apr/2025 18:00:11] "[31m[1mPOST /api/student/capture_face HTTP/1.1[0m" 400 -
+2025-04-14 18:02:35,912 - INFO - 127.0.0.1 - - [14/Apr/2025 18:02:35] "[31m[1mPOST /api/student/capture_face HTTP/1.1[0m" 400 -
+2025-04-14 18:02:37,987 - INFO - 127.0.0.1 - - [14/Apr/2025 18:02:37] "[31m[1mPOST /api/student/capture_face HTTP/1.1[0m" 400 -
+2025-04-14 18:02:56,690 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-14 18:02:56,690 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-14 18:03:16,625 - INFO - 127.0.0.1 - - [14/Apr/2025 18:03:16] "POST /api/student/capture_face HTTP/1.1" 200 -
+2025-04-14 18:03:23,948 - INFO - 127.0.0.1 - - [14/Apr/2025 18:03:23] "POST /api/student/capture_face HTTP/1.1" 200 -
+2025-04-14 18:10:15,849 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-14 18:10:15,849 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-14 18:10:57,990 - INFO - 127.0.0.1 - - [14/Apr/2025 18:10:57] "[35m[1mPOST /api/student/login HTTP/1.1[0m" 500 -
+2025-04-14 18:12:36,986 - INFO - 127.0.0.1 - - [14/Apr/2025 18:12:36] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-14 18:13:04,790 - INFO - 127.0.0.1 - - [14/Apr/2025 18:13:04] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-14 18:13:46,299 - INFO - 127.0.0.1 - - [14/Apr/2025 18:13:46] "POST /api/student/capture_face HTTP/1.1" 200 -
+2025-04-18 16:36:24,077 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 16:36:24,077 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 16:37:33,391 - ERROR - Exception on /api/attendance/mark [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 57, in mark_attendance
+    session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.start_time)).first()
+                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'AttendanceSession' has no attribute 'start_time'
+2025-04-18 16:37:33,399 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:37:33,399 - INFO - 127.0.0.1 - - [18/Apr/2025 16:37:33] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 16:38:38,848 - ERROR - Exception on /api/attendance/mark [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 57, in mark_attendance
+    session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.start_time)).first()
+                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'AttendanceSession' has no attribute 'start_time'
+2025-04-18 16:38:38,850 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:38:38,851 - INFO - 127.0.0.1 - - [18/Apr/2025 16:38:38] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 16:39:22,027 - ERROR - Exception on /api/attendance/mark [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 57, in mark_attendance
+    session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.start_time)).first()
+                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'AttendanceSession' has no attribute 'start_time'
+2025-04-18 16:39:22,027 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:39:22,028 - INFO - 127.0.0.1 - - [18/Apr/2025 16:39:22] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 16:39:56,402 - ERROR - Exception on /api/attendance/mark [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 57, in mark_attendance
+    session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.start_time)).first()
+                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'AttendanceSession' has no attribute 'start_time'
+2025-04-18 16:39:56,402 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:39:56,407 - INFO - 127.0.0.1 - - [18/Apr/2025 16:39:56] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 16:40:18,909 - INFO - 127.0.0.1 - - [18/Apr/2025 16:40:18] "[31m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 400 -
+2025-04-18 16:41:16,729 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 25, in start_attendance_session
+    session = AttendanceSession(
+              ^^^^^^^^^^^^^^^^^^
+  File "<string>", line 4, in __init__
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 571, in _initialize_instance
+    with util.safe_reraise():
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 569, in _initialize_instance
+    manager.original_init(*mixed[1:], **kwargs)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2177, in _declarative_constructor
+    raise TypeError(
+TypeError: 'start_time' is an invalid keyword argument for AttendanceSession
+2025-04-18 16:41:16,749 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:41:16,749 - INFO - 127.0.0.1 - - [18/Apr/2025 16:41:16] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 16:41:35,751 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 16:41:35,751 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 16:41:38,991 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 25, in start_attendance_session
+    session = AttendanceSession(
+              ^^^^^^^^^^^^^^^^^^
+  File "<string>", line 4, in __init__
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 571, in _initialize_instance
+    with util.safe_reraise():
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 569, in _initialize_instance
+    manager.original_init(*mixed[1:], **kwargs)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2177, in _declarative_constructor
+    raise TypeError(
+TypeError: 'start_time' is an invalid keyword argument for AttendanceSession
+2025-04-18 16:41:38,991 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:41:39,001 - INFO - 127.0.0.1 - - [18/Apr/2025 16:41:39] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 16:45:31,371 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 25, in start_attendance_session
+    session = AttendanceSession(
+              ^^^^^^^^^^^^^^^^^^
+  File "<string>", line 4, in __init__
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 571, in _initialize_instance
+    with util.safe_reraise():
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 569, in _initialize_instance
+    manager.original_init(*mixed[1:], **kwargs)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2177, in _declarative_constructor
+    raise TypeError(
+TypeError: 'start_time' is an invalid keyword argument for AttendanceSession
+2025-04-18 16:45:31,371 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:45:31,371 - INFO - 127.0.0.1 - - [18/Apr/2025 16:45:31] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 16:46:52,530 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 16:46:52,530 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 16:47:01,263 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 25, in start_attendance_session
+    session = AttendanceSession(
+              ^^^^^^^^^^^^^^^^^^
+  File "<string>", line 4, in __init__
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 571, in _initialize_instance
+    with util.safe_reraise():
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 569, in _initialize_instance
+    manager.original_init(*mixed[1:], **kwargs)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2177, in _declarative_constructor
+    raise TypeError(
+TypeError: 'start_time' is an invalid keyword argument for AttendanceSession
+2025-04-18 16:47:01,272 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:47:01,272 - INFO - 127.0.0.1 - - [18/Apr/2025 16:47:01] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 16:49:05,966 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 25, in start_attendance_session
+    session = AttendanceSession(
+              ^^^^^^^^^^^^^^^^^^
+  File "<string>", line 4, in __init__
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 571, in _initialize_instance
+    with util.safe_reraise():
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 569, in _initialize_instance
+    manager.original_init(*mixed[1:], **kwargs)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2177, in _declarative_constructor
+    raise TypeError(
+TypeError: 'start_time' is an invalid keyword argument for AttendanceSession
+2025-04-18 16:49:05,966 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:49:05,966 - INFO - 127.0.0.1 - - [18/Apr/2025 16:49:05] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 16:52:00,913 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 25, in start_attendance_session
+    session = AttendanceSession(
+              ^^^^^^^^^^^^^^^^^^
+  File "<string>", line 4, in __init__
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 571, in _initialize_instance
+    with util.safe_reraise():
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 569, in _initialize_instance
+    manager.original_init(*mixed[1:], **kwargs)
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2177, in _declarative_constructor
+    raise TypeError(
+TypeError: 'start_time' is an invalid keyword argument for AttendanceSession
+2025-04-18 16:52:00,913 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:52:00,913 - INFO - 127.0.0.1 - - [18/Apr/2025 16:52:00] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 16:54:10,442 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 16:54:10,442 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 16:54:13,790 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 36, in start_attendance_session
+    "session_id": session.session_id,
+                  ^^^^^^^^^^^^^^^^^^
+AttributeError: 'AttendanceSession' object has no attribute 'session_id'
+2025-04-18 16:54:13,795 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 16:54:13,795 - INFO - 127.0.0.1 - - [18/Apr/2025 16:54:13] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 16:57:05,335 - INFO - 127.0.0.1 - - [18/Apr/2025 16:57:05] "[31m[1mPOST /api/teacher/login HTTP/1.1[0m" 400 -
+2025-04-18 16:57:28,449 - ERROR - Invalid salt
+2025-04-18 16:57:28,449 - INFO - 127.0.0.1 - - [18/Apr/2025 16:57:28] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-18 16:58:21,417 - INFO - 127.0.0.1 - - [18/Apr/2025 16:58:21] "POST /api/teacher/login HTTP/1.1" 200 -
+2025-04-18 17:01:01,985 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 36, in start_attendance_session
+    "session_id": session.session_id,
+                  ^^^^^^^^^^^^^^^^^^
+AttributeError: 'AttendanceSession' object has no attribute 'session_id'
+2025-04-18 17:01:01,985 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 17:01:01,985 - INFO - 127.0.0.1 - - [18/Apr/2025 17:01:01] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 17:01:26,912 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 36, in start_attendance_session
+    "session_id": session.session_id,
+                  ^^^^^^^^^^^^^^^^^^
+AttributeError: 'AttendanceSession' object has no attribute 'session_id'
+2025-04-18 17:01:26,914 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 17:01:26,914 - INFO - 127.0.0.1 - - [18/Apr/2025 17:01:26] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 17:03:29,882 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 36, in start_attendance_session
+    "session_id": session.id,
+                  ^^^^^^^^^^^^
+AttributeError: 'AttendanceSession' object has no attribute 'session_id'
+2025-04-18 17:03:29,884 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 17:03:29,884 - INFO - 127.0.0.1 - - [18/Apr/2025 17:03:29] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 17:05:41,322 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 36, in start_attendance_session
+    "message": "Attendance session started",
+              ^^^^^^^^^^^^^^^^^^
+AttributeError: 'AttendanceSession' object has no attribute 'session_id'
+2025-04-18 17:05:41,322 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 17:05:41,322 - INFO - 127.0.0.1 - - [18/Apr/2025 17:05:41] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 17:06:48,252 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:06:48,252 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:07:01,853 - INFO - 127.0.0.1 - - [18/Apr/2025 17:07:01] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:09:55,532 - ERROR - Exception on /api/attendance/mark [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 61, in mark_attendance
+    session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.start_time)).first()
+                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'AttendanceSession' has no attribute 'start_time'
+2025-04-18 17:09:55,538 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 17:09:55,538 - INFO - 127.0.0.1 - - [18/Apr/2025 17:09:55] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:12:07,481 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:12:07,481 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:12:11,488 - INFO - 127.0.0.1 - - [18/Apr/2025 17:12:11] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 400 -
+2025-04-18 17:12:20,699 - INFO - 127.0.0.1 - - [18/Apr/2025 17:12:20] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 400 -
+2025-04-18 17:12:31,540 - INFO - 127.0.0.1 - - [18/Apr/2025 17:12:31] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 400 -
+2025-04-18 17:12:36,535 - INFO - 127.0.0.1 - - [18/Apr/2025 17:12:36] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 400 -
+2025-04-18 17:16:48,151 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:16:48,151 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:17:14,515 - INFO - 127.0.0.1 - - [18/Apr/2025 17:17:14] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:20:04,941 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:20:04,941 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:20:16,949 - INFO - 127.0.0.1 - - [18/Apr/2025 17:20:16] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:35:33,644 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:35:33,644 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:35:36,152 - INFO - 127.0.0.1 - - [18/Apr/2025 17:35:36] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:35:39,041 - INFO - 127.0.0.1 - - [18/Apr/2025 17:35:39] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:35:43,615 - INFO - 127.0.0.1 - - [18/Apr/2025 17:35:43] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:36:39,065 - INFO - 127.0.0.1 - - [18/Apr/2025 17:36:39] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:37:17,773 - INFO - 127.0.0.1 - - [18/Apr/2025 17:37:17] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:37:33,349 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:37:33,349 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:37:41,801 - INFO - 127.0.0.1 - - [18/Apr/2025 17:37:41] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:38:57,279 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:38:57,279 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:39:07,288 - INFO - 127.0.0.1 - - [18/Apr/2025 17:39:07] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:39:22,385 - INFO - 127.0.0.1 - - [18/Apr/2025 17:39:22] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 17:46:53,933 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:46:53,933 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:47:01,961 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 611, in get_json
+    rv = self.json_module.loads(data)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\json\provider.py", line 187, in loads
+    return json.loads(s, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ':' delimiter: line 2 column 18 (char 20)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\wrappers.py", line 214, in on_json_loading_failed
+    return super().on_json_loading_failed(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 645, in on_json_loading_failed
+    raise BadRequest(f"Failed to decode JSON object: {e}")
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to decode JSON object: Expecting ':' delimiter: line 2 column 18 (char 20)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 16, in start_attendance_session
+    data = request.get_json()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 620, in get_json
+    rv = self.on_json_loading_failed(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\wrappers.py", line 219, in on_json_loading_failed
+    raise BadRequest() from ebr
+werkzeug.exceptions.BadRequest: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 59, in start_attendance_session
+    logging.error(f"Error starting attendance session: {str(e)}")  # Log the error
+    ^^^^^^^
+NameError: name 'logging' is not defined
+2025-04-18 17:47:01,984 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 17:47:01,984 - INFO - 127.0.0.1 - - [18/Apr/2025 17:47:01] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 17:47:11,479 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 611, in get_json
+    rv = self.json_module.loads(data)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\json\provider.py", line 187, in loads
+    return json.loads(s, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ':' delimiter: line 2 column 18 (char 20)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\wrappers.py", line 214, in on_json_loading_failed
+    return super().on_json_loading_failed(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 645, in on_json_loading_failed
+    raise BadRequest(f"Failed to decode JSON object: {e}")
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to decode JSON object: Expecting ':' delimiter: line 2 column 18 (char 20)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 16, in start_attendance_session
+    data = request.get_json()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 620, in get_json
+    rv = self.on_json_loading_failed(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\wrappers.py", line 219, in on_json_loading_failed
+    raise BadRequest() from ebr
+werkzeug.exceptions.BadRequest: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 59, in start_attendance_session
+    logging.error(f"Error starting attendance session: {str(e)}")  # Log the error
+    ^^^^^^^
+NameError: name 'logging' is not defined
+2025-04-18 17:47:11,482 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 17:47:11,482 - INFO - 127.0.0.1 - - [18/Apr/2025 17:47:11] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 17:47:38,758 - ERROR - Exception on /api/attendance/start_session [POST]
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 611, in get_json
+    rv = self.json_module.loads(data)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\json\provider.py", line 187, in loads
+    return json.loads(s, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\json\decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ':' delimiter: line 2 column 18 (char 20)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\wrappers.py", line 214, in on_json_loading_failed
+    return super().on_json_loading_failed(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 645, in on_json_loading_failed
+    raise BadRequest(f"Failed to decode JSON object: {e}")
+werkzeug.exceptions.BadRequest: 400 Bad Request: Failed to decode JSON object: Expecting ':' delimiter: line 2 column 18 (char 20)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 16, in start_attendance_session
+    data = request.get_json()
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\werkzeug\wrappers\request.py", line 620, in get_json
+    rv = self.on_json_loading_failed(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\wrappers.py", line 219, in on_json_loading_failed
+    raise BadRequest() from ebr
+werkzeug.exceptions.BadRequest: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\attendance_system\routes\attendance.py", line 59, in start_attendance_session
+    logging.error(f"Error starting attendance session: {str(e)}")  # Log the error
+    ^^^^^^^
+NameError: name 'logging' is not defined
+2025-04-18 17:47:38,758 - ERROR - 500 Error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-04-18 17:47:38,766 - INFO - 127.0.0.1 - - [18/Apr/2025 17:47:38] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 17:49:06,193 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:49:06,193 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:49:21,518 - ERROR - Error starting attendance session: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+2025-04-18 17:49:21,518 - INFO - 127.0.0.1 - - [18/Apr/2025 17:49:21] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 17:49:38,475 - ERROR - Error starting attendance session: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+2025-04-18 17:49:38,475 - INFO - 127.0.0.1 - - [18/Apr/2025 17:49:38] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 500 -
+2025-04-18 17:49:56,827 - INFO - 127.0.0.1 - - [18/Apr/2025 17:49:56] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:50:13,932 - INFO - 127.0.0.1 - - [18/Apr/2025 17:50:13] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:52:55,050 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:52:55,050 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:53:18,605 - INFO - 127.0.0.1 - - [18/Apr/2025 17:53:18] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:53:27,458 - ERROR - Error marking attendance: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+2025-04-18 17:53:27,460 - INFO - 127.0.0.1 - - [18/Apr/2025 17:53:27] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:53:33,721 - ERROR - Error marking attendance: 'session' is an invalid keyword argument for Attendancelog
+2025-04-18 17:53:33,722 - INFO - 127.0.0.1 - - [18/Apr/2025 17:53:33] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:54:17,106 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:54:17,106 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:54:25,934 - ERROR - Error marking attendance: (psycopg2.errors.NotNullViolation) null value in column "course_id" of relation "attendancelog" violates not-null constraint
+DETAIL:  Failing row contains (null, 1212, 20221442260, 2025-04-18, 15:54:25.931917, present, 12).
+
+[SQL: INSERT INTO attendancelog (student_id, session_id, teacher_id, date, time, status) VALUES (%(student_id)s, %(session_id)s, %(teacher_id)s, %(date)s, %(time)s, %(status)s)]
+[parameters: {'student_id': '20221442260', 'session_id': 12, 'teacher_id': '1212', 'date': datetime.date(2025, 4, 18), 'time': datetime.time(15, 54, 25, 931917), 'status': 'present'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-04-18 17:54:25,934 - INFO - 127.0.0.1 - - [18/Apr/2025 17:54:25] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:55:11,176 - INFO - 127.0.0.1 - - [18/Apr/2025 17:55:11] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:55:20,849 - ERROR - Error marking attendance: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+2025-04-18 17:55:20,850 - INFO - 127.0.0.1 - - [18/Apr/2025 17:55:20] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:55:29,629 - ERROR - Error marking attendance: (psycopg2.errors.NotNullViolation) null value in column "course_id" of relation "attendancelog" violates not-null constraint
+DETAIL:  Failing row contains (null, 1212, 20221442260, 2025-04-18, 15:55:29.628806, present, 13).
+
+[SQL: INSERT INTO attendancelog (student_id, session_id, teacher_id, date, time, status) VALUES (%(student_id)s, %(session_id)s, %(teacher_id)s, %(date)s, %(time)s, %(status)s)]
+[parameters: {'student_id': '20221442260', 'session_id': 13, 'teacher_id': '1212', 'date': datetime.date(2025, 4, 18), 'time': datetime.time(15, 55, 29, 628806), 'status': 'present'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-04-18 17:55:29,629 - INFO - 127.0.0.1 - - [18/Apr/2025 17:55:29] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:56:12,081 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 17:56:12,081 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 17:56:19,328 - INFO - 127.0.0.1 - - [18/Apr/2025 17:56:19] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:56:26,183 - ERROR - Error marking attendance: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+2025-04-18 17:56:26,184 - INFO - 127.0.0.1 - - [18/Apr/2025 17:56:26] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:56:35,942 - INFO - 127.0.0.1 - - [18/Apr/2025 17:56:35] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 17:57:00,457 - INFO - 127.0.0.1 - - [18/Apr/2025 17:57:00] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 17:57:12,536 - ERROR - Error marking attendance: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+2025-04-18 17:57:12,536 - INFO - 127.0.0.1 - - [18/Apr/2025 17:57:12] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 17:57:20,920 - INFO - 127.0.0.1 - - [18/Apr/2025 17:57:20] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 18:37:26,766 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 18:37:26,766 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 18:37:35,444 - INFO - 127.0.0.1 - - [18/Apr/2025 18:37:35] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 18:37:51,296 - INFO - 127.0.0.1 - - [18/Apr/2025 18:37:51] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 18:51:37,763 - ERROR - Error: Directory migrations already exists and is not empty
+2025-04-18 18:58:46,803 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 18:58:46,803 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 18:58:51,531 - ERROR - Error marking attendance: The current Flask app is not registered with this 'SQLAlchemy' instance. Did you forget to call 'init_app', or did you create multiple 'SQLAlchemy' instances?
+2025-04-18 18:58:51,533 - INFO - 127.0.0.1 - - [18/Apr/2025 18:58:51] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-18 19:02:27,589 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 19:02:27,589 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 19:02:33,751 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-18 19:02:33,753 - INFO - 127.0.0.1 - - [18/Apr/2025 19:02:33] "[33mPOST /api/attendance/session_start HTTP/1.1[0m" 404 -
+2025-04-18 19:02:38,360 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-18 19:02:38,360 - INFO - 127.0.0.1 - - [18/Apr/2025 19:02:38] "[33mPOST /api/attendance/session_start HTTP/1.1[0m" 404 -
+2025-04-18 19:02:42,967 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-18 19:02:42,967 - INFO - 127.0.0.1 - - [18/Apr/2025 19:02:42] "[33mPOST /api/attendance/session_start HTTP/1.1[0m" 404 -
+2025-04-18 19:03:32,129 - INFO - 127.0.0.1 - - [18/Apr/2025 19:03:32] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 19:03:43,980 - INFO - 127.0.0.1 - - [18/Apr/2025 19:03:43] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 19:24:49,243 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 19:24:49,243 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 19:25:16,692 - INFO - 127.0.0.1 - - [18/Apr/2025 19:25:16] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 19:25:36,881 - INFO - 127.0.0.1 - - [18/Apr/2025 19:25:36] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 19:26:27,429 - INFO - 127.0.0.1 - - [18/Apr/2025 19:26:27] "[31m[1mPOST /api/attendance/logs HTTP/1.1[0m" 405 -
+2025-04-18 19:26:49,827 - INFO - 127.0.0.1 - - [18/Apr/2025 19:26:49] "[31m[1mPOST /api/attendance/logs HTTP/1.1[0m" 405 -
+2025-04-18 19:26:54,360 - INFO - 127.0.0.1 - - [18/Apr/2025 19:26:54] "[31m[1mPOST /api/attendance/logs HTTP/1.1[0m" 405 -
+2025-04-18 19:28:00,752 - INFO - 127.0.0.1 - - [18/Apr/2025 19:28:00] "[31m[1mPOST /api/attendance/logs?teacher_id=1212&course_id=123&session_number=18 HTTP/1.1[0m" 405 -
+2025-04-18 19:28:41,960 - INFO - 127.0.0.1 - - [18/Apr/2025 19:28:41] "GET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=18 HTTP/1.1" 200 -
+2025-04-18 19:30:38,008 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 19:30:38,008 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 19:30:56,600 - INFO - 127.0.0.1 - - [18/Apr/2025 19:30:56] "[31m[1mGET /api/attendance/start_session HTTP/1.1[0m" 405 -
+2025-04-18 19:31:01,753 - INFO - 127.0.0.1 - - [18/Apr/2025 19:31:01] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 19:31:17,031 - INFO - 127.0.0.1 - - [18/Apr/2025 19:31:17] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 19:31:44,440 - INFO - 127.0.0.1 - - [18/Apr/2025 19:31:44] "[35m[1mGET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=19 HTTP/1.1[0m" 500 -
+2025-04-18 19:32:32,476 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 19:32:32,476 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 19:32:35,870 - INFO - 127.0.0.1 - - [18/Apr/2025 19:32:35] "[35m[1mGET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=19 HTTP/1.1[0m" 500 -
+2025-04-18 19:32:38,940 - INFO - 127.0.0.1 - - [18/Apr/2025 19:32:38] "[35m[1mGET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=19 HTTP/1.1[0m" 500 -
+2025-04-18 19:32:44,414 - INFO - 127.0.0.1 - - [18/Apr/2025 19:32:44] "[35m[1mGET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=18 HTTP/1.1[0m" 500 -
+2025-04-18 19:33:11,414 - INFO - 127.0.0.1 - - [18/Apr/2025 19:33:11] "[31m[1mGET /api/attendance/start_session HTTP/1.1[0m" 405 -
+2025-04-18 19:33:16,519 - INFO - 127.0.0.1 - - [18/Apr/2025 19:33:16] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 19:33:27,922 - INFO - 127.0.0.1 - - [18/Apr/2025 19:33:27] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 19:33:51,817 - INFO - 127.0.0.1 - - [18/Apr/2025 19:33:51] "[31m[1mGET /api/attendance/mark?teacher_id=1212&course_id=123&session_number=20 HTTP/1.1[0m" 405 -
+2025-04-18 19:34:14,356 - INFO - 127.0.0.1 - - [18/Apr/2025 19:34:14] "[31m[1mGET /api/attendance/mark?teacher_id=1212&course_id=123&session_number=20 HTTP/1.1[0m" 405 -
+2025-04-18 19:34:48,990 - INFO - 127.0.0.1 - - [18/Apr/2025 19:34:48] "[31m[1mGET /api/attendance/mark?teacher_id=1212&course_id=123&session_number=20 HTTP/1.1[0m" 405 -
+2025-04-18 19:35:37,690 - INFO - 127.0.0.1 - - [18/Apr/2025 19:35:37] "[35m[1mGET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=20 HTTP/1.1[0m" 500 -
+2025-04-18 19:37:09,151 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 19:37:09,151 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 19:37:53,991 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 19:37:53,991 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 19:38:10,910 - INFO - 127.0.0.1 - - [18/Apr/2025 19:38:10] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 19:38:24,604 - INFO - 127.0.0.1 - - [18/Apr/2025 19:38:24] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 19:38:56,749 - INFO - 127.0.0.1 - - [18/Apr/2025 19:38:56] "[31m[1mGET /api/attendance/logs HTTP/1.1[0m" 400 -
+2025-04-18 19:39:23,620 - INFO - 127.0.0.1 - - [18/Apr/2025 19:39:23] "[35m[1mGET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=21 HTTP/1.1[0m" 500 -
+2025-04-18 19:40:24,948 - INFO - 127.0.0.1 - - [18/Apr/2025 19:40:24] "[35m[1mGET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=21 HTTP/1.1[0m" 500 -
+2025-04-18 19:40:39,090 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 19:40:39,090 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 19:40:40,707 - INFO - 127.0.0.1 - - [18/Apr/2025 19:40:40] "GET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=21 HTTP/1.1" 200 -
+2025-04-18 19:42:09,818 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 19:42:09,818 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 19:42:11,070 - INFO - 127.0.0.1 - - [18/Apr/2025 19:42:11] "GET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=21 HTTP/1.1" 200 -
+2025-04-18 19:42:12,445 - INFO - 127.0.0.1 - - [18/Apr/2025 19:42:12] "GET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=21 HTTP/1.1" 200 -
+2025-04-18 19:42:13,669 - INFO - 127.0.0.1 - - [18/Apr/2025 19:42:13] "GET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=21 HTTP/1.1" 200 -
+2025-04-18 19:42:33,076 - INFO - 127.0.0.1 - - [18/Apr/2025 19:42:33] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 19:42:47,251 - INFO - 127.0.0.1 - - [18/Apr/2025 19:42:47] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 19:43:13,988 - INFO - 127.0.0.1 - - [18/Apr/2025 19:43:13] "GET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=22 HTTP/1.1" 200 -
+2025-04-18 19:44:35,777 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 19:44:35,780 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 19:44:50,163 - INFO - 127.0.0.1 - - [18/Apr/2025 19:44:50] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 19:45:20,677 - INFO - 127.0.0.1 - - [18/Apr/2025 19:45:20] "GET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=22 HTTP/1.1" 200 -
+2025-04-18 19:46:10,178 - INFO - 127.0.0.1 - - [18/Apr/2025 19:46:10] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 19:46:22,814 - INFO - 127.0.0.1 - - [18/Apr/2025 19:46:22] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 19:46:53,402 - INFO - 127.0.0.1 - - [18/Apr/2025 19:46:53] "GET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=23 HTTP/1.1" 200 -
+2025-04-18 19:49:01,791 - INFO - 127.0.0.1 - - [18/Apr/2025 19:49:01] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 20:42:39,753 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 20:42:39,753 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 20:44:19,014 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-18 20:44:19,015 - INFO - 127.0.0.1 - - [18/Apr/2025 20:44:19] "[33mPOST /login HTTP/1.1[0m" 404 -
+2025-04-18 20:44:39,067 - INFO - 127.0.0.1 - - [18/Apr/2025 20:44:39] "[35m[1mPOST /api/student/login HTTP/1.1[0m" 500 -
+2025-04-18 20:44:46,246 - INFO - 127.0.0.1 - - [18/Apr/2025 20:44:46] "[35m[1mPOST /api/student/login HTTP/1.1[0m" 500 -
+2025-04-18 20:45:31,292 - INFO - 127.0.0.1 - - [18/Apr/2025 20:45:31] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-18 20:46:53,813 - INFO - 127.0.0.1 - - [18/Apr/2025 20:46:53] "POST /api/student/capture_face HTTP/1.1" 200 -
+2025-04-18 20:47:25,462 - INFO - 127.0.0.1 - - [18/Apr/2025 20:47:25] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-18 20:48:42,117 - INFO - 127.0.0.1 - - [18/Apr/2025 20:48:42] "[31m[1mGET /api/teacher/login HTTP/1.1[0m" 405 -
+2025-04-18 20:48:54,906 - INFO - 127.0.0.1 - - [18/Apr/2025 20:48:54] "POST /api/teacher/login HTTP/1.1" 200 -
+2025-04-18 20:50:57,266 - INFO - 127.0.0.1 - - [18/Apr/2025 20:50:57] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-18 20:51:45,992 - INFO - 127.0.0.1 - - [18/Apr/2025 20:51:45] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-18 20:52:34,555 - INFO - 127.0.0.1 - - [18/Apr/2025 20:52:34] "GET /api/attendance/logs?teacher_id=1212&course_id=123&session_number=24 HTTP/1.1" 200 -
+2025-04-18 20:53:49,661 - INFO - 127.0.0.1 - - [18/Apr/2025 20:53:49] "DELETE /api/attendance/delete_log HTTP/1.1" 200 -
+2025-04-18 21:00:58,443 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 21:00:58,443 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 21:01:00,449 - INFO - 127.0.0.1 - - [18/Apr/2025 21:01:00] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-18 21:03:12,572 - INFO - 127.0.0.1 - - [18/Apr/2025 21:03:12] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-18 23:44:54,389 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 23:44:54,389 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 23:45:45,465 - INFO - 127.0.0.1 - - [18/Apr/2025 23:45:45] "[31m[1mPOST /api/student/login HTTP/1.1[0m" 401 -
+2025-04-18 23:46:16,449 - INFO - 127.0.0.1 - - [18/Apr/2025 23:46:16] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-18 23:46:52,607 - INFO - 127.0.0.1 - - [18/Apr/2025 23:46:52] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-22 17:37:11,072 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-22 17:37:11,072 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-22 17:38:35,126 - INFO - 127.0.0.1 - - [22/Apr/2025 17:38:35] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-22 17:40:00,785 - INFO - 127.0.0.1 - - [22/Apr/2025 17:40:00] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-22 17:40:12,181 - INFO - 127.0.0.1 - - [22/Apr/2025 17:40:12] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-22 18:11:58,656 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-22 18:11:58,656 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-22 18:12:18,569 - INFO - 127.0.0.1 - - [22/Apr/2025 18:12:18] "[35m[1mPOST /api/attendance/start_session HTTP/1.1[0m" 201 -
+2025-04-22 18:12:41,311 - INFO - 127.0.0.1 - - [22/Apr/2025 18:12:41] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-04-22 18:13:27,598 - INFO - 127.0.0.1 - - [22/Apr/2025 18:13:27] "[33mPOST /api/attendance/mark HTTP/1.1[0m" 404 -
+2025-04-25 18:30:40,031 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 18:30:40,031 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 18:31:06,660 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-04-25 18:31:06,660 - INFO - 127.0.0.1 - - [25/Apr/2025 18:31:06] "[33mPOST /api/st HTTP/1.1[0m" 404 -
+2025-04-25 18:31:41,072 - INFO - 127.0.0.1 - - [25/Apr/2025 18:31:41] "POST /api/student/login HTTP/1.1" 200 -
+2025-04-25 18:32:23,283 - INFO - 127.0.0.1 - - [25/Apr/2025 18:32:23] "[35m[1mGET /api/student/attendance HTTP/1.1[0m" 500 -
+2025-04-25 18:32:54,793 - INFO - 127.0.0.1 - - [25/Apr/2025 18:32:54] "[35m[1mGET /api/student/attendance HTTP/1.1[0m" 500 -
+2025-04-25 18:33:11,977 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 18:33:11,977 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 18:33:44,769 - INFO - 127.0.0.1 - - [25/Apr/2025 18:33:44] "[35m[1mGET /api/student/attendance HTTP/1.1[0m" 500 -
+2025-04-25 18:36:15,338 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 18:36:15,339 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 18:36:18,293 - INFO - 127.0.0.1 - - [25/Apr/2025 18:36:18] "GET /api/student/attendance HTTP/1.1" 200 -
+2025-04-25 18:37:17,547 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 18:37:17,547 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 18:37:20,318 - INFO - 127.0.0.1 - - [25/Apr/2025 18:37:20] "[35m[1mGET /api/student/attendance HTTP/1.1[0m" 500 -
+2025-04-25 18:37:51,983 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 18:37:51,983 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 18:37:55,841 - INFO - 127.0.0.1 - - [25/Apr/2025 18:37:55] "GET /api/student/attendance HTTP/1.1" 200 -
+2025-04-25 19:11:26,749 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 19:11:26,749 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 19:11:57,631 - ERROR - Error during teacher login: name 'Teacher' is not defined
+2025-04-25 19:11:57,631 - INFO - 127.0.0.1 - - [25/Apr/2025 19:11:57] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:12:04,380 - ERROR - Error during teacher login: name 'Teacher' is not defined
+2025-04-25 19:12:04,380 - INFO - 127.0.0.1 - - [25/Apr/2025 19:12:04] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:12:32,406 - ERROR - Error during teacher login: name 'Teacher' is not defined
+2025-04-25 19:12:32,406 - INFO - 127.0.0.1 - - [25/Apr/2025 19:12:32] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:14:13,240 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 19:14:13,248 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 19:14:13,932 - ERROR - Error during teacher login: name 'Teacher' is not defined
+2025-04-25 19:14:13,932 - INFO - 127.0.0.1 - - [25/Apr/2025 19:14:13] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:15:10,419 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 19:15:10,419 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 19:15:10,989 - ERROR - Error during teacher login: cannot access local variable 'teacher' where it is not associated with a value
+2025-04-25 19:15:10,989 - INFO - 127.0.0.1 - - [25/Apr/2025 19:15:10] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:15:12,538 - ERROR - Error during teacher login: cannot access local variable 'teacher' where it is not associated with a value
+2025-04-25 19:15:12,538 - INFO - 127.0.0.1 - - [25/Apr/2025 19:15:12] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:17:27,841 - ERROR - Error during teacher login: cannot access local variable 'teacher' where it is not associated with a value
+2025-04-25 19:17:27,841 - INFO - 127.0.0.1 - - [25/Apr/2025 19:17:27] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:17:43,503 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 19:17:43,503 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 19:17:46,165 - ERROR - Error during teacher login: cannot access local variable 'teacher' where it is not associated with a value
+2025-04-25 19:17:46,165 - INFO - 127.0.0.1 - - [25/Apr/2025 19:17:46] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:20:56,846 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 19:20:56,846 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 19:21:10,568 - INFO - Received teacher_id: 1212, password: MySecurePassword123
+2025-04-25 19:21:10,568 - ERROR - Error during teacher login: cannot access local variable 'teacher' where it is not associated with a value
+2025-04-25 19:21:10,568 - INFO - 127.0.0.1 - - [25/Apr/2025 19:21:10] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:24:12,938 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 19:24:12,938 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 19:24:24,853 - INFO - Received teacher_id: 1231, password: MySecurePassword123
+2025-04-25 19:24:24,856 - ERROR - Error during teacher login: cannot access local variable 'teacher' where it is not associated with a value
+2025-04-25 19:24:24,856 - INFO - 127.0.0.1 - - [25/Apr/2025 19:24:24] "[35m[1mPOST /api/teacher/login HTTP/1.1[0m" 500 -
+2025-04-25 19:30:42,104 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 19:30:42,104 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-25 19:31:00,564 - INFO - Received teacher_id: 1231, password: MySecurePassword123
+2025-04-25 19:31:00,836 - INFO - Teacher query result: <Teacher 1231>
+2025-04-25 19:31:01,303 - INFO - 127.0.0.1 - - [25/Apr/2025 19:31:01] "POST /api/teacher/login HTTP/1.1" 200 -
+2025-04-25 19:32:57,258 - INFO - 127.0.0.1 - - [25/Apr/2025 19:32:57] "[35m[1mPOST /api/teacher/start_session HTTP/1.1[0m" 201 -
+2025-04-25 19:33:41,653 - INFO - 127.0.0.1 - - [25/Apr/2025 19:33:41] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
