@@ -1135,3 +1135,6 @@ DETAIL:  Failing row contains (null, 1212, 20221442260, 2025-04-18, 15:55:29.628
 2025-04-25 19:31:01,303 - INFO - 127.0.0.1 - - [25/Apr/2025 19:31:01] "POST /api/teacher/login HTTP/1.1" 200 -
 2025-04-25 19:32:57,258 - INFO - 127.0.0.1 - - [25/Apr/2025 19:32:57] "[35m[1mPOST /api/teacher/start_session HTTP/1.1[0m" 201 -
 2025-04-25 19:33:41,653 - INFO - 127.0.0.1 - - [25/Apr/2025 19:33:41] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-04-25 19:41:36,466 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-25 19:41:36,466 - INFO - [33mPress CTRL+C to quit[0m
