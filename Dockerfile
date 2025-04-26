@@ -25,4 +25,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Set the command to run your Flask app
-CMD ["python", "app.py"]
+CMD ["gunicorn", "app:app"]
