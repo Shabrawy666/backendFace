@@ -1,7 +1,7 @@
 # Use a stable Python base image
 FROM python:3.10-slim
 
-# Install system packages required by dlib and face_recognition
+# Install system packages required by dlib, face_recognition, and OpenCV
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     libopenblas-dev \
     liblapack-dev \
     libx11-dev \
+    libglib2.0-0 \
+    libgl1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
