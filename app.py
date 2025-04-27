@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -7,14 +7,15 @@ from config import Config
 from sqlalchemy.exc import OperationalError
 import logging
 import os
+from datetime import timedelta  # <-- Add this import
 from routes.student import student_bp
 from routes.teacher import teacher_bp
 from routes.attendance import attendance_bp
 from flask_jwt_extended import JWTManager
 
 # Critical optimization for face recognition in cloud
-os.environ['DISABLE_DLIB_AVX_INSTRUCTIONS'] = '1'  # Avoids CPU compatibility issues
-os.environ['OMP_NUM_THREADS'] = '1'  # Prevents over-subscription in cloud environment
+os.environ['DISABLE_DLIB_AVX_INSTRUCTIONS'] = '1'
+os.environ['OMP_NUM_THREADS'] = '1'
 
 # Initialize the Flask application
 app = Flask(__name__)
@@ -22,12 +23,11 @@ app = Flask(__name__)
 # Load configuration from Config object
 app.config.from_object(Config)
 
-# Enhanced JWT Configuration
+# JWT Configuration
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET_KEY', 'attendancebackend123')
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)  # Token expiration
-jwt = JWTManager(app)
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)  # Now this will work
 
-# Database initialization with connection pool settings for Railway
+# Database configuration
 app.config.update({
     'SQLALCHEMY_ENGINE_OPTIONS': {
         'pool_pre_ping': True,
@@ -36,27 +36,25 @@ app.config.update({
         'max_overflow': 10
     }
 })
+
+# Initialize extensions
 db.init_app(app)
-
-# Initialize Bcrypt with the app
 bcrypt = Bcrypt(app)
-
-# Initialize Flask-Migrate with the app and database
 migrate = Migrate(app, db)
+jwt = JWTManager(app)
 
-# Register the Blueprints for routes
+# Register blueprints
 app.register_blueprint(student_bp, url_prefix='/api/student')
 app.register_blueprint(teacher_bp, url_prefix='/api/teacher')
 app.register_blueprint(attendance_bp, url_prefix='/api/attendance')
 
-# Production-optimized logging
+# Configure logging
 logging.basicConfig(
     level=logging.INFO if os.environ.get('FLASK_ENV') == 'production' else logging.DEBUG,
     format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]  # Better for cloud logging
+    handlers=[logging.StreamHandler()]
 )
 
-# Health check endpoint for Railway monitoring
 @app.route('/health')
 def health_check():
     try:
@@ -66,12 +64,10 @@ def health_check():
         app.logger.error(f'Health check failed: {str(e)}')
         return 'Service Unavailable', 503
 
-# Basic route for testing
 @app.route('/')
 def home():
     return "Attendance System is up and running!"
 
-# Enhanced error handlers
 @app.errorhandler(404)
 def not_found_error(error):
     app.logger.error('404 Error: %s', error)
@@ -87,6 +83,6 @@ if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
         port=port,
-        threaded=True,  # Important for face recognition endpoints
+        threaded=True,
         debug=os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
     )
