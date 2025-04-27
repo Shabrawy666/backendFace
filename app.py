@@ -6,9 +6,10 @@ from models import db, Student, Teacher, Course, Attendancelog
 from config import Config
 from sqlalchemy.exc import OperationalError
 import logging
+import os
 from routes.student import student_bp
 from routes.teacher import teacher_bp
-from routes.attendance import attendance_bp  # ✅ Import attendance blueprint
+from routes.attendance import attendance_bp
 from flask_jwt_extended import JWTManager
 
 # Initialize the Flask application
@@ -17,9 +18,9 @@ app = Flask(__name__)
 # Load configuration from Config object
 app.config.from_object(Config)
 
-# JWT Configuration
-app.config["JWT_SECRET_KEY"] = 'attendancebackend123'  # Use a secure key for production
-jwt = JWTManager(app)  # Initialize JWT Manager
+# JWT Configuration - Use environment variable for production
+app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET_KEY', 'attendancebackend123')  # Use env var in production
+jwt = JWTManager(app)
 
 # Initialize the database with the Flask app
 db.init_app(app)
@@ -33,14 +34,19 @@ migrate = Migrate(app, db)
 # Register the Blueprints for routes
 app.register_blueprint(student_bp)
 app.register_blueprint(teacher_bp)
-app.register_blueprint(attendance_bp)  # ✅ Register attendance blueprint
+app.register_blueprint(attendance_bp)
 
-# Set up logging to a file
+# Set up logging
 logging.basicConfig(
-    filename='app_errors.log',
     level=logging.ERROR,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
+
+# In production, configure proper logging to stdout
+if os.environ.get('FLASK_ENV') == 'production':
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
 
 # Basic route for testing
 @app.route('/')
@@ -60,4 +66,5 @@ def internal_error(error):
     return "An internal error occurred. Please try again later.", 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
