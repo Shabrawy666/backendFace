@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify
 from models import db, Attendancelog, AttendanceSession, Student
 from datetime import datetime
 import numpy as np
-import face_recognition
 import cv2
 from sqlalchemy import desc
 import pytz

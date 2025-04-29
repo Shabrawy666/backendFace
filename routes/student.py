@@ -4,7 +4,6 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from models import db, Student, Attendancelog, Course
 import re
 import cv2
-import face_recognition
 import numpy as np
 from datetime import timedelta
 from deepface import DeepFace
