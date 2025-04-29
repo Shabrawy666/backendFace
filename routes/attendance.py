@@ -5,20 +5,38 @@ import numpy as np
 import face_recognition
 import cv2
 from sqlalchemy import desc
-import logging
 import pytz
+from deepface import DeepFace
 
 attendance_bp = Blueprint('attendance', __name__, url_prefix='/api/attendance')
 
-# Function to get Egypt local time (UTC+2)
+# Get Egypt time
 def get_local_time():
     utc_time = datetime.utcnow()
     egypt_timezone = pytz.timezone('Africa/Cairo')
-    local_time = utc_time.replace(tzinfo=pytz.utc).astimezone(egypt_timezone)
-    return local_time
+    return utc_time.replace(tzinfo=pytz.utc).astimezone(egypt_timezone)
 
+# Reusable function to capture face
+def capture_face_image():
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        raise Exception("Could not access the webcam")
 
-# Route 1: Mark Attendance (Student)
+    print("Press SPACE to capture image for attendance")
+    frame = None
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            continue
+        cv2.imshow("Attendance - Press SPACE", frame)
+        key = cv2.waitKey(1)
+        if key % 256 == 32:
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+    return frame
+
 @attendance_bp.route('/mark', methods=['POST'])
 def mark_attendance():
     try:
@@ -29,23 +47,7 @@ def mark_attendance():
         student_ip = request.remote_addr
         local_time = get_local_time()
 
-        cap = cv2.VideoCapture(0)
-        if not cap.isOpened():
-            return jsonify({"error": "Could not access the webcam"}), 500
-
-        print("Press SPACE to capture image for attendance")
-        while True:
-            ret, frame = cap.read()
-            if not ret:
-                continue
-            cv2.imshow("Attendance - Press SPACE", frame)
-            key = cv2.waitKey(1)
-            if key % 256 == 32:
-                break
-
-        cap.release()
-        cv2.destroyAllWindows()
-
+        frame = capture_face_image()
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         encodings = face_recognition.face_encodings(rgb_frame)
 
@@ -73,15 +75,15 @@ def mark_attendance():
             return jsonify({"error": "No active session found"}), 404
 
         if session.end_time:
-            return jsonify({"error": "The session has already ended. Please contact the teacher to mark your attendance manually."}), 400
+            return jsonify({"error": "Session has already ended"}), 400
 
         connection_strength = 'strong' if session.ip_address == student_ip else 'weak'
 
         existing_log = Attendancelog.query.filter_by(student_id=student_id, session_id=session.id).first()
         if existing_log:
-            return jsonify({"message": "Attendance already marked for this student in this session"}), 200
+            return jsonify({"message": "Attendance already marked"}), 200
 
-        attendancelog = Attendancelog(
+        new_log = Attendancelog(
             student_id=student_id,
             session_id=session.id,
             teacher_id=session.teacher_id,
@@ -92,7 +94,7 @@ def mark_attendance():
             connection_strength=connection_strength
         )
 
-        db.session.add(attendancelog)
+        db.session.add(new_log)
         db.session.commit()
 
         return jsonify({
