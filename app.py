@@ -7,11 +7,12 @@ from config import Config
 from sqlalchemy.exc import OperationalError
 import logging
 import os
-from datetime import timedelta  # <-- Add this import
+from datetime import timedelta
 from routes.student import student_bp
 from routes.teacher import teacher_bp
 from routes.attendance import attendance_bp
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 # Critical optimization for face recognition in cloud
 os.environ['DISABLE_DLIB_AVX_INSTRUCTIONS'] = '1'
@@ -19,6 +20,9 @@ os.environ['OMP_NUM_THREADS'] = '1'
 
 # Initialize the Flask application
 app = Flask(__name__)
+
+# ===== OPEN CORS TO ALL DOMAINS ===== #
+CORS(app)
 
 # Load configuration from Config object
 app.config.from_object(Config)
