@@ -72,6 +72,13 @@ def login_student():
         return jsonify({"error": str(e)}), 500
 
 
+import base64
+import io
+from PIL import Image
+from deepface.basemodels import Facenet
+
+facenet_model = Facenet.loadModel()
+
 @student_bp.route('/save_face', methods=['POST'])
 @jwt_required()
 def save_face():
@@ -83,28 +90,27 @@ def save_face():
             return jsonify({"error": "Student not found"}), 404
 
         data = request.get_json()
-        base64_image = data.get('image')
+        base64_image = data.get('face_image')
 
         if not base64_image:
-            return jsonify({"error": "No image provided"}), 400
+            return jsonify({"error": "No image data provided"}), 400
 
-        # Decode base64 and remove metadata if present
-        import base64, io
-        from PIL import Image
-        import numpy as np
-        import face_recognition
+        # Decode base64 to numpy image
+        header, encoded = base64_image.split(',', 1)
+        image_data = base64.b64decode(encoded)
+        image = Image.open(io.BytesIO(image_data)).convert('RGB')
+        img_np = np.array(image)
 
-        img_data = base64.b64decode(base64_image.split(",")[-1])
-        image = Image.open(io.BytesIO(img_data)).convert("RGB")
-        image_np = np.array(image)
+        # Resize and preprocess as required by Facenet
+        img_resized = cv2.resize(img_np, (160, 160))
+        img_preprocessed = img_resized.astype('float32') / 255.0
+        img_preprocessed = np.expand_dims(img_preprocessed, axis=0)
 
-        # Detect faces and generate encoding
-        face_locations = face_recognition.face_locations(image_np)
-        if not face_locations:
-            return jsonify({"error": "No face detected"}), 400
+        # Get face embedding
+        embedding = facenet_model.predict(img_preprocessed)[0]
 
-        encodings = face_recognition.face_encodings(image_np, face_locations)
-        student.face_encoding = encodings[0].tolist()
+        # Save embedding to database
+        student.face_encoding = embedding.tolist()
         db.session.commit()
 
         return jsonify({
@@ -115,6 +121,7 @@ def save_face():
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
+
 
 
 @student_bp.route('/attendance', methods=['GET'])
