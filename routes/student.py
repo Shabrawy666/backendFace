@@ -148,3 +148,30 @@ def get_student_attendance():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@student_bp.route('/<int:student_id>', methods=['GET'])
+def get_student_by_id(student_id):
+    try:
+        student = Student.query.filter_by(student_id=student_id).first()
+
+        if not student:
+            return jsonify({"error": "Student not found"}), 404
+
+        student_data = {
+            "student_id": student.student_id,
+            "name": student.name,
+            "email": student.email,
+            "face_encoding": student.face_encoding,  # You can remove this if it's sensitive
+            "courses": [
+                {
+                    "course_id": course.course_id,
+                    "course_name": course.course_name
+                }
+                for course in student.courses
+            ]
+        }
+
+        return jsonify(student_data), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
