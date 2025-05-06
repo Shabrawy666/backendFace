@@ -82,21 +82,28 @@ def save_face():
         if not student:
             return jsonify({"error": "Student not found"}), 404
 
-        if 'face_image' not in request.files:
-            return jsonify({"error": "No face image provided"}), 400
+        data = request.get_json()
+        base64_image = data.get('image')
 
-        # Get the image file from the request
-        file = request.files['face_image']
-        img_array = np.frombuffer(file.read(), np.uint8)
-        frame = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
-        
-        # Process the image
-        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        encodings = face_recognition.face_encodings(rgb_frame)
-        
-        if not encodings:
+        if not base64_image:
+            return jsonify({"error": "No image provided"}), 400
+
+        # Decode base64 and remove metadata if present
+        import base64, io
+        from PIL import Image
+        import numpy as np
+        import face_recognition
+
+        img_data = base64.b64decode(base64_image.split(",")[-1])
+        image = Image.open(io.BytesIO(img_data)).convert("RGB")
+        image_np = np.array(image)
+
+        # Detect faces and generate encoding
+        face_locations = face_recognition.face_locations(image_np)
+        if not face_locations:
             return jsonify({"error": "No face detected"}), 400
 
+        encodings = face_recognition.face_encodings(image_np, face_locations)
         student.face_encoding = encodings[0].tolist()
         db.session.commit()
 
