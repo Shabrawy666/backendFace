@@ -161,13 +161,13 @@ def get_student_by_id(student_id):
             "student_id": student.student_id,
             "name": student.name,
             "email": student.email,
-            "face_encoding": student.face_encoding,  # You can remove this if it's sensitive
+            "face_encoding": student.face_encoding,
             "courses": [
                 {
                     "course_id": course.course_id,
                     "course_name": course.course_name
                 }
-                for course in student.courses
+                for course in student.course
             ]
         }
 
