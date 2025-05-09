@@ -50,42 +50,33 @@ def login_student():
         if not student:
             return jsonify({"error": "Invalid email or password"}), 401
 
-        # Verify password - handle both bytes and string cases
-        if isinstance(student._password, bytes):
-            hashed_password = student._password
-        else:
-            hashed_password = student._password.encode('utf-8')
-
-        if not bcrypt.checkpw(password.encode('utf-8'), hashed_password):
+        # Use the check_password method from your Student model
+        if not student.check_password(password):
             return jsonify({"error": "Invalid email or password"}), 401
 
         access_token = create_access_token(identity=student.student_id, expires_delta=timedelta(hours=1))
 
         # Prepare student data (excluding password)
         student_data = {
-            column.name: getattr(student, column.name)
-            for column in student.__table__.columns
-            if column.name != '_password'  # Exclude password
+            "student_id": student.student_id,
+            "name": student.name,
+            "email": student.email,
+            "face_encoding": student.face_encoding
+            # Add any other fields you want to expose
         }
 
-        if student.face_encoding:
-            return jsonify({
-                "message": "Login successful. Welcome back.",
-                "access_token": access_token,
-                "student_data": student_data,
-                "needs_face_capture": False
-            }), 200
-
-        return jsonify({
-            "message": "Login successful. Please capture your face.",
+        response_data = {
+            "message": "Login successful. Welcome back." if student.face_encoding 
+                      else "Login successful. Please capture your face.",
             "access_token": access_token,
             "student_data": student_data,
-            "needs_face_capture": True
-        }), 200
+            "needs_face_capture": not bool(student.face_encoding)
+        }
+
+        return jsonify(response_data), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 import base64
 import io
