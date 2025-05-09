@@ -52,19 +52,25 @@ def login_student():
 
         access_token = create_access_token(identity=student.student_id, expires_delta=timedelta(hours=1))
 
+        # Prepare student data (excluding password)
+        student_data = {
+            column.name: getattr(student, column.name)
+            for column in student.__table__.columns
+            if column.name != '_password'  # Exclude password
+        }
+
         if student.face_encoding:
             return jsonify({
                 "message": "Login successful. Welcome back.",
-                "student_id": student.student_id,
                 "access_token": access_token,
+                "student_data": student_data,
                 "needs_face_capture": False
             }), 200
 
-        # Return success response first, frontend will handle camera
         return jsonify({
             "message": "Login successful. Please capture your face.",
-            "student_id": student.student_id,
             "access_token": access_token,
+            "student_data": student_data,
             "needs_face_capture": True
         }), 200
 
@@ -123,7 +129,6 @@ def save_face():
         return jsonify({"error": str(e)}), 500
 
 
-
 @student_bp.route('/attendance', methods=['GET'])
 @jwt_required()
 def get_student_attendance():
@@ -149,24 +154,23 @@ def get_student_attendance():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
-@student_bp.route('/<int:student_id>', methods=['GET'])
-def get_student_by_id(student_id):
+@student_bp.route('/me', methods=['GET'])
+@jwt_required()
+def get_student_profile():
     try:
+        student_id = get_jwt_identity()
         student = Student.query.filter_by(student_id=student_id).first()
-
+        
         if not student:
             return jsonify({"error": "Student not found"}), 404
 
-        # Automatically extract all fields in the Student table
         student_data = {
             column.name: getattr(student, column.name)
             for column in student.__table__.columns
+            if column.name != '_password'
         }
 
         return jsonify(student_data), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-
