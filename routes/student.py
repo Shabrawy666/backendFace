@@ -47,7 +47,16 @@ def login_student():
 
         student = Student.query.filter_by(email=email).first()
 
-        if not student or not bcrypt.checkpw(password.encode('utf-8'), student._password.encode('utf-8')):
+        if not student:
+            return jsonify({"error": "Invalid email or password"}), 401
+
+        # Verify password - handle both bytes and string cases
+        if isinstance(student._password, bytes):
+            hashed_password = student._password
+        else:
+            hashed_password = student._password.encode('utf-8')
+
+        if not bcrypt.checkpw(password.encode('utf-8'), hashed_password):
             return jsonify({"error": "Invalid email or password"}), 401
 
         access_token = create_access_token(identity=student.student_id, expires_delta=timedelta(hours=1))
