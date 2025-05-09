@@ -91,9 +91,6 @@ def mark_attendance():
         if not session:
             return jsonify({"error": "No active session found for this course"}), 404
 
-        if session.end_time:
-            return jsonify({"error": "This session has already ended"}), 400
-
         # Check if already marked attendance
         existing_log = Attendancelog.query.filter_by(
             student_id=matched_student.student_id,

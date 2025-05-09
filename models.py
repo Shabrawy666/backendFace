@@ -130,6 +130,8 @@ class AttendanceSession(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'), nullable=False)
     ip_address = db.Column(db.String, nullable=False)
     start_time = db.Column(db.DateTime, default=datetime.utcnow)
+    end_time = db.Column(db.DateTime, nullable=True)
+
 
     teacher = db.relationship('Teacher', backref='attendance_sessions')
     course = db.relationship('Course', backref='attendance_sessions')
