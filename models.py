@@ -26,6 +26,7 @@ class Student(db.Model):
     face_encoding = db.Column(ARRAY(Float), nullable=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
 
+    # Many-to-many relationship with Course
     courses = db.relationship('Course', secondary=student_courses, backref='students', lazy='dynamic')
 
     @property
@@ -131,7 +132,6 @@ class AttendanceSession(db.Model):
     ip_address = db.Column(db.String, nullable=False)
     start_time = db.Column(db.DateTime, default=datetime.utcnow)
     end_time = db.Column(db.DateTime, nullable=True)
-
 
     teacher = db.relationship('Teacher', backref='attendance_sessions')
     course = db.relationship('Course', backref='attendance_sessions')

@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models import db, Attendancelog, AttendanceSession, Student, Teacher, Course
 from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required
 from datetime import datetime
 import logging
 import bcrypt

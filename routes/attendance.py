@@ -23,21 +23,15 @@ def get_local_time():
 
 def base64_to_embedding(base64_image):
     try:
-        # Decode base64 to numpy image
         header, encoded = base64_image.split(',', 1) if ',' in base64_image else ('', base64_image)
         image_data = base64.b64decode(encoded)
         image = Image.open(io.BytesIO(image_data)).convert('RGB')
         img_np = np.array(image)
-        
-        # Resize and preprocess for Facenet
         img_resized = cv2.resize(img_np, (160, 160))
         img_preprocessed = img_resized.astype('float32') / 255.0
         img_preprocessed = np.expand_dims(img_preprocessed, axis=0)
-        
-        # Get face embedding
         embedding = facenet_model.predict(img_preprocessed)[0]
         return embedding
-        
     except Exception as e:
         raise ValueError(f"Image processing failed: {str(e)}")
 
@@ -46,8 +40,7 @@ def base64_to_embedding(base64_image):
 def mark_attendance():
     try:
         data = request.get_json()
-        
-        # Validate required fields
+
         if not data.get('course_id'):
             return jsonify({"error": "Course ID is required"}), 400
         if not data.get('image_base64'):
@@ -58,32 +51,30 @@ def mark_attendance():
         student_ip = request.remote_addr
         local_time = get_local_time()
 
-        # Convert base64 to face embedding
         try:
             captured_embedding = base64_to_embedding(base64_image)
         except Exception as e:
             return jsonify({"error": str(e)}), 400
 
-        # Get all students with face encodings
         students = Student.query.filter(Student.face_encoding.isnot(None)).all()
 
-        # Find matching student
         matched_student = None
         for student in students:
             known_embedding = np.array(student.face_encoding)
-            
-            # Calculate Euclidean distance between embeddings
             distance = np.linalg.norm(known_embedding - captured_embedding)
-            
-            # Threshold for face recognition (adjust as needed)
-            if distance < 10:  # Facenet typically uses threshold around 10
+            if distance < 10:
                 matched_student = student
                 break
 
         if not matched_student:
             return jsonify({"error": "No matching student found"}), 404
 
-        # Get current session
+        # ✅ Check if student is registered in the course
+        if not any(course.course_id == int(course_id) for course in matched_student.courses):
+            return jsonify({
+                "error": "Student is not registered in this course"
+            }), 403
+
         session = AttendanceSession.query.filter_by(
             course_id=course_id
         ).order_by(desc(AttendanceSession.session_number)).first()
@@ -91,7 +82,7 @@ def mark_attendance():
         if not session:
             return jsonify({"error": "No active session found for this course"}), 404
 
-        # Check if already marked attendance
+
         existing_log = Attendancelog.query.filter_by(
             student_id=matched_student.student_id,
             session_id=session.id
@@ -106,10 +97,8 @@ def mark_attendance():
                 "session_id": session.id
             }), 200
 
-        # Determine connection strength
         connection_strength = 'strong' if session.ip_address == student_ip else 'weak'
 
-        # Create new attendance log
         new_log = Attendancelog(
             student_id=matched_student.student_id,
             session_id=session.id,
@@ -124,7 +113,6 @@ def mark_attendance():
         db.session.add(new_log)
         db.session.commit()
 
-        # Get course name for response
         course = Course.query.get(course_id)
         course_name = course.course_name if course else "Unknown Course"
 
@@ -153,11 +141,10 @@ def get_session_records():
     try:
         student_id = get_jwt_identity()
         course_id = request.args.get('course_id')
-        
+
         if not course_id:
             return jsonify({"error": "Course ID is required"}), 400
 
-        # Get all attendance records for this student in the specified course
         records = db.session.query(Attendancelog, AttendanceSession).join(
             AttendanceSession,
             Attendancelog.session_id == AttendanceSession.id
