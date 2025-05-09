@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from models import db, Student, Attendancelog, Course
+from models import db, Student, Attendancelog, Course, bcrypt
 import re
 import cv2
 import numpy as np
@@ -62,7 +62,6 @@ def login_student():
             "name": student.name,
             "email": student.email,
             "face_encoding": student.face_encoding
-            # Add any other fields you want to expose
         }
 
         response_data = {
@@ -77,7 +76,7 @@ def login_student():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
+    
 import base64
 import io
 from PIL import Image
