@@ -107,7 +107,7 @@ def get_student_profile():
             "email": student.email,
             "face_registered": student.face_encoding is not None,
             "attendance_records": attendance_list,
-            # Add any other student fields you want to expose
+        
         }
 
         return jsonify({
@@ -122,9 +122,10 @@ def get_student_profile():
 import base64
 import io
 from PIL import Image
-from deepface.basemodels import Facenet
 
-facenet_model = Facenet.loadModel()
+
+
+facenet_model = DeepFace.build_model("Facenet")
 
 @student_bp.route('/save_face', methods=['POST'])
 @jwt_required()
@@ -197,3 +198,28 @@ def get_student_attendance():
         return jsonify({"error": str(e)}), 500
 
 
+@student_bp.route('/register_course', methods=['POST'])
+@jwt_required()
+def register_course():
+    try:
+        data = request.get_json()
+        course_id = data.get("course_id")
+        student_id = get_jwt_identity()
+
+        student = Student.query.get(student_id)
+        course = Course.query.get(course_id)
+
+        if not student or not course:
+            return jsonify({"error": "Student or Course not found"}), 404
+
+        if course in student.courses:
+            return jsonify({"message": "Already registered in this course"}), 200
+
+        student.courses.append(course)
+        db.session.commit()
+
+        return jsonify({"message": f"Registered in course {course.course_name} successfully"}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500

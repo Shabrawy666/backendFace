@@ -11,6 +11,13 @@ from datetime import datetime  # Added for AttendanceSession
 bcrypt = Bcrypt()
 db = SQLAlchemy()
 
+# Association table for student-course registration
+student_courses = db.Table(
+    'student_courses',
+    db.Column('student_id', db.String(11), db.ForeignKey('student.student_id'), primary_key=True),
+    db.Column('course_id', db.Integer, db.ForeignKey('course.course_id'), primary_key=True)
+)
+
 # Student model
 class Student(db.Model):
     student_id = db.Column(db.String(11), primary_key=True, unique=True, nullable=False)
@@ -18,7 +25,9 @@ class Student(db.Model):
     _password = db.Column("password", db.String(255), nullable=False)
     face_encoding = db.Column(ARRAY(Float), nullable=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
-    
+
+    courses = db.relationship('Course', secondary=student_courses, backref='students', lazy='dynamic')
+
     @property
     def password(self):
         raise AttributeError("Password is not readable.")
@@ -103,7 +112,6 @@ class Attendancelog(db.Model):
     course = db.relationship('Course', backref=db.backref('attendancelog', lazy=True))
     teacher = db.relationship('Teacher', backref=db.backref('attendancelog', lazy=True))
     student = db.relationship('Student', backref=db.backref('attendancelog', lazy=True))
-
 
 # AttendanceSession model
 class AttendanceSession(db.Model):
