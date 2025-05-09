@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from models import db, Attendancelog, AttendanceSession, Student, Teacher
+from models import db, Attendancelog, AttendanceSession, Student, Teacher, Course
 from flask_jwt_extended import create_access_token
 from datetime import datetime
 import logging
@@ -12,6 +12,12 @@ teacher_bp = Blueprint('teacher', __name__, url_prefix='/api/teacher')
 logging.basicConfig(filename='app_errors.log',
                     level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Helper function to check course ownership
+def teacher_owns_course(teacher_id, course_id):
+    course = db.session.get(Course, course_id)
+    return course and course.teacher_id == teacher_id
+
 
 # Route 1: Login Teacher
 @teacher_bp.route('/login', methods=['POST'])
@@ -54,23 +60,22 @@ def start_attendance_session():
         if not teacher_id or not course_id:
             return jsonify({"error": "Teacher ID and Course ID are required"}), 400
 
-        # Get the teacher's IP address
+        if not teacher_owns_course(teacher_id, course_id):
+            return jsonify({"error": "Unauthorized access to course"}), 403
+
         teacher_ip = request.remote_addr
         local_time = datetime.utcnow()
 
         last_session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.id)).first()
-        new_session_number = 1
-        if last_session:
-            new_session_number = last_session.session_number + 1
+        new_session_number = (last_session.session_number + 1) if last_session else 1
 
         session = AttendanceSession(
             course_id=course_id,
             teacher_id=teacher_id,
             ip_address=teacher_ip,
-            start_time=local_time
+            start_time=local_time,
+            session_number=new_session_number
         )
-
-        session.session_number = new_session_number
 
         db.session.add(session)
         db.session.commit()
@@ -98,13 +103,15 @@ def end_attendance_session():
         if not teacher_id or not course_id:
             return jsonify({"error": "Teacher ID and Course ID are required"}), 400
 
+        if not teacher_owns_course(teacher_id, course_id):
+            return jsonify({"error": "Unauthorized access to course"}), 403
+
         session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.id)).first()
 
         if not session:
             return jsonify({"error": "No active session found"}), 404
 
         session.end_time = datetime.utcnow()
-
         db.session.commit()
 
         return jsonify({
@@ -117,39 +124,39 @@ def end_attendance_session():
         return jsonify({"error": "An internal error occurred. Please try again later."}), 500
 
 
-# Route 4: Manually Edit Attendance (Toggle between "present" and "absent")
+# Route 4: Manually Edit Attendance
 @teacher_bp.route('/edit_attendance', methods=['POST'])
 def edit_attendance():
     try:
         data = request.get_json()
+        teacher_id = data.get('teacher_id')
         student_id = data.get('student_id')
-        session_number = data.get('session_number')  # Changed from session_id to session_number
+        session_number = data.get('session_number')
         course_id = data.get('course_id')
 
-        if not student_id or not session_number or not course_id:
-            return jsonify({"error": "Student ID, Session Number, and Course ID are required"}), 400
+        if not all([teacher_id, student_id, session_number, course_id]):
+            return jsonify({"error": "Teacher ID, Student ID, Session Number, and Course ID are required"}), 400
 
-        # Retrieve the session based on course_id and session_number
+        if not teacher_owns_course(teacher_id, course_id):
+            return jsonify({"error": "Unauthorized access to course"}), 403
+
         session = AttendanceSession.query.filter_by(course_id=course_id, session_number=session_number).first()
 
         if not session:
             return jsonify({"error": "Session not found for the given course and session number"}), 404
 
-        # Retrieve the attendance log based on student_id, session_number, and course_id
         log = Attendancelog.query.filter_by(student_id=student_id, session_id=session.id, course_id=course_id).first()
 
         if not log:
             return jsonify({"error": "Attendance log not found"}), 404
 
-        # Toggle the attendance status between "present" and "absent"
-        if log.status == 'present':
-            log.status = 'absent'
-        elif log.status == 'absent':
-            log.status = 'present'
+        log.status = 'absent' if log.status == 'present' else 'present'
 
         db.session.commit()
 
-        return jsonify({"message": f"Attendance for student {student_id} updated to {log.status} in session {session_number} for course {course_id}"}), 200
+        return jsonify({
+            "message": f"Attendance for student {student_id} updated to {log.status} in session {session_number} for course {course_id}"
+        }), 200
 
     except Exception as e:
         db.session.rollback()

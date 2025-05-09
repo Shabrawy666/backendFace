@@ -68,6 +68,9 @@ class Teacher(db.Model):
     name = db.Column(db.String(255), nullable=False)
     _password = db.Column("password", db.String(255), nullable=False)
 
+    # One-to-many relationship: a teacher can teach many courses
+    courses = db.relationship('Course', back_populates='teacher')
+
     @property
     def password(self):
         raise AttributeError("Password is not readable.")
@@ -95,6 +98,10 @@ class Course(db.Model):
     course_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     course_name = db.Column(db.String(255), nullable=False)
     sessions = db.Column(db.Integer)
+
+    # Add foreign key to link each course to a teacher
+    teacher_id = db.Column(db.String(11), db.ForeignKey('teacher.teacher_id'), nullable=True)
+    teacher = db.relationship('Teacher', back_populates='courses')
 
 # Attendancelog model
 class Attendancelog(db.Model):

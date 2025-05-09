@@ -5,90 +5,111 @@ import numpy as np
 import cv2
 from sqlalchemy import desc
 import pytz
-from deepface import DeepFace
+import base64
+import face_recognition
 
 attendance_bp = Blueprint('attendance', __name__, url_prefix='/api/attendance')
 
-# Get Egypt time
 def get_local_time():
     utc_time = datetime.utcnow()
     egypt_timezone = pytz.timezone('Africa/Cairo')
     return utc_time.replace(tzinfo=pytz.utc).astimezone(egypt_timezone)
 
-# Reusable function to capture face
-def capture_face_image():
-    cap = cv2.VideoCapture(0)
-    if not cap.isOpened():
-        raise Exception("Could not access the webcam")
-
-    print("Press SPACE to capture image for attendance")
-    frame = None
-    while True:
-        ret, frame = cap.read()
-        if not ret:
-            continue
-        cv2.imshow("Attendance - Press SPACE", frame)
-        key = cv2.waitKey(1)
-        if key % 256 == 32:
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
-    return frame
+def base64_to_image(base64_string):
+    try:
+        # Remove header if present
+        if 'base64,' in base64_string:
+            base64_string = base64_string.split('base64,')[1]
+        
+        img_data = base64.b64decode(base64_string)
+        nparr = np.frombuffer(img_data, np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        return img
+    except Exception as e:
+        raise ValueError(f"Invalid image data: {str(e)}")
 
 @attendance_bp.route('/mark', methods=['POST'])
 def mark_attendance():
     try:
-        course_id = request.json.get('course_id')
-        if not course_id:
+        data = request.get_json()
+        
+        # Validate required fields
+        if not data.get('course_id'):
             return jsonify({"error": "Course ID is required"}), 400
+        if not data.get('image_base64'):
+            return jsonify({"error": "Face image is required"}), 400
 
+        course_id = data['course_id']
+        base64_image = data['image_base64']
         student_ip = request.remote_addr
         local_time = get_local_time()
 
-        frame = capture_face_image()
+        # Convert base64 to OpenCV image
+        frame = base64_to_image(base64_image)
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        encodings = face_recognition.face_encodings(rgb_frame)
 
+        # Get face encodings
+        face_locations = face_recognition.face_locations(rgb_frame)
+        if not face_locations:
+            return jsonify({"error": "No face detected in the image"}), 400
+
+        encodings = face_recognition.face_encodings(rgb_frame, face_locations)
         if not encodings:
-            return jsonify({"error": "No face detected"}), 400
+            return jsonify({"error": "Could not extract face features"}), 400
 
-        captured_encoding = encodings[0]
-        students = Student.query.filter(Student.face_encoding != None).all()
+        captured_encoding = encodings[0]  # Take first face found
 
+        # Get all students with face encodings
+        students = Student.query.filter(Student.face_encoding.isnot(None)).all()
+
+        # Find matching student
         matched_student = None
         for student in students:
             known_encoding = np.array(student.face_encoding)
-            results = face_recognition.compare_faces([known_encoding], captured_encoding)
-            if results[0]:
+            match = face_recognition.compare_faces([known_encoding], captured_encoding, tolerance=0.5)
+            if match[0]:
                 matched_student = student
                 break
 
         if not matched_student:
-            return jsonify({"error": "Face not recognized"}), 404
+            return jsonify({"error": "No matching student found"}), 404
 
-        student_id = matched_student.student_id
-        session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.session_number)).first()
+        # Get current session
+        session = AttendanceSession.query.filter_by(
+            course_id=course_id
+        ).order_by(desc(AttendanceSession.session_number)).first()
 
         if not session:
-            return jsonify({"error": "No active session found"}), 404
+            return jsonify({"error": "No active session found for this course"}), 404
 
         if session.end_time:
-            return jsonify({"error": "Session has already ended"}), 400
+            return jsonify({"error": "This session has already ended"}), 400
 
+        # Check if already marked attendance
+        existing_log = Attendancelog.query.filter_by(
+            student_id=matched_student.student_id,
+            session_id=session.id
+        ).first()
+
+        if existing_log:
+            return jsonify({
+                "message": "Attendance already marked",
+                "student_id": matched_student.student_id,
+                "course_id": course_id,
+                "session_id": session.id
+            }), 200
+
+        # Determine connection strength
         connection_strength = 'strong' if session.ip_address == student_ip else 'weak'
 
-        existing_log = Attendancelog.query.filter_by(student_id=student_id, session_id=session.id).first()
-        if existing_log:
-            return jsonify({"message": "Attendance already marked"}), 200
-
+        # Create new attendance log
         new_log = Attendancelog(
-            student_id=student_id,
+            student_id=matched_student.student_id,
             session_id=session.id,
             teacher_id=session.teacher_id,
             course_id=course_id,
             date=local_time.date(),
-            time=local_time,
+            time=local_time.time(),
             status='present',
             connection_strength=connection_strength
         )
@@ -97,10 +118,19 @@ def mark_attendance():
         db.session.commit()
 
         return jsonify({
-            "message": f"Attendance marked for student {student_id} in session {session.session_number}",
-            "connection_strength": connection_strength
+            "success": True,
+            "message": "Attendance marked successfully",
+            "student_id": matched_student.student_id,
+            "student_name": matched_student.name,
+            "course_id": course_id,
+            "session_id": session.id,
+            "connection_strength": connection_strength,
+            "timestamp": local_time.isoformat()
         }), 200
 
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": str(e)}), 500
+        return jsonify({
+            "error": "Failed to process attendance",
+            "details": str(e)
+        }), 500
