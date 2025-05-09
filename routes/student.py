@@ -52,20 +52,67 @@ def login_student():
 
         access_token = create_access_token(identity=student.student_id, expires_delta=timedelta(hours=1))
 
+        # Prepare basic student data for immediate response
+        student_data = {
+            "student_id": student.student_id,
+            "name": student.name,
+            "email": student.email,
+            "has_face_encoding": student.face_encoding is not None
+        }
+
         if student.face_encoding:
             return jsonify({
                 "message": "Login successful. Welcome back.",
-                "student_id": student.student_id,
                 "access_token": access_token,
+                "student_data": student_data,
                 "needs_face_capture": False
             }), 200
 
-        # Return success response first, frontend will handle camera
         return jsonify({
             "message": "Login successful. Please capture your face.",
-            "student_id": student.student_id,
             "access_token": access_token,
+            "student_data": student_data,
             "needs_face_capture": True
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@student_bp.route('/profile', methods=['GET'])
+@jwt_required()
+def get_student_profile():
+    try:
+        student_id = get_jwt_identity()
+        student = Student.query.filter_by(student_id=student_id).first()
+        
+        if not student:
+            return jsonify({"error": "Student not found"}), 404
+
+        # Get all attendance records
+        records = Attendancelog.query.filter_by(student_id=student_id).all()
+        attendance_list = []
+        for record in records:
+            course = Course.query.get(record.course_id)
+            attendance_list.append({
+                "course_name": course.course_name if course else "Unknown",
+                "date": record.date.strftime("%Y-%m-%d"),
+                "time": record.time.strftime("%H:%M:%S"),
+                "status": record.status
+            })
+
+        # Prepare complete student profile
+        student_profile = {
+            "student_id": student.student_id,
+            "name": student.name,
+            "email": student.email,
+            "face_registered": student.face_encoding is not None,
+            "attendance_records": attendance_list,
+            # Add any other student fields you want to expose
+        }
+
+        return jsonify({
+            "message": "Student profile retrieved successfully",
+            "profile": student_profile
         }), 200
 
     except Exception as e:
