@@ -10,6 +10,7 @@ gunicorn==23.0.0
 # Database (unchanged)
 alembic
 pg8000
+psycopg2
 SQLAlchemy
 
 # DeepFace stack (FIXED VERSIONS)
