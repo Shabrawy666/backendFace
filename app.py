@@ -11,8 +11,10 @@ from datetime import timedelta
 from routes.student import student_bp
 from routes.teacher import teacher_bp
 from routes.attendance import attendance_bp
+from routes.ml import ml_bp
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from routes import register_blueprints
 
 # Critical optimization for face recognition in cloud
 os.environ['DISABLE_DLIB_AVX_INSTRUCTIONS'] = '1'
@@ -46,11 +48,13 @@ db.init_app(app)
 bcrypt = Bcrypt(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
+register_blueprints(app)
 
 # Register blueprints
 app.register_blueprint(student_bp, url_prefix='/api/student')
 app.register_blueprint(teacher_bp, url_prefix='/api/teacher')
 app.register_blueprint(attendance_bp, url_prefix='/api/attendance')
+app.register_blueprint(ml_bp, url_prefix='/api/ml')
 
 # Configure logging
 logging.basicConfig(

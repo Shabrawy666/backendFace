@@ -1,10 +1,9 @@
 import os
+from dataclasses import dataclass
+from typing import Tuple
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'postgresql://postgres:NraeRTIAGwBMQoAJXbzJhmqKtSwVxYCQ@centerbeam.proxy.rlwy.net:52150/railway')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-    # ML Configuration
+    """System configuration settings"""
     # Face Recognition Settings
     FACE_DETECTION_CONFIDENCE = 0.9
     FACE_RECOGNITION_THRESHOLD = 0.6
