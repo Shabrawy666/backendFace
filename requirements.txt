@@ -13,7 +13,7 @@ pg8000==1.29.5
 SQLAlchemy==2.0.36
 
 # DeepFace stack (FIXED VERSIONS)
-tensorflow==2.12.0
+tensorflow==2.18.1
 keras==2.12.0
 deepface==0.0.79
 opencv-python-headless==4.9.0.80
