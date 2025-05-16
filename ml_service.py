@@ -25,7 +25,7 @@ logging.basicConfig(
 # Create directories if they don't exist
 os.makedirs(Config.TEMP_IMAGE_DIR, exist_ok=True)
 os.makedirs(Config.STORED_IMAGES_DIR, exist_ok=True)
-os.makedirs(Config.FACES_DIR, exist_ok=True)  # Add this directory for consistency
+# os.makedirs(Config.FACES_DIR, exist_ok=True)  # Add this directory for consistency
 
 # Import DeepFace conditionally (to handle potential import errors)
 try:

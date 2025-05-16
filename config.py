@@ -15,7 +15,7 @@ class Config:
     # Image Storage Paths
     TEMP_IMAGE_DIR = os.getenv('TEMP_IMAGE_DIR', "temp_images/")
     STORED_IMAGES_DIR = os.getenv('STORED_IMAGES_DIR', "stored_images/")
-    FACES_DIR = os.getenv('FACES_DIR', "faces/")  # You were referencing this in ml_service.py
+   # FACES_DIR = os.getenv('FACES_DIR', "faces/")  # You were referencing this in ml_service.py
     
     # Logging Settings
     LOG_FILE = os.getenv('LOG_FILE', "facial_recognition.log")

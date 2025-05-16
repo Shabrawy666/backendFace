@@ -51,10 +51,10 @@ jwt = JWTManager(app)
 register_blueprints(app)
 
 # Register blueprints
-app.register_blueprint(student_bp, url_prefix='/api/student')
-app.register_blueprint(teacher_bp, url_prefix='/api/teacher')
-app.register_blueprint(attendance_bp, url_prefix='/api/attendance')
-app.register_blueprint(ml_bp, url_prefix='/api/ml')
+app.register_blueprint(student_bp, name='student_api', url_prefix='/api/student')
+app.register_blueprint(teacher_bp, name='teacher_api',url_prefix='/api/teacher')
+app.register_blueprint(attendance_bp, name='attendance_api',url_prefix='/api/attendance')
+app.register_blueprint(ml_bp, name='ml_api',url_prefix='/api/ml')
 
 # Configure logging
 logging.basicConfig(

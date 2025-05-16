@@ -1,0 +1,9 @@
+2025-05-16 18:39:42,211 - INFO - DeepFace library loaded successfully
+2025-05-16 18:39:42,241 - INFO - ML Service initialized successfully
+2025-05-16 18:49:18,672 - INFO - DeepFace library loaded successfully
+2025-05-16 18:49:18,679 - INFO - ML Service initialized successfully
+2025-05-16 18:50:17,915 - INFO - DeepFace library loaded successfully
+2025-05-16 18:50:17,919 - INFO - ML Service initialized successfully
+2025-05-16 18:50:17,956 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-16 18:50:17,956 - INFO - [33mPress CTRL+C to quit[0m
