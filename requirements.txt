@@ -8,18 +8,18 @@ Flask-Cors==4.0.0
 gunicorn==23.0.0
 
 # Database (unchanged)
-alembic==1.14.0
-pg8000==1.29.5
-SQLAlchemy==2.0.36
+alembic
+pg8000
+SQLAlchemy
 
 # DeepFace stack (FIXED VERSIONS)
-tensorflow==2.18.1
-keras==2.12.0
-deepface==0.0.79
-opencv-python-headless==4.9.0.80
-numpy==1.23.5  # Changed to compatible version
+tensorflow
+keras
+deepface
+opencv-python-headless
+numpy
 
 # Utilities (unchanged)
-bcrypt==4.3.0
-pillow==11.0.0
-greenlet==3.1.1
+bcrypt
+pillow
+greenlet
