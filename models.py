@@ -6,7 +6,7 @@ from sqlalchemy import Float
 import re
 import json
 from sqlalchemy.dialects.postgresql import JSON
-from datetime import datetime  # Added for AttendanceSession
+from datetime import datetime
 
 bcrypt = Bcrypt()
 db = SQLAlchemy()
