@@ -19,4 +19,4 @@ RUN apt-get update && \
 # Copy application code
 COPY . .
 
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:$PORT"]
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8080"]
