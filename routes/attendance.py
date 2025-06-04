@@ -18,80 +18,80 @@ def base64_to_image(base64_str):
     return np.array(Image.open(io.BytesIO(image_data)).convert('RGB'))
 
 @attendance_bp.route('/mark', methods=['POST'])
-@jwt_required()
 def mark_attendance():
+    data = request.get_json()
+    course_id = data.get('course_id')
+    image_base64 = data.get('image_base64')
+
+    # Validate input
+    if not course_id or not image_base64:
+        return jsonify({
+            "error": "course_id and image_base64 are both required."
+        }), 400
+
+    course = Course.query.get(course_id)
+    if not course:
+        return jsonify({"error": "Course not found."}), 404
+
     try:
-        data = request.get_json()
-        student_id = get_jwt_identity()
-        
-        if not data.get('course_id'):
-            return jsonify({"error": "Course ID is required"}), 400
-        if not data.get('image_base64'):
-            return jsonify({"error": "Face image is required"}), 400
+        # Use your existing function to decode base64 to image
+        image = base64_to_image(image_base64)
 
-        # Convert image and verify with ML service
-        image = base64_to_image(data['image_base64'])
-        verification = ml_service.verify_face(student_id, image)
-        
-        if not verification['success']:
-            return jsonify({
-                "error": "Attendance verification failed",
-                "details": verification
-            }), 400
+        # Compare with all students using your ML face recognizer logic
+        all_students = Student.query.all()
+        matched_student = None
+        for student in all_students:
+            if not student.face_encoding:
+                continue
+            # Use your existing ML service to compare:
+            is_match = ml_service.recognizer.match_face_to_encoding(image, student.face_encoding)
+            if is_match:
+                matched_student = student
+                break
 
-        # Rest of your existing attendance marking logic
-        course_id = data['course_id']
-        student_ip = request.remote_addr
-        local_time = datetime.now(pytz.timezone('Africa/Cairo'))
+        if not matched_student:
+            return jsonify({"error": "Face does not match any registered student."}), 401
 
+        # Usual attendance and session logic (as in your previous code):
         session = AttendanceSession.query.filter_by(
             course_id=course_id
         ).order_by(AttendanceSession.session_number.desc()).first()
-
         if not session:
-            return jsonify({"error": "No active session found for this course"}), 404
+            return jsonify({"error": "No active session for this course"}), 404
 
         existing_log = Attendancelog.query.filter_by(
-            student_id=student_id,
+            student_id=matched_student.student_id,
             session_id=session.id
         ).first()
-
         if existing_log:
             return jsonify({
-                "message": "Attendance already marked",
-                "student_id": student_id,
+                "message": "Attendance already marked.",
+                "student_id": matched_student.student_id,
                 "session_id": session.id
             }), 200
 
-        connection_strength = 'strong' if session.ip_address == student_ip else 'weak'
-
+        # Mark the student as present
         new_log = Attendancelog(
-            student_id=student_id,
+            student_id=matched_student.student_id,
             session_id=session.id,
             teacher_id=session.teacher_id,
             course_id=course_id,
-            date=local_time.date(),
-            time=local_time.time(),
+            date=datetime.now(pytz.timezone('Africa/Cairo')).date(),
+            time=datetime.now(pytz.timezone('Africa/Cairo')).time(),
             status='present',
-            connection_strength=connection_strength
+            connection_strength='unknown'
         )
-
         db.session.add(new_log)
         db.session.commit()
 
         return jsonify({
             "success": True,
             "message": "Attendance marked successfully",
-            "verification": verification,
-            "student_id": student_id,
+            "student_id": matched_student.student_id,
             "course_id": course_id,
-            "session_id": session.id,
-            "timestamp": local_time.isoformat()
+            "session_id": session.id
         }), 200
 
     except Exception as e:
         db.session.rollback()
-        return jsonify({
-            "error": "Failed to process attendance",
-            "details": str(e)
-        }), 500
+        return jsonify({"error": "Failed to process attendance", "details": str(e)}), 500
