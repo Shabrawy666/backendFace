@@ -2,7 +2,7 @@ import os
 
 class Config:
     # Update the database URL to use pg8000 dialect
-    DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://postgres:NraeRTIAGwBMQoAJXbzJhmqKtSwVxYCQ@centerbeam.proxy.rlwy.net:52150/railway')
+    DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://postgres:XhvDQQCqNvUVgIYWuIWRgvYttfsDSNez@maglev.proxy.rlwy.net:58174/railway')
     SQLALCHEMY_DATABASE_URI = DATABASE_URL.replace('postgres://', 'postgresql+pg8000://') if DATABASE_URL.startswith('postgres://') else DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
