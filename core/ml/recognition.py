@@ -226,10 +226,25 @@ class FaceRecognitionSystem:
                 verification_type="error"
             )
 
-    def get_student_encoding(self, student_id: str) -> Optional[List]:
-        """Get stored face encoding for a student"""
+    def get_student_encoding(self, student_id: str) -> Optional[list]:
+        """Get stored face encoding for a student from DB field if available, else from image file."""
+    # First, try DB (assuming SQLAlchemy and face_encoding is a string as shown above)
+        try:
+            from models import Student
+            student = Student.query.filter_by(student_id=student_id).first()
+            if student and student.face_encoding:
+                # Convert string to numpy array
+                emb = np.array([float(x) for x in student.face_encoding.split(',')])
+                # Match DeepFace's represent() output structure for downstream code!
+                return [{"embedding": emb}]
+        except Exception as e:
+            print(f"DB encoding lookup failed: {e}")
+
+        # (Optional: fallback to old file-based system, rarely needed!)
         path = os.path.join(Config.STORED_IMAGES_DIR, f"{student_id}.jpg")
-        return self.encoding_cache.get_encoding(path) if os.path.exists(path) else None
+        if os.path.exists(path):
+            return self.encoding_cache.get_encoding(path)
+        return None
 
     def get_performance_metrics(self) -> Dict:
         """Get current performance metrics"""
