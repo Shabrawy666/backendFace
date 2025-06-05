@@ -178,7 +178,7 @@ class FaceRecognitionSystem:
             b = np.array(stored_repr[0]["embedding"])
             similarity = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-10)
             distance = 1.0 - similarity
-            verified = distance <= Config.FACE_RECOGNITION_THRESHOLD
+            verified = distance <= 0.8
 
             elapsed = time.time() - start_time
             if verified:
