@@ -44,10 +44,10 @@ def mark_attendance():
             if not student.face_encoding:
                 continue
             # Use your existing ML service to compare:
-            is_match = ml_service.recognizer.match_face_to_encoding(image, student.face_encoding)
-            if is_match:
-                matched_student = student
-                break
+            verification = ml_service.verify_face(student.student_id, image)
+            if verification.get("success"):   # or "success" in verification and verification["success"]
+             matched_student = student
+            break
 
         if not matched_student:
             return jsonify({"error": "Face does not match any registered student."}), 401

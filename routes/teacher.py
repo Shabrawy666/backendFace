@@ -160,7 +160,6 @@ def start_attendance_session():
         return jsonify({"error": "An internal error occurred. Please try again later."}), 500
 
 
-# Route 3: End Attendance Session
 @teacher_bp.route('/end_session', methods=['POST'])
 def end_attendance_session():
     try:
@@ -192,7 +191,6 @@ def end_attendance_session():
         return jsonify({"error": "An internal error occurred. Please try again later."}), 500
 
 
-# Route 4: Manually Edit Attendance
 @teacher_bp.route('/edit_attendance', methods=['POST'])
 def edit_attendance():
     try:
