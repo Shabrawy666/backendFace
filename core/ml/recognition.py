@@ -5,6 +5,15 @@ import time
 import logging
 from typing import Dict, Optional, List
 from deepface import DeepFace
+import io
+import base64
+from PIL import Image
+
+def base64_to_image(base64_str):
+    """Convert base64 string to numpy array."""
+    header, encoded = base64_str.split(',', 1) if ',' in base64_str else ('', base64_str)
+    image_data = base64.b64decode(encoded)
+    return np.array(Image.open(io.BytesIO(image_data)).convert('RGB'))
 
 from core.utils.config import Config
 from core.utils.exceptions import SystemInitializationError, FaceRecognitionError
@@ -44,7 +53,6 @@ class FaceRecognitionSystem:
             if f.lower().endswith(".jpg")
         ]
 
-
     def _cache_stored_images(self):
         """Pre-cache encodings for stored images"""
         for path in self.stored_images:
@@ -53,10 +61,8 @@ class FaceRecognitionSystem:
     def get_face_encoding_for_storage(self, img: np.ndarray) -> Dict:
         """Generate face encoding for registration"""
         try:
-            # Add debug logging
             print(f"Input image shape: {img.shape}")
             print(f"Input image dtype: {img.dtype}")
-            
             preprocessed = self.image_preprocessor.preprocess_image(img)
             if preprocessed is None:
                 print("Preprocessing returned None")
@@ -65,23 +71,17 @@ class FaceRecognitionSystem:
                     "message": "Preprocessing failed",
                     "encoding": None
                 }
-
-            # Add debug logging for preprocessed image
             print(f"Preprocessed image shape: {preprocessed.shape}")
             print(f"Preprocessed image dtype: {preprocessed.dtype}")
-
-            # Save preprocessed image temporarily
             temp_path = f"temp_preprocessed_{int(time.time())}.jpg"
             cv2.imwrite(temp_path, (preprocessed * 255).astype(np.uint8))
             print(f"Saved temporary image to: {temp_path}")
-
             try:
                 encoding = DeepFace.represent(
                     img_path=temp_path,
                     model_name="Facenet",
-                    enforce_detection=True  # Add this parameter
+                    enforce_detection=True
                 )
-                
                 if encoding:
                     emb = encoding[0]["embedding"]
                     if isinstance(emb, np.ndarray):
@@ -91,7 +91,6 @@ class FaceRecognitionSystem:
                         "encoding": emb,
                         "message": "OK"
                     }
-                
             except Exception as deep_face_error:
                 print(f"DeepFace error: {str(deep_face_error)}")
                 return {
@@ -102,13 +101,11 @@ class FaceRecognitionSystem:
             finally:
                 if os.path.exists(temp_path):
                     os.remove(temp_path)
-
             return {
                 "success": False,
                 "message": "Encoding failed",
                 "encoding": None
             }
-
         except Exception as e:
             print(f"General error in face encoding: {str(e)}")
             return {
@@ -117,32 +114,28 @@ class FaceRecognitionSystem:
                 "encoding": None
             }
 
-    def verify_student(self, student_id: str, captured_image: np.ndarray) -> RecognitionResult:
+    def verify_student(self, student_id: str, captured_image_or_base64) -> RecognitionResult:
         """
-        Verify a student’s identity by comparing the captured face to the stored
-        face encoding.  Liveness detection is DISABLED / BYPASSED in this version.
+        Verify a student’s identity by comparing the captured face to the stored encoding.
+        Liveness detection is DISABLED / BYPASSED in this version.
+        Accepts either np.ndarray or base64 string for the image.
         """
         start_time = time.time()
         self.metrics["attempts"] += 1
 
+        # Accept image as base64 string or np.ndarray
+        if isinstance(captured_image_or_base64, str):
+            captured_image = base64_to_image(captured_image_or_base64)
+        else:
+            captured_image = captured_image_or_base64
+
         try:
-            # -----------------------------------------------------------
-            # 0)  Basic logging / sanity-checks
-            # -----------------------------------------------------------
             print(f"[Verify] Student ID  : {student_id}")
             print(f"[Verify] Image shape: {captured_image.shape}")
 
-            # -----------------------------------------------------------
-            # 1)  (Disabled) Liveness check  →  force success
-            # -----------------------------------------------------------
-            live_result = {"live": True,
-                           "score": 1.0,
-                           "message": "Liveness check bypassed"}
+            live_result = {"live": True, "score": 1.0, "message": "Liveness check bypassed"}
             print(f"[Verify] Liveness bypass: {live_result}")
 
-            # -----------------------------------------------------------
-            # 2)  Retrieve stored face encoding for this student
-            # -----------------------------------------------------------
             stored_repr = self.get_student_encoding(student_id)
             if stored_repr is None:
                 self.metrics["failures"] += 1
@@ -152,9 +145,6 @@ class FaceRecognitionSystem:
                     verification_type="storage"
                 )
 
-            # -----------------------------------------------------------
-            # 3)  Generate encoding for the captured image
-            # -----------------------------------------------------------
             preprocessed = self.image_preprocessor.preprocess_image(captured_image)
             if preprocessed is None:
                 self.metrics["failures"] += 1
@@ -166,7 +156,6 @@ class FaceRecognitionSystem:
 
             temp_path = f"temp_verify_{int(time.time())}.jpg"
             cv2.imwrite(temp_path, (preprocessed * 255).astype(np.uint8))
-
             try:
                 live_repr = DeepFace.represent(
                     img_path=temp_path,
@@ -185,18 +174,12 @@ class FaceRecognitionSystem:
                     verification_type="encoding"
                 )
 
-            # -----------------------------------------------------------
-            # 4)  Compare encodings (cosine similarity)
-            # -----------------------------------------------------------
             a = np.array(live_repr[0]["embedding"])
             b = np.array(stored_repr[0]["embedding"])
             similarity = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-10)
             distance = 1.0 - similarity
             verified = distance <= Config.FACE_RECOGNITION_THRESHOLD
 
-            # -----------------------------------------------------------
-            # 5)  Update metrics
-            # -----------------------------------------------------------
             elapsed = time.time() - start_time
             if verified:
                 self.metrics["successes"] += 1
@@ -205,9 +188,6 @@ class FaceRecognitionSystem:
             else:
                 self.metrics["failures"] += 1
 
-            # -----------------------------------------------------------
-            # 6)  Build and return result object
-            # -----------------------------------------------------------
             return RecognitionResult(
                 success=verified,
                 confidence_score=similarity,
@@ -217,7 +197,6 @@ class FaceRecognitionSystem:
             )
 
         except Exception as e:
-            # Generic catch-all for unexpected errors
             logging.error(f"Verification error: {e}")
             self.metrics["failures"] += 1
             return RecognitionResult(
@@ -228,71 +207,53 @@ class FaceRecognitionSystem:
 
     def get_student_encoding(self, student_id: str) -> Optional[list]:
         """Get stored face encoding for a student from DB field if available, else from image file."""
-    # First, try DB (assuming SQLAlchemy and face_encoding is a string as shown above)
         try:
             from models import Student
             student = Student.query.filter_by(student_id=student_id).first()
             if student and student.face_encoding:
-                # Convert string to numpy array
                 emb = np.array([float(x) for x in student.face_encoding.split(',')])
-                # Match DeepFace's represent() output structure for downstream code!
                 return [{"embedding": emb}]
         except Exception as e:
             print(f"DB encoding lookup failed: {e}")
 
-        # (Optional: fallback to old file-based system, rarely needed!)
         path = os.path.join(Config.STORED_IMAGES_DIR, f"{student_id}.jpg")
         if os.path.exists(path):
             return self.encoding_cache.get_encoding(path)
         return None
 
     def get_performance_metrics(self) -> Dict:
-        """Get current performance metrics"""
         return {**self.metrics, "cached": len(self.stored_images)}
-    def verify_student_images(self, stored_image: np.ndarray, 
-                            captured_image: np.ndarray) -> Dict:
-        """Compare two face images directly and return similarity"""
+
+    def verify_student_images(self, stored_image: np.ndarray, captured_image: np.ndarray) -> Dict:
         try:
-            # Preprocess both images
             stored_processed = self.image_preprocessor.preprocess_image(stored_image)
             captured_processed = self.image_preprocessor.preprocess_image(captured_image)
-            
             if stored_processed is None or captured_processed is None:
                 return {
                     "success": False,
                     "confidence_score": 0.0,
                     "message": "Failed to preprocess one or both images"
                 }
-                
-            # Save temporary files
             temp_stored = f"temp_stored_{int(time.time())}.jpg"
             temp_captured = f"temp_captured_{int(time.time())}.jpg"
-            
             cv2.imwrite(temp_stored, (stored_processed * 255).astype(np.uint8))
             cv2.imwrite(temp_captured, (captured_processed * 255).astype(np.uint8))
-            
             try:
-                # Get representations
                 stored_repr = DeepFace.represent(
                     img_path=temp_stored,
                     model_name="Facenet",
                     enforce_detection=True
                 )
-                
                 captured_repr = DeepFace.represent(
                     img_path=temp_captured,
                     model_name="Facenet",
                     enforce_detection=True
                 )
-                
-                # Compare representations
                 if stored_repr and captured_repr:
                     a = np.array(stored_repr[0]["embedding"])
                     b = np.array(captured_repr[0]["embedding"])
-                    
                     similarity = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-10)
                     distance = 1.0 - similarity
-                    
                     return {
                         "success": distance <= Config.FACE_RECOGNITION_THRESHOLD,
                         "confidence_score": similarity,
@@ -304,13 +265,10 @@ class FaceRecognitionSystem:
                         "confidence_score": 0.0,
                         "message": "Failed to generate representations"
                     }
-                    
             finally:
-                # Clean up temporary files
                 for temp_file in [temp_stored, temp_captured]:
                     if os.path.exists(temp_file):
                         os.remove(temp_file)
-                        
         except Exception as e:
             logging.error(f"Error comparing images: {str(e)}")
             return {
