@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify
 from models import db, Attendancelog, AttendanceSession, Student, Course
 from datetime import datetime
 import pytz
-from flask_jwt_extended import jwt_required, get_jwt_identity
 from ml_service import ml_service  # Add this import
 import base64
 import io
@@ -34,25 +33,25 @@ def mark_attendance():
         return jsonify({"error": "Course not found."}), 404
 
     try:
-        # Use your existing function to decode base64 to image
+        # Decode base64 image to numpy array
         image = base64_to_image(image_base64)
 
-        # Compare with all students using your ML face recognizer logic
-        all_students = Student.query.all()
+        # Loop through all students and find a face match
         matched_student = None
-        for student in all_students:
+        for student in Student.query.all():
             if not student.face_encoding:
                 continue
-            # Use your existing ML service to compare:
-            verification = ml_service.verify_face(student.student_id, image)
-            if verification.get("success"):   # or "success" in verification and verification["success"]
-             matched_student = student
-            break
+            # Use the correct face verification method
+            result = ml_service.recognizer.verify_student(student.student_id, image)
+            # result: RecognitionResult object
+            if hasattr(result, "success") and result.success:
+                matched_student = student
+                break
 
         if not matched_student:
             return jsonify({"error": "Face does not match any registered student."}), 401
 
-        # Usual attendance and session logic (as in your previous code):
+        # Usual attendance and session logic
         session = AttendanceSession.query.filter_by(
             course_id=course_id
         ).order_by(AttendanceSession.session_number.desc()).first()
