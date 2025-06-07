@@ -13,11 +13,7 @@ primary_region = 'cdg'
   force_https = true
   auto_stop_machines = false
   
-[[http_service.checks]]
-  interval = "30s"
-  timeout = "10s"
-  grace_period = "2m"  # Extended for TensorFlow init
-  path = "/health"
+
   
 [[vm]]
   memory = '1gb'
