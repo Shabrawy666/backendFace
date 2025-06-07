@@ -6,7 +6,9 @@ COPY requirements.txt .
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        gcc python3-dev && \
+    libgl1 \
+    libglib2.0-0 \
+    gcc python3-dev && \
     pip install --user -r requirements.txt && \
     apt-get remove -y gcc python3-dev && \
     apt-get autoremove -y
