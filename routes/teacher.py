@@ -2,10 +2,11 @@ from flask import Blueprint, request, jsonify
 from models import db, Attendancelog, AttendanceSession, Student, Teacher, Course
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import jwt_required
-from datetime import datetime
+from datetime import timedelta, datetime
 import logging
 import bcrypt
 from sqlalchemy import desc  # Needed for ordering by session ID
+from flask_jwt_extended import get_jwt_identity
 
 teacher_bp = Blueprint('teacher', __name__, url_prefix='/api/teacher')
 
@@ -16,25 +17,26 @@ logging.basicConfig(filename='app_errors.log',
 
 # Helper function to check course ownership
 def teacher_owns_course(teacher_id, course_id):
-    course = db.session.get(Course, course_id)
-    return course and course.teacher_id == teacher_id
+    course = Course.query.get(course_id)
+    return course is not None and str(course.teacher_id) == str(teacher_id)
 
 
 @teacher_bp.route('/login', methods=['POST'])
 def login_teacher():
-    """Teacher login endpoint using email and password"""
+    """Teacher login endpoint using teacher id and password, returns current courses."""
     try:
         data = request.get_json()
-        email = data.get('email')
+        teacher_id = str(data.get('teacher_id'))
         password = data.get('password')
-        
-        if not email or not password:
-            return jsonify({"error": "Email and password are required"}), 400
 
-        teacher = Teacher.query.filter_by(email=email).first()
-        
+        if not teacher_id or not password:
+            return jsonify({"error": "Teacher ID and password are required"}), 400
+
+        # Use teacher_id as primary lookup
+        teacher = Teacher.query.filter_by(teacher_id=teacher_id).first()
+
         if not teacher or not bcrypt.checkpw(password.encode('utf-8'), teacher._password.encode('utf-8')):
-            return jsonify({"error": "Invalid email or password"}), 401
+            return jsonify({"error": "Invalid teacher ID or password"}), 401
 
         access_token = create_access_token(
             identity=teacher.teacher_id,
@@ -42,11 +44,18 @@ def login_teacher():
             additional_claims={"role": "teacher"}
         )
 
+        # Collect courses currently teaching
+        courses = Course.query.filter_by(teacher_id=teacher.teacher_id).all()
+        current_courses = [
+            {"course_id": course.course_id, "course_name": course.course_name}
+            for course in courses
+        ]
+
         teacher_data = {
             "teacher_id": teacher.teacher_id,
             "name": teacher.name,
-            "email": teacher.email,
-                 }
+            "courses": current_courses
+        }
 
         return jsonify({
             "message": "Login successful",
@@ -55,8 +64,15 @@ def login_teacher():
         }), 200
 
     except Exception as e:
-        logging.error(f"Teacher login error: {str(e)}")
-        return jsonify({"error": "Internal server error"}), 500
+        import traceback
+        tb = traceback.format_exc()
+        print("DEBUG Teacher login error:", e)
+        print(tb)
+        return jsonify({
+            "error": "Internal server error",
+            "details": str(e),
+            "trace": tb
+        }), 500
 
 @teacher_bp.route('/profile', methods=['GET'])
 @jwt_required()
@@ -119,14 +135,14 @@ def get_teacher_profile():
 
 
 @teacher_bp.route('/start_session', methods=['POST'])
+@jwt_required()
 def start_attendance_session():
     try:
+        teacher_id = get_jwt_identity()
         data = request.get_json()
-        teacher_id = data.get('teacher_id')
         course_id = data.get('course_id')
-
-        if not teacher_id or not course_id:
-            return jsonify({"error": "Teacher ID and Course ID are required"}), 400
+        if not course_id:
+            return jsonify({"error": "Course ID is required"}), 400
 
         if not teacher_owns_course(teacher_id, course_id):
             return jsonify({"error": "Unauthorized access to course"}), 403
@@ -156,8 +172,11 @@ def start_attendance_session():
         }), 201
 
     except Exception as e:
-        logging.error(f"Error starting attendance session: {str(e)}")
-        return jsonify({"error": "An internal error occurred. Please try again later."}), 500
+        import traceback
+        tb = traceback.format_exc()
+        print("DEBUG start_session error:", e)
+        print(tb)
+        return jsonify({"error": "Internal server error", "details": str(e), "trace": tb}), 500
 
 
 @teacher_bp.route('/end_session', methods=['POST'])

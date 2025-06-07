@@ -176,6 +176,9 @@ class FaceRecognitionSystem:
 
             a = np.array(live_repr[0]["embedding"])
             b = np.array(stored_repr[0]["embedding"])
+            print("Registration/Attendance - Length and Type")
+            print("Captured:", "len", len(a), "shape", a.shape, "dtype", a.dtype)
+            print("Stored   :", "len", len(b), "shape", b.shape, "dtype", b.dtype)
             similarity = np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-10)
             distance = 1.0 - similarity
             verified = distance <= 0.8
@@ -211,11 +214,18 @@ class FaceRecognitionSystem:
             from models import Student
             student = Student.query.filter_by(student_id=student_id).first()
             if student and student.face_encoding:
-                emb = np.array([float(x) for x in student.face_encoding.split(',')])
+                if isinstance(student.face_encoding, str):
+                    emb = np.array([float(x) for x in student.face_encoding.split(',')])
+                elif isinstance(student.face_encoding, list):
+                    emb = np.array(student.face_encoding, dtype=float)
+                else:
+                    # Handle numpy arrays, etc.
+                    emb = np.array(student.face_encoding, dtype=float)
                 return [{"embedding": emb}]
         except Exception as e:
             print(f"DB encoding lookup failed: {e}")
 
+        # Optional fallback to file-based system
         path = os.path.join(Config.STORED_IMAGES_DIR, f"{student_id}.jpg")
         if os.path.exists(path):
             return self.encoding_cache.get_encoding(path)

@@ -86,6 +86,13 @@ def login_student():
                     "details": encoding_result.get('message', 'Quality check failed'),
                     "retry_available": True
                 }), 400
+            emb = encoding_result.get('encoding')
+            if emb is not None:
+                arr = np.array(emb)
+                print("[Registration] Face encoding: length =", len(arr), "shape =", arr.shape, "dtype =", arr.dtype)
+                print("[Registration] First few values:", arr[:5])
+            else:
+                print("[Registration] No encoding generated.")
 
             # Save to database
             student.face_encoding = encoding_result['encoding']

@@ -50,6 +50,8 @@ def mark_attendance():
 
         if not matched_student:
             return jsonify({"error": "Face does not match any registered student."}), 401
+        if not matched_student.courses.filter_by(course_id=course_id).first():
+            return jsonify({"error": "Student is not registered in this course."}), 403
 
         # Usual attendance and session logic
         session = AttendanceSession.query.filter_by(
@@ -70,16 +72,21 @@ def mark_attendance():
             }), 200
 
         # Mark the student as present
+        now = datetime.now(pytz.timezone('Africa/Cairo'))
+        attendance_time = now.time().replace(tzinfo=None)
+        student_ip = request.remote_addr
+        connection_strength = 'strong' if session.ip_address == student_ip else 'weak'
+
         new_log = Attendancelog(
             student_id=matched_student.student_id,
             session_id=session.id,
             teacher_id=session.teacher_id,
             course_id=course_id,
-            date=datetime.now(pytz.timezone('Africa/Cairo')).date(),
-            time=datetime.now(pytz.timezone('Africa/Cairo')).time(),
+            date=now.date(),
+            time=attendance_time,
             status='present',
-            connection_strength='unknown'
-        )
+            connection_strength=connection_strength
+)
         db.session.add(new_log)
         db.session.commit()
 
