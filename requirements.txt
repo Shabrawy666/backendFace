@@ -14,7 +14,7 @@ psycopg2-binary
 SQLAlchemy
 
 # DeepFace stack (FIXED VERSIONS)
-tensorflow-cpu==2.12.0
+tensorflow-cpu==2.17.1
 tf-keras
 keras
 deepface==0.0.79
