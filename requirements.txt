@@ -15,6 +15,7 @@ SQLAlchemy
 
 # DeepFace stack (FIXED VERSIONS)
 tensorflow
+tf-keras
 keras
 deepface
 opencv-python-headless
