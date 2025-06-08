@@ -20,3 +20,12 @@ class Config:
     # Logging Settings
     LOG_FILE = os.getenv('LOG_FILE', "facial_recognition.log")
     LOG_LEVEL = os.getenv('LOG_LEVEL', "INFO")
+  
+    # Image processing constants
+    IMAGE_SIZE = (224, 224)
+    MIN_FACE_SIZE = (30, 30)
+    MIN_BRIGHTNESS = 20
+    MAX_BRIGHTNESS = 250
+    MIN_CONTRAST = 10
+    BRIGHTNESS_ALPHA = 1.3
+    BRIGHTNESS_BETA = 5
