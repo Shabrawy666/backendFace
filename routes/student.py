@@ -9,6 +9,15 @@ from ml_service import ml_service
 import base64
 import io
 from PIL import Image
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    filename='student_routes.log'
+)
+logger = logging.getLogger(__name__)
 
 student_bp = Blueprint('student', __name__, url_prefix='/api/student')
 
@@ -17,9 +26,13 @@ def is_valid_email(email):
 
 def base64_to_image(base64_str):
     """Convert base64 string to numpy array"""
-    header, encoded = base64_str.split(',', 1) if ',' in base64_str else ('', base64_str)
-    image_data = base64.b64decode(encoded)
-    return np.array(Image.open(io.BytesIO(image_data)).convert('RGB'))
+    try:
+        header, encoded = base64_str.split(',', 1) if ',' in base64_str else ('', base64_str)
+        image_data = base64.b64decode(encoded)
+        return np.array(Image.open(io.BytesIO(image_data)).convert('RGB'))
+    except Exception as e:
+        logger.error(f"Image conversion error: {str(e)}")
+        raise ValueError("Invalid image format")
 
 @student_bp.route('/login', methods=['POST'])
 def login_student():
@@ -27,7 +40,7 @@ def login_student():
         data = request.get_json()
         email = data.get('email')
         password = data.get('password')
-        face_image = data.get('face_image')  # Optional field
+        face_image = data.get('face_image')  # From webcam capture
 
         # Validation
         if not email or not password:
@@ -41,10 +54,76 @@ def login_student():
         access_token = create_access_token(
             identity=student.student_id,
             expires_delta=timedelta(hours=1)
-        )  # Fixed: Added missing closing parenthesis here
+        )
             
         # Case 1: Already has face registered
         if student.face_encoding:
+            # If face_image provided, verify it
+            if face_image:
+                try:
+                    image = base64_to_image(face_image)
+                    
+                    # Check image quality first
+                    preprocessed = ml_service.preprocess_image(image)
+                    if preprocessed is None:
+                        return jsonify({
+                            "error": "Image quality too low",
+                            "details": "Please ensure:",
+                            "requirements": {
+                                "lighting": "Good and even lighting",
+                                "position": "Face clearly visible and centered",
+                                "distance": "Appropriate distance from camera"
+                            }
+                        }), 400
+
+                    # Check liveness
+                    liveness_result = ml_service.verify_liveness(image)
+                    if not liveness_result['live']:
+                        return jsonify({
+                            "error": "Liveness check failed",
+                            "details": liveness_result['explanation'],
+                            "requirements": {
+                                "eyes": "Keep eyes naturally open, blink normally",
+                                "movement": "Maintain slight natural movement",
+                                "lighting": "Ensure proper lighting"
+                            }
+                        }), 400
+
+                    # Verify face matches stored encoding
+                    verification_result = ml_service.verify_student_identity(student.student_id, preprocessed)
+                    if not verification_result.success:
+                        return jsonify({
+                            "error": "Face verification failed",
+                            "details": "Face does not match registered face",
+                            "confidence_score": verification_result.confidence_score
+                        }), 401
+
+                    return jsonify({
+                        "message": "Login successful with face verification",
+                        "access_token": access_token,
+                        "student_data": {
+                            "student_id": student.student_id,
+                            "name": student.name,
+                            "email": student.email
+                        },
+                        "face_registered": True,
+                        "verification_metrics": {
+                            "liveness_score": liveness_result['score'],
+                            "liveness_details": liveness_result['explanation'],
+                            "confidence_score": verification_result.confidence_score,
+                            "verification_time": verification_result.verification_time
+                        }
+                    }), 200
+
+                except Exception as e:
+                    logger.error(f"Face verification error: {str(e)}")
+                    return jsonify({
+                        "error": "Face verification failed",
+                        "details": str(e),
+                        "fallback": "Proceeding with password authentication only"
+                    }), 200  # Still allow login with password
+            
+            # If no face_image, proceed with normal login
             return jsonify({
                 "message": "Login successful",
                 "access_token": access_token,
@@ -68,31 +147,55 @@ def login_student():
                     "requirements": {
                         "lighting": "Even lighting, no shadows",
                         "angle": "Face directly facing camera",
-                        "distance": "About arm's length away"
+                        "distance": "About arm's length away",
+                        "movement": "Maintain natural movement for liveness check",
+                        "eyes": "Keep eyes open and blink naturally"
                     },
                     "field_name": "face_image",
                     "retry_limit": 3
                 }
-            }), 202  # Accepted status code
+            }), 202
 
-        # Case 3: Processing face registration
+        # Case 3: Processing face registration with new image
         try:
             image = base64_to_image(face_image)
-            encoding_result = ml_service.recognizer.get_face_encoding_for_storage(image)
             
+            # Check image quality
+            preprocessed = ml_service.preprocess_image(image)
+            if preprocessed is None:
+                return jsonify({
+                    "error": "Image quality check failed",
+                    "details": "Face image does not meet quality requirements",
+                    "requirements": {
+                        "lighting": "Ensure even lighting",
+                        "clarity": "Image must be clear and sharp",
+                        "position": "Face must be centered"
+                    },
+                    "retry_available": True
+                }), 400
+
+            # Check liveness
+            liveness_result = ml_service.verify_liveness(image)
+            if not liveness_result['live']:
+                return jsonify({
+                    "error": "Liveness check failed",
+                    "details": liveness_result['explanation'],
+                    "requirements": {
+                        "movement": "Show natural movement",
+                        "eyes": "Blink naturally",
+                        "lighting": "Maintain good lighting"
+                    },
+                    "retry_available": True
+                }), 400
+
+            # Get face encoding
+            encoding_result = ml_service.get_face_encoding(preprocessed)
             if not encoding_result['success']:
                 return jsonify({
                     "error": "Face registration failed",
-                    "details": encoding_result.get('message', 'Quality check failed'),
+                    "details": encoding_result.get('message', 'Face encoding failed'),
                     "retry_available": True
                 }), 400
-            emb = encoding_result.get('encoding')
-            if emb is not None:
-                arr = np.array(emb)
-                print("[Registration] Face encoding: length =", len(arr), "shape =", arr.shape, "dtype =", arr.dtype)
-                print("[Registration] First few values:", arr[:5])
-            else:
-                print("[Registration] No encoding generated.")
 
             # Save to database
             student.face_encoding = encoding_result['encoding']
@@ -102,11 +205,17 @@ def login_student():
                 "message": "Login and face registration completed",
                 "access_token": access_token,
                 "face_registered": True,
-                "quality_metrics": encoding_result.get('quality_metrics', {})
+                "registration_metrics": {
+                    "image_quality": "good",
+                    "liveness_score": liveness_result['score'],
+                    "liveness_details": liveness_result['explanation'],
+                    "encoding_quality": encoding_result.get('quality_metrics', {})
+                }
             }), 200
 
         except Exception as e:
             db.session.rollback()
+            logger.error(f"Face registration error: {str(e)}")
             return jsonify({
                 "error": "Face processing error",
                 "details": str(e),
@@ -114,6 +223,7 @@ def login_student():
             }), 500
 
     except Exception as e:
+        logger.error(f"Login error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 @student_bp.route('/profile', methods=['GET'])
@@ -150,6 +260,7 @@ def get_student_profile():
         }), 200
 
     except Exception as e:
+        logger.error(f"Profile retrieval error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 @student_bp.route('/attendance', methods=['GET'])
@@ -175,6 +286,7 @@ def get_student_attendance():
         }), 200
 
     except Exception as e:
+        logger.error(f"Attendance retrieval error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 @student_bp.route('/register_course', methods=['POST'])
@@ -203,5 +315,53 @@ def register_course():
         }), 200
 
     except Exception as e:
+        logger.error(f"Course registration error: {str(e)}")
         db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+# New endpoint for checking face image quality
+@student_bp.route('/check_face_quality', methods=['POST'])
+@jwt_required()
+def check_face_quality():
+    try:
+        data = request.get_json()
+        face_image = data.get('face_image')
+        
+        if not face_image:
+            return jsonify({"error": "Face image is required"}), 400
+
+        image = base64_to_image(face_image)
+        
+        # Updated preprocessing call
+        preprocessed = ml_service.preprocess_image(image)
+        if preprocessed is None:
+            return jsonify({
+                "success": False,
+                "message": "Image quality check failed",
+                "suggestions": [
+                    "Ensure good lighting",
+                    "Face the camera directly",
+                    "Keep face centered in frame"
+                ]
+            }), 400
+
+        # Updated liveness check
+        liveness_result = ml_service.verify_liveness(image)
+
+        # Get system metrics
+        metrics = ml_service.get_performance_metrics()
+
+        return jsonify({
+            "success": True,
+            "quality_check": {
+                "image_quality": "good",
+                "liveness": liveness_result['live'],
+                "liveness_score": liveness_result['score'],
+                "liveness_details": liveness_result['explanation']
+            },
+            "system_metrics": metrics
+        }), 200
+
+    except Exception as e:
+        logger.error(f"Face quality check error: {str(e)}")
         return jsonify({"error": str(e)}), 500

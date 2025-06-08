@@ -218,3 +218,20 @@ WHERE teacher.teacher_id = %(teacher_id_1)s
 2025-06-07 14:25:04,970 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 2025-06-07 14:25:04,970 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-07 14:52:57,162 - INFO - DeepFace library loaded successfully
+2025-06-07 14:52:57,184 - INFO - ML Service initialized successfully
+2025-06-07 14:52:57,266 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-07 14:52:57,266 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-07 14:53:18,378 - INFO - 127.0.0.1 - - [07/Jun/2025 14:53:18] "GET / HTTP/1.1" 200 -
+2025-06-07 14:53:18,867 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-06-07 14:53:18,867 - INFO - 127.0.0.1 - - [07/Jun/2025 14:53:18] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-07 14:54:13,162 - INFO - DeepFace library loaded successfully
+2025-06-07 14:54:13,185 - INFO - ML Service initialized successfully
+2025-06-07 14:54:13,262 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-07 14:54:13,263 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-07 14:54:24,577 - INFO - 127.0.0.1 - - [07/Jun/2025 14:54:24] "GET / HTTP/1.1" 200 -
+2025-06-07 14:54:25,135 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-06-07 14:54:25,135 - INFO - 127.0.0.1 - - [07/Jun/2025 14:54:25] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-07 14:54:33,953 - INFO - 127.0.0.1 - - [07/Jun/2025 14:54:33] "GET / HTTP/1.1" 200 -
