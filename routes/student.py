@@ -115,8 +115,8 @@ def register_face():
             # Convert and validate image
             image = base64_to_image(face_image)
             
-            # Preprocess image using MLService's preprocessor
-            preprocessed = ml_service.preprocessor.preprocess_image(image)
+            # Use MLService's preprocess_image method
+            preprocessed = ml_service.preprocess_image(image)
             if preprocessed is None:
                 return jsonify({
                     "error": "Image quality check failed",
@@ -129,8 +129,8 @@ def register_face():
                     "retry_available": True
                 }), 400
 
-            # Liveness detection using MLService's liveness detector
-            liveness_result = ml_service.liveness.check_liveness(preprocessed)
+            # Use MLService's verify_liveness method
+            liveness_result = ml_service.verify_liveness(preprocessed)
             if not liveness_result.get('live', False):
                 return jsonify({
                     "error": "Liveness check failed",
@@ -143,8 +143,8 @@ def register_face():
                     "retry_available": True
                 }), 400
 
-            # Get face encoding using MLService's recognizer
-            encoding_result = ml_service.recognizer.get_face_encoding(preprocessed)
+            # Use MLService's get_face_encoding method
+            encoding_result = ml_service.get_face_encoding(preprocessed)
             if not encoding_result.get('success', False):
                 return jsonify({
                     "error": "Face registration failed",
