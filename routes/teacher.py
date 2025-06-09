@@ -61,12 +61,14 @@ def login_teacher():
         courses = Course.query.filter_by(teacher_id=teacher.teacher_id).all()
         current_courses = []
         for course in courses:
-            registered_students = course.students.count()
-            verified_students = course.students.filter(Student.face_encoding.isnot(None)).count()
+            # Using len() for simplicity
+            students = course.students.all()
+            verified_students = len([s for s in students if s.face_encoding is not None])
+            
             current_courses.append({
                 "course_id": course.course_id,
                 "course_name": course.course_name,
-                "total_students": registered_students,
+                "total_students": len(students),
                 "verified_students": verified_students
             })
 
