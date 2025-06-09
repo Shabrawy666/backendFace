@@ -111,60 +111,69 @@ def register_face():
             logger.error(f"Student not found: {student_id}")
             return jsonify({"error": "Student not found"}), 404
 
-        # Convert and validate image
-        image = base64_to_image(face_image)
-        
-        # Check image quality
-        preprocessed = ml_service.preprocess_image(image)
-        if preprocessed is None:
+        try:
+            # Convert and validate image
+            image = base64_to_image(face_image)
+            
+            # Check image quality through preprocessor
+            preprocessed = ml_service.preprocess_image(image)
+            if preprocessed is None:
+                return jsonify({
+                    "error": "Image quality check failed",
+                    "details": "Face image does not meet quality requirements",
+                    "requirements": {
+                        "lighting": "Ensure even lighting",
+                        "clarity": "Image must be clear and sharp",
+                        "position": "Face must be centered"
+                    },
+                    "retry_available": True
+                }), 400
+
+            # Perform liveness check through recognizer
+            liveness_result = ml_service.recognizer.verify_liveness(preprocessed)
+            if not liveness_result.get('live', False):
+                return jsonify({
+                    "error": "Liveness check failed",
+                    "details": liveness_result.get('explanation', 'Liveness check failed'),
+                    "requirements": {
+                        "movement": "Show natural movement",
+                        "eyes": "Blink naturally",
+                        "lighting": "Maintain good lighting"
+                    },
+                    "retry_available": True
+                }), 400
+
+            # Get face encoding
+            encoding_result = ml_service.get_face_encoding(preprocessed)
+            if not encoding_result['success']:
+                return jsonify({
+                    "error": "Face registration failed",
+                    "details": encoding_result.get('message', 'Face encoding failed'),
+                    "retry_available": True
+                }), 400
+
+            # Store in database
+            student.face_encoding = encoding_result['encoding']
+            db.session.commit()
+
+            # Return success response with student_id from token
             return jsonify({
-                "error": "Image quality check failed",
-                "details": "Face image does not meet quality requirements",
-                "requirements": {
-                    "lighting": "Ensure even lighting",
-                    "clarity": "Image must be clear and sharp",
-                    "position": "Face must be centered"
-                },
+                "message": "Face registration successful",
+                "student_id": student_id,
+                "registration_metrics": {
+                    "image_quality": "good",
+                    "liveness_score": liveness_result.get('score', 1.0),
+                    "encoding_quality": encoding_result.get('quality_metrics', {})
+                }
+            }), 200
+
+        except Exception as e:
+            logger.error(f"Face processing error: {str(e)}")
+            return jsonify({
+                "error": "Face processing error",
+                "details": str(e),
                 "retry_available": True
             }), 400
-
-        # Check liveness
-        liveness_result = ml_service.verify_liveness(image)
-        if not liveness_result['live']:
-            return jsonify({
-                "error": "Liveness check failed",
-                "details": liveness_result['explanation'],
-                "requirements": {
-                    "movement": "Show natural movement",
-                    "eyes": "Blink naturally",
-                    "lighting": "Maintain good lighting"
-                },
-                "retry_available": True
-            }), 400
-
-        # Get face encoding
-        encoding_result = ml_service.get_face_encoding(preprocessed)
-        if not encoding_result['success']:
-            return jsonify({
-                "error": "Face registration failed",
-                "details": encoding_result.get('message', 'Face encoding failed'),
-                "retry_available": True
-            }), 400
-
-        # Store in database
-        student.face_encoding = encoding_result['encoding']
-        db.session.commit()
-
-        # Return success response with student_id from token
-        return jsonify({
-            "message": "Face registration successful",
-            "student_id": student_id,
-            "registration_metrics": {
-                "image_quality": "good",
-                "liveness_score": liveness_result['score'],
-                "liveness_details": liveness_result['explanation']
-            }
-        }), 200
 
     except Exception as e:
         db.session.rollback()
