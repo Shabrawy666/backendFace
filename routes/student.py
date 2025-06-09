@@ -150,6 +150,22 @@ def register_face():
                     "retry_available": True
                 }), 400
 
+            # Check liveness
+            logger.info("Performing liveness check...")
+            liveness_result = ml_service.check_liveness(preprocessed)
+            if not liveness_result.get('live', False):
+                logger.error(f"Liveness check failed: {liveness_result.get('explanation')}")
+                return jsonify({
+                    "error": "Liveness check failed",
+                    "details": liveness_result.get('explanation', 'Could not verify live face'),
+                    "requirements": {
+                        "movement": "Show natural movement",
+                        "eyes": "Blink naturally",
+                        "lighting": "Maintain good lighting"
+                    },
+                    "retry_available": True
+                }), 400
+
             # Get face encoding
             logger.info("Getting face encoding...")
             encoding_result = ml_service.get_face_encoding(preprocessed)
@@ -180,6 +196,8 @@ def register_face():
                 "student_id": student_id,
                 "registration_metrics": {
                     "image_quality": "good",
+                    "liveness_score": liveness_result.get('score', 1.0),
+                    "liveness_details": liveness_result.get('explanation', ''),
                     "encoding_quality": encoding_result.get('quality_metrics', {}),
                     "system_metrics": metrics
                 }
