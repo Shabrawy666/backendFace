@@ -181,9 +181,11 @@ def start_attendance_session():
         teacher_ip = request.remote_addr
         local_time = datetime.utcnow()
 
-        last_session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.id)).first()
+        # Get the last session number for this course
+        last_session = AttendanceSession.query.filter_by(course_id=course_id).order_by(desc(AttendanceSession.session_number)).first()
         new_session_number = (last_session.session_number + 1) if last_session else 1
 
+        # Create new session without specifying the ID
         session = AttendanceSession(
             course_id=course_id,
             teacher_id=teacher_id,
@@ -192,8 +194,16 @@ def start_attendance_session():
             session_number=new_session_number
         )
 
-        db.session.add(session)
-        db.session.commit()
+        try:
+            db.session.add(session)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Database error while creating session: {str(e)}")
+            return jsonify({
+                "error": "Failed to create session",
+                "details": "Database error occurred"
+            }), 500
 
         # Get ML system status for session start
         ml_status = {
@@ -211,7 +221,10 @@ def start_attendance_session():
 
     except Exception as e:
         logger.error(f"Start session error: {str(e)}")
-        return jsonify({"error": "Internal server error", "details": str(e)}), 500
+        return jsonify({
+            "error": "Internal server error",
+            "details": str(e)
+        }), 500
 
 @teacher_bp.route('/end_session', methods=['POST'])
 @jwt_required()
