@@ -38,7 +38,6 @@ def teacher_owns_course(teacher_id, course_id):
 
 @teacher_bp.route('/login', methods=['POST'])
 def login_teacher():
-    """Teacher login endpoint using teacher id and password"""
     try:
         data = request.get_json()
         teacher_id = str(data.get('teacher_id'))
@@ -58,12 +57,13 @@ def login_teacher():
             additional_claims={"role": "teacher"}
         )
 
+        # Modified course query
         courses = Course.query.filter_by(teacher_id=teacher.teacher_id).all()
         current_courses = []
         for course in courses:
-            # Using len() for simplicity
-            students = course.students.all()
-            verified_students = len([s for s in students if s.face_encoding is not None])
+            # Get students directly from the relationship
+            students = [student for student in course.students]
+            verified_students = sum(1 for student in students if student.face_encoding is not None)
             
             current_courses.append({
                 "course_id": course.course_id,
@@ -72,16 +72,14 @@ def login_teacher():
                 "verified_students": verified_students
             })
 
-        teacher_data = {
-            "teacher_id": teacher.teacher_id,
-            "name": teacher.name,
-            "courses": current_courses
-        }
-
         return jsonify({
             "message": "Login successful",
             "access_token": access_token,
-            "teacher_data": teacher_data
+            "teacher_data": {
+                "teacher_id": teacher.teacher_id,
+                "name": teacher.name,
+                "courses": current_courses
+            }
         }), 200
 
     except Exception as e:
