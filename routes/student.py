@@ -129,20 +129,6 @@ def register_face():
                     "retry_available": True
                 }), 400
 
-            # Use MLService's verify_liveness method
-            liveness_result = ml_service.verify_liveness(preprocessed)
-            if not liveness_result.get('live', False):
-                return jsonify({
-                    "error": "Liveness check failed",
-                    "details": liveness_result.get('explanation', 'Liveness check failed'),
-                    "requirements": {
-                        "movement": "Show natural movement",
-                        "eyes": "Blink naturally",
-                        "lighting": "Maintain good lighting"
-                    },
-                    "retry_available": True
-                }), 400
-
             # Use MLService's get_face_encoding method
             encoding_result = ml_service.get_face_encoding(preprocessed)
             if not encoding_result.get('success', False):
@@ -165,7 +151,6 @@ def register_face():
                 "student_id": student_id,
                 "registration_metrics": {
                     "image_quality": "good",
-                    "liveness_score": liveness_result.get('score', 1.0),
                     "encoding_quality": encoding_result.get('quality_metrics', {}),
                     "system_metrics": metrics
                 }
