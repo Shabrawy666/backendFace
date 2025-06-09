@@ -115,8 +115,8 @@ def register_face():
             # Convert and validate image
             image = base64_to_image(face_image)
             
-            # Check image quality through preprocessor
-            preprocessed = ml_service.preprocess_image(image)
+            # Preprocess image using MLService's preprocessor
+            preprocessed = ml_service.preprocessor.preprocess_image(image)
             if preprocessed is None:
                 return jsonify({
                     "error": "Image quality check failed",
@@ -129,8 +129,8 @@ def register_face():
                     "retry_available": True
                 }), 400
 
-            # Perform liveness check through recognizer
-            liveness_result = ml_service.recognizer.verify_liveness(preprocessed)
+            # Liveness detection using MLService's liveness detector
+            liveness_result = ml_service.liveness.check_liveness(preprocessed)
             if not liveness_result.get('live', False):
                 return jsonify({
                     "error": "Liveness check failed",
@@ -143,9 +143,9 @@ def register_face():
                     "retry_available": True
                 }), 400
 
-            # Get face encoding
-            encoding_result = ml_service.get_face_encoding(preprocessed)
-            if not encoding_result['success']:
+            # Get face encoding using MLService's recognizer
+            encoding_result = ml_service.recognizer.get_face_encoding(preprocessed)
+            if not encoding_result.get('success', False):
                 return jsonify({
                     "error": "Face registration failed",
                     "details": encoding_result.get('message', 'Face encoding failed'),
@@ -153,8 +153,11 @@ def register_face():
                 }), 400
 
             # Store in database
-            student.face_encoding = encoding_result['encoding']
+            student.face_encoding = encoding_result.get('encoding')
             db.session.commit()
+
+            # Get performance metrics
+            metrics = ml_service.get_performance_metrics()
 
             # Return success response with student_id from token
             return jsonify({
@@ -163,7 +166,8 @@ def register_face():
                 "registration_metrics": {
                     "image_quality": "good",
                     "liveness_score": liveness_result.get('score', 1.0),
-                    "encoding_quality": encoding_result.get('quality_metrics', {})
+                    "encoding_quality": encoding_result.get('quality_metrics', {}),
+                    "system_metrics": metrics
                 }
             }), 200
 
