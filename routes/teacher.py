@@ -340,26 +340,73 @@ def get_verification_stats():
     """Get statistics about face verification success rates"""
     try:
         teacher_id = get_jwt_identity()
-        courses = Course.query.filter_by(teacher_id=teacher_id).all()
-        
-        stats = {}
-        for course in courses:
-            course_logs = Attendancelog.query.filter_by(course_id=course.course_id).all()
+        course_id = request.args.get('course_id')  # Get course_id from query parameters
+
+        # If course_id is provided, get stats for specific course
+        if course_id:
+            course = Course.query.filter_by(
+                teacher_id=teacher_id,
+                course_id=course_id
+            ).first()
+
+            if not course:
+                return jsonify({
+                    "error": "Course not found or unauthorized"
+                }), 404
+
+            course_logs = Attendancelog.query.filter_by(course_id=course_id).all()
             total_attempts = len(course_logs)
             face_verified = len([log for log in course_logs if log.connection_strength == 'strong'])
             
-            stats[course.course_id] = {
-                "course_name": course.course_name,
-                "total_attendance_records": total_attempts,
-                "face_verified_count": face_verified,
-                "face_verification_rate": (face_verified / total_attempts * 100) if total_attempts > 0 else 0
+            stats = {
+                course_id: {
+                    "course_name": course.course_name,
+                    "total_attendance_records": total_attempts,
+                    "face_verified_count": face_verified,
+                    "face_verification_rate": (face_verified / total_attempts * 100) if total_attempts > 0 else 0
+                }
             }
+
+        # If no course_id, get stats for all courses
+        else:
+            courses = Course.query.filter_by(teacher_id=teacher_id).all()
+            if not courses:
+                return jsonify({
+                    "message": "No courses found for this teacher",
+                    "verification_stats": {},
+                    "system_metrics": ml_service.get_performance_metrics()
+                }), 200
             
+            stats = {}
+            for course in courses:
+                course_logs = Attendancelog.query.filter_by(course_id=course.course_id).all()
+                total_attempts = len(course_logs)
+                face_verified = len([log for log in course_logs if log.connection_strength == 'strong'])
+                
+                stats[course.course_id] = {
+                    "course_name": course.course_name,
+                    "total_attendance_records": total_attempts,
+                    "face_verified_count": face_verified,
+                    "face_verification_rate": (face_verified / total_attempts * 100) if total_attempts > 0 else 0
+                }
+
+        # Add detailed stats for face verification
+        system_metrics = ml_service.get_performance_metrics()
+        
         return jsonify({
             "verification_stats": stats,
-            "system_metrics": ml_service.get_performance_metrics()
+            "system_metrics": system_metrics,
+            "summary": {
+                "total_courses": len(stats),
+                "total_records": sum(s["total_attendance_records"] for s in stats.values()),
+                "total_verified": sum(s["face_verified_count"] for s in stats.values()),
+                "average_verification_rate": sum(s["face_verification_rate"] for s in stats.values()) / len(stats) if stats else 0
+            }
         }), 200
         
     except Exception as e:
         logger.error(f"Verification stats error: {str(e)}")
-        return jsonify({"error": "Failed to retrieve verification stats"}), 500
+        return jsonify({
+            "error": "Failed to retrieve verification stats",
+            "details": str(e)
+        }), 500
