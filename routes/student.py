@@ -127,18 +127,18 @@ def register_face():
                 }), 400
 
             # Check liveness using the correct method
-            liveness_result = ml_service.check_liveness(preprocessed)
-            if not liveness_result.get('live', False):
-                return jsonify({
-                    "error": "Liveness check failed",
-                    "details": liveness_result.get('explanation', 'Liveness check failed'),
-                    "requirements": {
-                        "movement": "Show natural movement",
-                        "eyes": "Blink naturally",
-                        "lighting": "Maintain good lighting"
-                    },
-                    "retry_available": True
-                }), 400
+            # liveness_result = ml_service.check_liveness(preprocessed)
+            # if not liveness_result.get('live', False):
+            #    return jsonify({
+            #        "error": "Liveness check failed",
+            #        "details": liveness_result.get('explanation', 'Liveness check failed'),
+            #        "requirements": {
+            #            "movement": "Show natural movement",
+            #            "eyes": "Blink naturally",
+            #            "lighting": "Maintain good lighting"
+            #        },
+            #        "retry_available": True
+            #    }), 400
 
             # Get face encoding
             encoding_result = ml_service.get_face_encoding(preprocessed)
