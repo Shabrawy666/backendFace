@@ -8,9 +8,9 @@ from datetime import datetime
 from models import db, Student
 
 # Import components from core/ml
-from core.ml.preprocessing import ImagePreprocessor
-from core.ml.liveness import LivenessDetector
-from core.ml.recognition import FaceRecognitionSystem
+from core.models.image_processor import ImagePreprocessor
+from core.models.liveness_detection import LivenessDetector
+from core.models.face_recognition import FaceRecognitionSystem
 from core.utils.config import Config
 from core.utils.encoding_cache import EncodingCache
 from core.utils.exceptions import SystemInitializationError

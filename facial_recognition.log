@@ -235,3 +235,28 @@ WHERE teacher.teacher_id = %(teacher_id_1)s
 2025-06-07 14:54:25,135 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 2025-06-07 14:54:25,135 - INFO - 127.0.0.1 - - [07/Jun/2025 14:54:25] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
 2025-06-07 14:54:33,953 - INFO - 127.0.0.1 - - [07/Jun/2025 14:54:33] "GET / HTTP/1.1" 200 -
+2025-06-10 18:15:03,481 - INFO - DeepFace library loaded successfully
+2025-06-10 18:15:13,495 - INFO - ML Service initialized successfully
+2025-06-10 18:15:13,601 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-10 18:15:13,601 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 18:15:44,273 - INFO - 127.0.0.1 - - [10/Jun/2025 18:15:44] "GET / HTTP/1.1" 200 -
+2025-06-10 18:15:44,798 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2025-06-10 18:15:44,798 - INFO - 127.0.0.1 - - [10/Jun/2025 18:15:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-10 18:41:02,940 - INFO - 127.0.0.1 - - [10/Jun/2025 18:41:02] "POST /api/student/login HTTP/1.1" 200 -
+2025-06-10 18:42:28,897 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-10 18:42:29,143 - INFO - 127.0.0.1 - - [10/Jun/2025 18:42:29] "[31m[1mPOST /api/student/check_face_quality HTTP/1.1[0m" 400 -
+2025-06-10 18:42:51,882 - INFO - Converting base64 to image...
+2025-06-10 18:42:51,900 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-10 18:42:51,900 - INFO - Converting to BGR format...
+2025-06-10 18:42:51,912 - INFO - Starting image preprocessing...
+2025-06-10 18:42:52,097 - INFO - Performing liveness check...
+2025-06-10 18:42:52,710 - ERROR - Liveness check failed: Model prediction: Fake (0.955)
+2025-06-10 18:42:52,779 - INFO - 127.0.0.1 - - [10/Jun/2025 18:42:52] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-10 18:43:38,771 - INFO - 127.0.0.1 - - [10/Jun/2025 18:43:38] "POST /api/teacher/login HTTP/1.1" 200 -
+2025-06-10 18:44:01,933 - INFO - 127.0.0.1 - - [10/Jun/2025 18:44:01] "[31m[1mPOST /api/teacher/profile HTTP/1.1[0m" 405 -
+2025-06-10 18:44:18,687 - ERROR - Profile error: list.count() takes exactly one argument (0 given)
+2025-06-10 18:44:18,784 - INFO - 127.0.0.1 - - [10/Jun/2025 18:44:18] "[35m[1mGET /api/teacher/profile HTTP/1.1[0m" 500 -
+2025-06-10 18:44:50,757 - INFO - 127.0.0.1 - - [10/Jun/2025 18:44:50] "[35m[1mPOST /api/teacher/start_session HTTP/1.1[0m" 201 -
+2025-06-10 18:44:59,433 - INFO - 127.0.0.1 - - [10/Jun/2025 18:44:59] "POST /api/teacher/end_session HTTP/1.1" 200 -
+2025-06-10 18:45:36,290 - INFO - 127.0.0.1 - - [10/Jun/2025 18:45:36] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 400 -

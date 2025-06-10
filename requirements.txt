@@ -25,3 +25,8 @@ numpy
 bcrypt
 pillow
 greenlet
+
+# For liveness detection (optional - large download)
+torch>=1.9.0
+torchvision>=0.10.0
+torchaudio>=0.9.0
