@@ -3,9 +3,37 @@ import os
 import cv2
 import numpy as np
 
+def find_silent_face_dir():
+    """Find the Silent-Face-Anti-Spoofing-master directory dynamically"""
+    current_file = os.path.abspath(__file__)
+    current_dir = os.path.dirname(current_file)
+    
+    # Check multiple possible locations
+    possible_paths = [
+        # Local development path
+        os.path.join(current_dir, '..', '..', 'Silent-Face-Anti-Spoofing-master'),
+        # Docker container path
+        '/app/Silent-Face-Anti-Spoofing-master',
+        # Current working directory
+        os.path.join(os.getcwd(), 'Silent-Face-Anti-Spoofing-master'),
+        # Alternative paths
+        os.path.join(current_dir, '..', '..', '..', 'Silent-Face-Anti-Spoofing-master'),
+    ]
+    
+    for path in possible_paths:
+        if os.path.exists(path):
+            return os.path.abspath(path)
+    
+    return None
+
 # Change working directory to Silent-Face-Anti-Spoofing folder
 original_cwd = os.getcwd()
-silent_face_path = r"C:/Users/Lenovo/Desktop/attendance_system/Silent-Face-Anti-Spoofing-master"
+silent_face_path = find_silent_face_dir()
+
+if not silent_face_path:
+    raise FileNotFoundError("Silent-Face-Anti-Spoofing-master directory not found in any expected location")
+
+print(f"Found Silent-Face-Anti-Spoofing at: {silent_face_path}")
 
 # Add to Python path
 sys.path.append(silent_face_path)
