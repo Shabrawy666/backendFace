@@ -336,3 +336,15 @@
 2025-06-11 21:34:34,110 - core.models.image_processor - INFO - Preprocessing completed successfully
 2025-06-11 21:34:34,772 - routes.attendance - INFO - New best match: Student 20221442220 with confidence 0.9999999999991102
 2025-06-11 21:34:35,412 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:34:35] "POST /api/attendance/mark HTTP/1.1" 200 -
+2025-06-11 22:04:28,289 - root - INFO - DeepFace library loaded successfully
+2025-06-11 22:04:28,382 - root - INFO - ML Service initialized successfully
+2025-06-11 22:04:28,382 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 22:04:28,433 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 22:04:28,434 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 22:05:08,632 - root - INFO - DeepFace library loaded successfully
+2025-06-11 22:05:08,712 - root - INFO - ML Service initialized successfully
+2025-06-11 22:05:08,713 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 22:05:08,754 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 22:05:08,755 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
