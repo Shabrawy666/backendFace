@@ -21,7 +21,7 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Install ONLY runtime dependencies (not the entire lib directory!)
+# Install runtime dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     libgl1-mesa-glx \
@@ -30,13 +30,11 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy Python packages from builder
+# Copy Python packages
 COPY --from=builder /root/.local /root/.local
 
-# Copy application files selectively
-COPY app.py .
-COPY templates/ templates/ 2>/dev/null || true
-COPY static/ static/ 2>/dev/null || true
+# Copy all files (controlled by .dockerignore)
+COPY . .
 
 ENV PATH=/root/.local/bin:$PATH \
     TF_CPP_MIN_LOG_LEVEL=3 \
@@ -44,4 +42,4 @@ ENV PATH=/root/.local/bin:$PATH \
 
 EXPOSE 8080
 
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8080", "--workers", "1"]
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8080"]
