@@ -46,10 +46,9 @@ class MLService:
         self.deepface_available = DEEPFACE_AVAILABLE
         logging.info("ML Service initialized successfully")
     
-    def get_face_encoding(self, image: np.ndarray, skip_preprocessing: bool = False) -> dict:
-        """Get face encoding with option to skip preprocessing"""
-        # For already preprocessed images, skip internal preprocessing
-        return self.recognizer.get_face_encoding_for_storage(image, skip_preprocessing=skip_preprocessing)
+    def get_face_encoding(self, image: np.ndarray) -> dict:
+        """Get face encoding for storage using FaceRecognitionSystem"""
+        return self.recognizer.get_face_encoding_for_storage(image)
     
     def verify_student_identity(self, student_id: str, image: np.ndarray) -> dict:
         """Verify student identity using FaceRecognitionSystem"""
