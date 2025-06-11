@@ -70,9 +70,8 @@ def login_student():
         for course in student.courses:
             registered_courses.append({
                 "course_id": course.course_id,
-                "course_name": course.course_name,
-                "course_code": getattr(course, 'course_code', '')
-            })
+                "course_name": course.course_name
+                            })
 
         # Check if face encoding exists
         if student.face_encoding:
