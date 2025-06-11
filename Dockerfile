@@ -36,11 +36,15 @@ RUN apt-get update && \
 # Copy Python packages from builder
 COPY --from=builder /root/.local /root/.local
 
-# Copy application code (be selective)
+# Copy application files (only if they exist)
 COPY app.py .
-COPY templates/ templates/
-COPY static/ static/
-# Add other necessary files/folders here instead of COPY . .
+
+# Copy directories only if they exist
+COPY template[s] template[s] 2>/dev/null || true
+COPY stati[c] stati[c] 2>/dev/null || true
+
+# Alternative: Copy everything and exclude what you don't need
+# COPY . .
 
 ENV PATH=/root/.local/bin:$PATH \
     TF_CPP_MIN_LOG_LEVEL=3 \
