@@ -83,7 +83,9 @@ def login_student():
                 "student_data": {
                     "student_id": student.student_id,
                     "name": student.name,
-                    "email": student.email
+                    "email": student.email,
+                    "registered_courses": registered_courses,
+                    "total_courses": len(registered_courses)
                 },
                 "face_registered": True
             }), 200
