@@ -98,14 +98,28 @@ class ImagePreprocessor:
 
     @staticmethod
     def preprocess_image(image: np.ndarray) -> Optional[np.ndarray]:
-        """Complete preprocessing pipeline"""
+        """Complete preprocessing pipeline with format fixing"""
         try:
             if image is None or image.size == 0:
                 raise ValueError("Invalid input image")
 
+            # Fix the format conversion issue
+            if len(image.shape) == 3:
+                if image.shape[2] == 4:  # RGBA to RGB
+                    image = cv2.cvtColor(image, cv2.COLOR_RGBA2RGB)
+            # Don't convert RGB to BGR here - keep original format
+            
+            # Ensure proper data type (this is the key fix)
+            if image.dtype != np.uint8:
+                if image.max() <= 1.0:  # Normalized image (0-1 range)
+                    image = (image * 255).astype(np.uint8)
+                else:
+                    image = image.astype(np.uint8)
+
+            # Now safe to do OpenCV operations
             enhanced = ImagePreprocessor.adjust_brightness_contrast(image)
             face_img = ImagePreprocessor.detect_and_align_face(enhanced)
-            
+        
             if face_img is None:
                 return None
 
