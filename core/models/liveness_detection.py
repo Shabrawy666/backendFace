@@ -5,7 +5,7 @@ import numpy as np
 
 # Change working directory to Silent-Face-Anti-Spoofing folder
 original_cwd = os.getcwd()
-silent_face_path = r"C:\\Users\\Lenovo\\Desktop\\attendance_system\\Silent-Face-Anti-Spoofing-master"
+silent_face_path = '/app/Silent-Face-Anti-Spoofing-master'
 
 # Add to Python path
 sys.path.append(silent_face_path)

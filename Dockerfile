@@ -40,7 +40,7 @@ COPY core/ core/
 COPY ml_service.py .
 
 # Copy the anti-spoofing src directory to root level
-COPY Silent-Face-Anti-Spoofing-master/src/ src/
+COPY Silent-Face-Anti-Spoofing-master/ Silent-Face-Anti-Spoofing-master/
 
 # Copy everything else
 COPY . .
