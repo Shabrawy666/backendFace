@@ -135,3 +135,32 @@ class ImagePreprocessor:
         except Exception as e:
             logging.error(f"Preprocessing error: {str(e)}")
             return None
+        
+    @staticmethod
+    def preprocess_image_fallback(image: np.ndarray) -> Optional[np.ndarray]:
+        """Fallback preprocessing without face detection"""
+        try:
+            logging.info("Using fallback preprocessing (no face detection)")
+            
+            # Just resize and normalize the center crop
+            h, w = image.shape[:2]
+            
+            # Take center crop
+            size = min(h, w)
+            y = (h - size) // 2
+            x = (w - size) // 2
+            
+            center_crop = image[y:y+size, x:x+size]
+            
+            # Resize to target size
+            resized = ImagePreprocessor.resize_image(center_crop)
+            
+            # Normalize
+            normalized = ImagePreprocessor.normalize_image(resized)
+            
+            logging.info(f"Fallback preprocessing complete - Final shape: {normalized.shape}")
+            return normalized
+            
+        except Exception as e:
+            logging.error(f"Fallback preprocessing error: {str(e)}")
+            return None    
