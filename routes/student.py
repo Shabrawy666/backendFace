@@ -84,6 +84,7 @@ def login_student():
                 "message": "Face registration required",
                 "access_token": access_token,
                 "face_registered": False,
+                "student_id": student.student_id,
                 "action_required": {
                     "type": "capture_face",
                     "instructions": "Please center your face in the frame",

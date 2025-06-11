@@ -348,3 +348,8 @@
 2025-06-11 22:05:08,754 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 2025-06-11 22:05:08,755 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 22:27:21,855 - root - INFO - DeepFace library loaded successfully
+2025-06-11 22:27:21,913 - root - ERROR - Init failed: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
+2025-06-11 22:27:21,914 - core.utils.logger - ERROR - Error importing ML service: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
+2025-06-11 22:27:21,926 - root - INFO - DeepFace library loaded successfully
+2025-06-11 22:27:21,987 - root - ERROR - Init failed: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
