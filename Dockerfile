@@ -30,10 +30,19 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy Python packages
+# Copy Python packages from builder
 COPY --from=builder /root/.local /root/.local
 
-# Copy all files (controlled by .dockerignore)
+# Copy application files
+COPY app.py .
+COPY routes/ routes/
+COPY core/ core/
+COPY ml_service.py .
+
+# Copy the anti-spoofing src directory to root level
+COPY Silent-Face-Anti-Spoofing-master/src/ src/
+
+# Copy everything else
 COPY . .
 
 ENV PATH=/root/.local/bin:$PATH \
