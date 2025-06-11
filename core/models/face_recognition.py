@@ -140,46 +140,59 @@ class FaceRecognitionSystem:
         self.encoding_weights[student_id].append(quality)
         self._save_multiple_encodings()
 
-    def get_face_encoding_for_storage(self, img: np.ndarray, student_id: str = None) -> Dict:
+    def get_face_encoding_for_storage(self, img: np.ndarray, student_id: str = None, skip_preprocessing: bool = False) -> Dict:
         """Generate face encoding for registration with quality assessment"""
         try:
             print(f"Input image shape: {img.shape}")
             print(f"Input image dtype: {img.dtype}")
+        
+            # Skip preprocessing if image is already preprocessed
+            if skip_preprocessing:
+                print("Skipping preprocessing - using pre-processed image")
+                preprocessed = img
+                quality_score = 0.8  # Assume good quality since it passed main preprocessing
+            else:
+                quality_score = self._assess_image_quality(img)
+                if quality_score < 0.4:
+                    return {
+                        "success": False,
+                        "message": f"Image quality too low: {quality_score:.2f}",
+                        "encoding": None,
+                        "quality_score": quality_score
+                    }
             
-            quality_score = self._assess_image_quality(img)
-            if quality_score < 0.4:
-                return {
-                    "success": False,
-                    "message": f"Image quality too low: {quality_score:.2f}",
-                    "encoding": None,
-                    "quality_score": quality_score
-                }
-            
-            preprocessed = self.image_preprocessor.preprocess_image(img)
-            if preprocessed is None:
-                return {
-                    "success": False,
-                    "message": "Preprocessing failed",
-                    "encoding": None
-                }
+                preprocessed = self.image_preprocessor.preprocess_image(img)
+                if preprocessed is None:
+                    return {
+                        "success": False,
+                        "message": "Preprocessing failed",
+                        "encoding": None
+                    }
 
             print(f"Preprocessed image shape: {preprocessed.shape}")
             print(f"Preprocessed image dtype: {preprocessed.dtype}")
 
+            # Convert to proper format for DeepFace
+            if preprocessed.dtype == np.float32 and preprocessed.max() <= 1.0:
+                # Convert normalized float32 to uint8
+                preprocessed_uint8 = (preprocessed * 255).astype(np.uint8)
+            else:
+                preprocessed_uint8 = preprocessed.astype(np.uint8)
+
             temp_path = f"temp_preprocessed_{int(time.time())}.jpg"
-            cv2.imwrite(temp_path, (preprocessed * 255).astype(np.uint8))
+            cv2.imwrite(temp_path, preprocessed_uint8)
             print(f"Saved temporary image to: {temp_path}")
 
             try:
                 encodings = []
                 models = ["Facenet", "VGG-Face"]
-                
+            
                 for model in models:
                     try:
                         encoding = DeepFace.represent(
                             img_path=temp_path,
                             model_name=model,
-                            enforce_detection=True
+                            enforce_detection=False  # Don't enforce detection since we already detected
                         )
                         if encoding:
                             emb = encoding[0]["embedding"]
@@ -190,16 +203,18 @@ class FaceRecognitionSystem:
                                 "embedding": emb,
                                 "confidence": self._calculate_encoding_confidence(emb)
                             })
+                            print(f"Successfully generated encoding with {model}")
+                            break  # Use first successful model
                     except Exception as model_error:
                         print(f"Model {model} failed: {str(model_error)}")
                         continue
-                
+            
                 if encodings:
-                    best_encoding = max(encodings, key=lambda x: x["confidence"])
-                    
+                    best_encoding = encodings[0]  # Use first successful
+                
                     if student_id:
                         self._add_multiple_encoding(student_id, best_encoding["embedding"], quality_score)
-                    
+                
                     return {
                         "success": True,
                         "encoding": best_encoding["embedding"],
@@ -214,7 +229,7 @@ class FaceRecognitionSystem:
                         "message": "All models failed to generate encoding",
                         "encoding": None
                     }
-                
+            
             except Exception as deep_face_error:
                 print(f"DeepFace error: {str(deep_face_error)}")
                 return {
