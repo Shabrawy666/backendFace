@@ -265,3 +265,8 @@ WHERE teacher.teacher_id = %(teacher_id_1)s
 2025-06-11 08:17:26,362 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 2025-06-11 08:17:26,362 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 08:44:44,981 - INFO - DeepFace library loaded successfully
+2025-06-11 08:44:45,012 - INFO - ML Service initialized successfully
+2025-06-11 08:44:45,109 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 08:44:45,109 - INFO - [33mPress CTRL+C to quit[0m
