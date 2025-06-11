@@ -65,6 +65,15 @@ def login_student():
             expires_delta=timedelta(hours=1)
         )
 
+        # Get registered courses
+        registered_courses = []
+        for course in student.courses:
+            registered_courses.append({
+                "course_id": course.course_id,
+                "course_name": course.course_name,
+                "course_code": getattr(course, 'course_code', '')
+            })
+
         # Check if face encoding exists
         if student.face_encoding:
             # Face already registered, proceed with normal login
@@ -382,4 +391,54 @@ def check_registration():
             "encoding_length": len(student.face_encoding) if student.face_encoding else 0
         }), 200
     except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@student_bp.route('/courses', methods=['GET'])
+@jwt_required()
+def get_registered_courses():
+    """Get all courses registered by the current student"""
+    try:
+        student_id = get_jwt_identity()
+        student = Student.query.get(student_id)
+        
+        if not student:
+            return jsonify({"error": "Student not found"}), 404
+
+        registered_courses = []
+        for course in student.courses:
+            # Count attendance for this course
+            course_attendance = Attendancelog.query.filter_by(
+                student_id=student_id, 
+                course_id=course.course_id
+            ).count()
+            
+            # Get latest attendance for this course
+            latest_attendance = Attendancelog.query.filter_by(
+                student_id=student_id, 
+                course_id=course.course_id
+            ).order_by(Attendancelog.date.desc(), Attendancelog.time.desc()).first()
+            
+            registered_courses.append({
+                "course_id": course.course_id,
+                "course_name": course.course_name,
+                "course_code": getattr(course, 'course_code', ''),
+                "description": getattr(course, 'description', ''),
+                "instructor": getattr(course, 'instructor', ''),
+                "attendance_count": course_attendance,
+                "last_attendance": {
+                    "date": latest_attendance.date.strftime("%Y-%m-%d") if latest_attendance else None,
+                    "time": latest_attendance.time.strftime("%H:%M:%S") if latest_attendance else None,
+                    "status": latest_attendance.status if latest_attendance else None
+                } if latest_attendance else None
+            })
+
+        return jsonify({
+            "message": "Registered courses retrieved successfully",
+            "student_id": student_id,
+            "registered_courses": registered_courses,
+            "total_courses": len(registered_courses)
+        }), 200
+
+    except Exception as e:
+        logger.error(f"Courses retrieval error: {str(e)}")
         return jsonify({"error": str(e)}), 500
