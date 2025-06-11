@@ -1,0 +1,338 @@
+2025-06-11 20:29:58,739 - root - INFO - DeepFace library loaded successfully
+2025-06-11 20:29:58,774 - root - INFO - ML Service initialized successfully
+2025-06-11 20:29:58,864 - app - ERROR - ML service initialization failed: name 'ml_service' is not defined
+2025-06-11 20:29:58,891 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 20:29:58,892 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 20:31:49,262 - root - INFO - DeepFace library loaded successfully
+2025-06-11 20:31:49,294 - root - INFO - ML Service initialized successfully
+2025-06-11 20:31:49,294 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 20:31:49,343 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 20:31:49,344 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 20:32:07,853 - routes.student - INFO - Received image file: WIN_20250611_06_34_38_Pro.jpg
+2025-06-11 20:32:07,889 - routes.student - INFO - Converted image shape: (1080, 1920, 3)
+2025-06-11 20:32:07,890 - routes.student - ERROR - Face registration error: ImagePreprocessor.preprocess_image() missing 1 required positional argument: 'image'
+2025-06-11 20:32:07,892 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 20:32:07] "[35m[1mPOST /api/student/register-face HTTP/1.1[0m" 500 -
+2025-06-11 20:33:45,746 - root - INFO - DeepFace library loaded successfully
+2025-06-11 20:33:45,774 - root - INFO - ML Service initialized successfully
+2025-06-11 20:33:45,775 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 20:33:45,835 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 20:33:45,835 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 20:33:49,565 - routes.student - INFO - Image loaded successfully. Shape: (1080, 1920, 3)
+2025-06-11 20:33:49,566 - routes.student - ERROR - Image processing error: ImagePreprocessor.preprocess_image() missing 1 required positional argument: 'image'
+2025-06-11 20:33:49,567 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 20:33:49] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 20:35:54,282 - root - INFO - DeepFace library loaded successfully
+2025-06-11 20:35:54,372 - root - INFO - ML Service initialized successfully
+2025-06-11 20:35:54,373 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 20:35:54,424 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 20:35:54,424 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 20:35:58,418 - routes.student - INFO - Image loaded successfully. Shape: (1080, 1920, 3)
+2025-06-11 20:35:58,418 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 20:35:58,423 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 20:35:58,426 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 20:35:58,624 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 20:35:58,624 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 20:35:59,013 - core.models.image_processor - INFO - Detected 3 faces
+2025-06-11 20:35:59,013 - core.models.image_processor - INFO - Extracted face ROI: (313, 313, 3)
+2025-06-11 20:35:59,017 - core.models.image_processor - INFO - Face quality metrics - Brightness: 118.45319437781339, Contrast: 59.42239745434027, Sharpness: 2563.047279783166
+2025-06-11 20:35:59,017 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 20:35:59,336 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 20:35:59] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 20:40:22,198 - root - INFO - DeepFace library loaded successfully
+2025-06-11 20:40:22,290 - root - INFO - ML Service initialized successfully
+2025-06-11 20:40:22,290 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 20:40:22,340 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 20:40:22,341 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 20:40:26,689 - routes.student - INFO - Image loaded successfully. Shape: (1080, 1920, 3)
+2025-06-11 20:40:26,690 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 20:40:26,696 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 20:40:26,697 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 20:40:26,974 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 20:40:26,974 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 20:40:27,411 - core.models.image_processor - INFO - Detected 3 faces
+2025-06-11 20:40:27,411 - core.models.image_processor - INFO - Extracted face ROI: (313, 313, 3)
+2025-06-11 20:40:27,415 - core.models.image_processor - INFO - Face quality metrics - Brightness: 118.45319437781339, Contrast: 59.42239745434027, Sharpness: 2563.047279783166
+2025-06-11 20:40:27,415 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 20:40:27,937 - core.models.image_processor - INFO - Input image shape: (224, 224, 3), dtype: float32
+2025-06-11 20:40:27,938 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 20:40:27,943 - core.models.image_processor - ERROR - Enhancement error: OpenCV(4.10.0) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\clahe.cpp:353: error: (-215:Assertion failed) _src.type() == CV_8UC1 || _src.type() == CV_16UC1 in function '`anonymous-namespace'::CLAHE_Impl::apply'
+
+2025-06-11 20:40:27,943 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 20:40:27,945 - core.models.image_processor - ERROR - Preprocessing error: OpenCV(4.10.0) D:\a\opencv-python\opencv-python\opencv\modules\objdetect\src\cascadedetect.cpp:1389: error: (-215:Assertion failed) scaleFactor > 1 && _image.depth() == CV_8U in function 'cv::CascadeClassifierImpl::detectMultiScale'
+
+2025-06-11 20:40:27,947 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 20:40:27] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 20:46:01,647 - root - INFO - DeepFace library loaded successfully
+2025-06-11 20:46:01,735 - root - INFO - ML Service initialized successfully
+2025-06-11 20:46:01,736 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 20:46:01,789 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 20:46:01,791 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 20:46:13,931 - routes.student - INFO - Image loaded successfully. Shape: (1080, 1920, 3)
+2025-06-11 20:46:13,932 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 20:46:13,938 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 20:46:13,940 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 20:46:14,196 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 20:46:14,196 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 20:46:14,565 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 20:46:14,565 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 20:46:14,566 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 20:46:14,567 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 20:46:14,910 - core.models.image_processor - INFO - Input image shape: (224, 224, 3), dtype: float32
+2025-06-11 20:46:14,911 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 20:46:14,914 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 20:46:14,914 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 20:46:14,938 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 20:46:14,939 - core.models.image_processor - INFO - Extracted face ROI: (224, 224, 3)
+2025-06-11 20:46:14,941 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.1317761479592, Contrast: 62.8964899258759, Sharpness: 3500.9080951469036
+2025-06-11 20:46:14,942 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 20:46:27,171 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 20:46:27] "POST /api/student/register-face HTTP/1.1" 200 -
+2025-06-11 20:48:15,920 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 20:48:15] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 20:48:21,710 - routes.student - INFO - Image loaded successfully. Shape: (1080, 1920, 3)
+2025-06-11 20:48:21,711 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 20:48:21,715 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 20:48:21,716 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 20:48:21,722 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 20:48:21,722 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 20:48:21,789 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 20:48:21,789 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 20:48:21,793 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 20:48:21,794 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 20:48:22,591 - core.models.image_processor - INFO - Input image shape: (224, 224, 3), dtype: float32
+2025-06-11 20:48:22,592 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 20:48:22,594 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 20:48:22,595 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 20:48:22,618 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 20:48:22,619 - core.models.image_processor - INFO - Extracted face ROI: (224, 224, 3)
+2025-06-11 20:48:22,621 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.1317761479592, Contrast: 62.8964899258759, Sharpness: 3500.9080951469036
+2025-06-11 20:48:22,622 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 20:48:24,182 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 20:48:24] "POST /api/student/register-face HTTP/1.1" 200 -
+2025-06-11 21:00:44,541 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:00:44,638 - root - INFO - ML Service initialized successfully
+2025-06-11 21:00:44,640 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:00:44,704 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:00:44,706 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:01:05,442 - routes.attendance - INFO - Starting attendance marking process
+2025-06-11 21:01:05,459 - routes.attendance - INFO - Processing uploaded image
+2025-06-11 21:01:05,508 - routes.attendance - INFO - Image processed successfully. Shape: (1080, 1920, 3)
+2025-06-11 21:01:05,509 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 21:01:05,516 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:01:05,518 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 21:01:05,766 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:01:05,767 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:01:06,116 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:01:06,116 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 21:01:06,119 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 21:01:06,119 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:01:06,120 - routes.attendance - INFO - Performing liveness check
+2025-06-11 21:01:06,560 - routes.attendance - INFO - Starting face recognition
+2025-06-11 21:01:09,132 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:01:09] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 401 -
+2025-06-11 21:03:42,415 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:03:42,505 - root - INFO - ML Service initialized successfully
+2025-06-11 21:03:42,506 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:03:42,569 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:03:42,570 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:03:50,451 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:03:50] "[31m[1mPOST /api/student/check-registration HTTP/1.1[0m" 405 -
+2025-06-11 21:03:58,548 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:03:58] "GET /api/student/check-registration HTTP/1.1" 200 -
+2025-06-11 21:05:35,468 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:05:35,560 - root - INFO - ML Service initialized successfully
+2025-06-11 21:05:35,561 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:05:35,612 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:05:35,612 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:05:57,267 - routes.ml - INFO - Testing verification for student 20221442220
+2025-06-11 21:05:57,269 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 21:05:57,274 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:05:57,276 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 21:05:57,547 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:05:57,547 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:05:57,888 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:05:57,888 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 21:05:57,890 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 21:05:57,891 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:05:59,751 - routes.ml - ERROR - Verification test error: 'FaceRecognitionSystem' object has no attribute 'threshold'
+2025-06-11 21:05:59,818 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:05:59] "[35m[1mPOST /api/ml/test-verify-student HTTP/1.1[0m" 500 -
+2025-06-11 21:09:41,419 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:09:41,515 - root - INFO - ML Service initialized successfully
+2025-06-11 21:09:41,516 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:09:41,570 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:09:41,570 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:09:58,178 - routes.ml - INFO - Testing verification for student 20221442220
+2025-06-11 21:09:59,567 - routes.ml - ERROR - Verification process error: 'MLService' object has no attribute 'verify_student'
+2025-06-11 21:09:59,637 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:09:59] "[35m[1mPOST /api/ml/test-verify-student HTTP/1.1[0m" 500 -
+2025-06-11 21:12:05,198 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:12:05,288 - root - INFO - ML Service initialized successfully
+2025-06-11 21:12:05,288 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:12:05,338 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:12:05,338 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:12:09,043 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:12:09] "[31m[1mPOST /api/ml/test-verify-student HTTP/1.1[0m" 401 -
+2025-06-11 21:12:34,975 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:12:34] "POST /api/student/login HTTP/1.1" 200 -
+2025-06-11 21:12:51,628 - routes.ml - INFO - Testing verification for student 20221442220
+2025-06-11 21:12:51,836 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 21:12:51,838 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:12:51,839 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 21:12:52,034 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:12:52,036 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:12:52,373 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:12:52,373 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 21:12:52,376 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 21:12:52,376 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:12:52,848 - routes.ml - ERROR - Verification process error: 'RecognitionResult' object has no attribute 'get'
+2025-06-11 21:12:52,918 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:12:52] "[35m[1mPOST /api/ml/test-verify-student HTTP/1.1[0m" 500 -
+2025-06-11 21:15:30,870 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:15:30,968 - root - INFO - ML Service initialized successfully
+2025-06-11 21:15:30,968 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:15:31,024 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:15:31,024 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:15:34,356 - routes.ml - INFO - Testing verification for student 20221442220
+2025-06-11 21:15:35,864 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 21:15:35,869 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:15:35,870 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 21:15:36,090 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:15:36,090 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:15:36,409 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:15:36,410 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 21:15:36,411 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 21:15:36,412 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:15:36,797 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:15:36] "POST /api/ml/test-verify-student HTTP/1.1" 200 -
+2025-06-11 21:18:06,161 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:18:06,240 - root - INFO - ML Service initialized successfully
+2025-06-11 21:18:06,241 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:18:06,292 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:18:06,293 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:18:17,187 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:18:17] "[31m[1mPOST /api/ml/check-storage HTTP/1.1[0m" 405 -
+2025-06-11 21:18:22,945 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:18:22] "GET /api/ml/check-storage HTTP/1.1" 200 -
+2025-06-11 21:26:09,660 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:26:09,749 - root - INFO - ML Service initialized successfully
+2025-06-11 21:26:09,750 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:26:09,789 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:26:09,789 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:26:39,438 - routes.ml - INFO - Testing verification for student 20221442220
+2025-06-11 21:26:40,828 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 21:26:40,849 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:26:40,852 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 21:26:41,064 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:26:41,065 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:26:41,563 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:26:41,564 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 21:26:41,568 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 21:26:41,569 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:26:42,063 - core.models.image_processor - INFO - Input image shape: (224, 224, 3), dtype: float32
+2025-06-11 21:26:42,064 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:26:42,067 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:26:42,068 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:26:42,089 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:26:42,090 - core.models.image_processor - INFO - Extracted face ROI: (224, 224, 3)
+2025-06-11 21:26:42,092 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.1317761479592, Contrast: 62.8964899258759, Sharpness: 3500.9080951469036
+2025-06-11 21:26:42,094 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:26:50,078 - routes.ml - ERROR - Verification process error: Object of type bool is not JSON serializable
+2025-06-11 21:26:50,152 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:26:50] "[35m[1mPOST /api/ml/test-verify-student HTTP/1.1[0m" 500 -
+2025-06-11 21:29:08,141 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:29:08,229 - root - INFO - ML Service initialized successfully
+2025-06-11 21:29:08,230 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:29:08,284 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:29:08,285 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:29:11,538 - routes.ml - INFO - Testing verification for student 20221442220
+2025-06-11 21:29:13,316 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 21:29:13,321 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:29:13,324 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 21:29:13,567 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:29:13,568 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:29:13,901 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:29:13,902 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 21:29:13,904 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 21:29:13,905 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:29:14,355 - core.models.image_processor - INFO - Input image shape: (224, 224, 3), dtype: float32
+2025-06-11 21:29:14,355 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:29:14,358 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:29:14,359 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:29:14,374 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:29:14,375 - core.models.image_processor - INFO - Extracted face ROI: (224, 224, 3)
+2025-06-11 21:29:14,377 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.1317761479592, Contrast: 62.8964899258759, Sharpness: 3500.9080951469036
+2025-06-11 21:29:14,378 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:29:22,387 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:29:22] "POST /api/ml/test-verify-student HTTP/1.1" 200 -
+2025-06-11 21:31:22,637 - routes.attendance - INFO - Starting attendance marking process
+2025-06-11 21:31:22,642 - routes.attendance - INFO - Processing uploaded image
+2025-06-11 21:31:22,689 - routes.attendance - INFO - Image processed successfully. Shape: (1080, 1920, 3)
+2025-06-11 21:31:22,691 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 21:31:22,694 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:31:22,696 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 21:31:22,701 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:31:22,702 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:31:22,765 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:31:22,766 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 21:31:22,768 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 21:31:22,769 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:31:22,770 - routes.attendance - INFO - Performing liveness check
+2025-06-11 21:31:23,266 - routes.attendance - INFO - Starting face recognition
+2025-06-11 21:31:23,555 - routes.attendance - ERROR - Attendance marking error: 'InstrumentedList' object has no attribute 'all'
+2025-06-11 21:31:23,622 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:31:23] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-06-11 21:32:59,779 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:32:59,873 - root - INFO - ML Service initialized successfully
+2025-06-11 21:32:59,874 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:32:59,925 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:32:59,925 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:33:04,069 - routes.attendance - INFO - Starting attendance marking process
+2025-06-11 21:33:04,075 - routes.attendance - INFO - Processing uploaded image
+2025-06-11 21:33:04,119 - routes.attendance - INFO - Image processed successfully. Shape: (1080, 1920, 3)
+2025-06-11 21:33:04,120 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 21:33:04,127 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:33:04,128 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 21:33:04,397 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:33:04,397 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:33:04,736 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:33:04,737 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 21:33:04,739 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 21:33:04,741 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:33:06,163 - routes.attendance - ERROR - Attendance marking error: 'InstrumentedList' object has no attribute 'property'
+2025-06-11 21:33:06,231 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:33:06] "[35m[1mPOST /api/attendance/mark HTTP/1.1[0m" 500 -
+2025-06-11 21:34:19,234 - root - INFO - DeepFace library loaded successfully
+2025-06-11 21:34:19,339 - root - INFO - ML Service initialized successfully
+2025-06-11 21:34:19,340 - core.utils.logger - INFO - ML service imported successfully
+2025-06-11 21:34:19,393 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 21:34:19,398 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 21:34:22,931 - routes.attendance - INFO - Starting attendance marking process
+2025-06-11 21:34:22,938 - routes.attendance - INFO - Processing uploaded image
+2025-06-11 21:34:22,982 - routes.attendance - INFO - Image processed successfully. Shape: (1080, 1920, 3)
+2025-06-11 21:34:22,983 - core.models.image_processor - INFO - Input image shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 21:34:22,990 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:34:22,991 - core.models.image_processor - INFO - Resized image to: (480, 640, 3)
+2025-06-11 21:34:23,231 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:34:23,231 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:34:23,533 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:34:23,533 - core.models.image_processor - INFO - Extracted face ROI: (266, 266, 3)
+2025-06-11 21:34:23,534 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.530880773362, Contrast: 64.0554197931121, Sharpness: 2821.4649213831635
+2025-06-11 21:34:23,534 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:34:24,860 - routes.attendance - INFO - Checking 2 enrolled students
+2025-06-11 21:34:24,861 - routes.attendance - INFO - Checking student 20221442260
+2025-06-11 21:34:25,430 - core.models.image_processor - INFO - Input image shape: (224, 224, 3), dtype: float32
+2025-06-11 21:34:25,432 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:34:25,435 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:34:25,435 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:34:25,454 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:34:25,454 - core.models.image_processor - INFO - Extracted face ROI: (224, 224, 3)
+2025-06-11 21:34:25,456 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.1317761479592, Contrast: 62.8964899258759, Sharpness: 3500.9080951469036
+2025-06-11 21:34:25,458 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:34:33,282 - routes.attendance - INFO - Checking student 20221442220
+2025-06-11 21:34:34,080 - core.models.image_processor - INFO - Input image shape: (224, 224, 3), dtype: float32
+2025-06-11 21:34:34,081 - core.models.image_processor - INFO - Converted image to RGB
+2025-06-11 21:34:34,084 - core.models.image_processor - INFO - Image enhancement completed
+2025-06-11 21:34:34,085 - core.models.image_processor - INFO - Enhanced image brightness and contrast
+2025-06-11 21:34:34,106 - core.models.image_processor - INFO - Detected 1 faces
+2025-06-11 21:34:34,107 - core.models.image_processor - INFO - Extracted face ROI: (224, 224, 3)
+2025-06-11 21:34:34,108 - core.models.image_processor - INFO - Face quality metrics - Brightness: 147.1317761479592, Contrast: 62.8964899258759, Sharpness: 3500.9080951469036
+2025-06-11 21:34:34,110 - core.models.image_processor - INFO - Preprocessing completed successfully
+2025-06-11 21:34:34,772 - routes.attendance - INFO - New best match: Student 20221442220 with confidence 0.9999999999991102
+2025-06-11 21:34:35,412 - werkzeug - INFO - 127.0.0.1 - - [11/Jun/2025 21:34:35] "POST /api/attendance/mark HTTP/1.1" 200 -

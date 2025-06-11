@@ -9,31 +9,28 @@ class RecognitionResult:
     def __init__(
         self,
         success: bool,
-        error_message: Optional[str] = None,
-        confidence_score: Optional[float] = None,
-        verification_time: Optional[float] = None,
-        verification_type: Optional[str] = None,
-        quality_details: Optional[Dict] = None,
-        data: Optional[Dict] = None
+        confidence_score: float = None,
+        verification_time: float = None,
+        verification_type: str = None,
+        error_message: str = None,
+        data: dict = None
     ):
         self.success = success
-        self.error_message = error_message
         self.confidence_score = confidence_score
         self.verification_time = verification_time
         self.verification_type = verification_type
-        self.quality_details = quality_details or {}
+        self.error_message = error_message
         self.data = data or {}
 
-    def to_dict(self) -> Dict:
-        """Convert result to dictionary"""
+    def to_dict(self) -> dict:
+        """Convert RecognitionResult to dictionary"""
         return {
-            "success": self.success,
-            "error_message": self.error_message,
-            "confidence_score": self.confidence_score,
-            "verification_time": self.verification_time,
-            "verification_type": self.verification_type,
-            "quality_details": self.quality_details,
-            "data": self.data
+            "success": bool(self.success),  # Ensure it's a Python bool
+            "confidence_score": float(self.confidence_score) if self.confidence_score is not None else None,
+            "verification_time": float(self.verification_time) if self.verification_time is not None else None,
+            "verification_type": str(self.verification_type) if self.verification_type else None,
+            "error_message": str(self.error_message) if self.error_message else None,
+            "data": dict(self.data) if self.data else {}
         }
 
 class UserRole(Enum):

@@ -1,4 +1,3 @@
-# ml_service.py
 import os
 import time
 import logging
@@ -6,6 +5,15 @@ import numpy as np
 from typing import Dict, Optional, List, Tuple
 from datetime import datetime
 from models import db, Student
+from core.models.image_processor import ImagePreprocessor
+from core.models.liveness_detection import LivenessDetector
+from core.models.face_recognition import FaceRecognitionSystem
+from core.utils.config import Config
+from core.utils.encoding_cache import EncodingCache
+from core.utils.exceptions import SystemInitializationError
+
+# Get logger
+logger = logging.getLogger(__name__)
 
 # Import components from core/ml
 from core.models.image_processor import ImagePreprocessor

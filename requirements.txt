@@ -28,3 +28,4 @@ greenlet
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.0.0+cpu
 torchvision==0.15.0+cpu
+psutil==5.8.0  # For system resource monitoring

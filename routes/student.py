@@ -104,119 +104,109 @@ def login_student():
 @student_bp.route('/register-face', methods=['POST'])
 @jwt_required()
 def register_face():
+    """Register face for current student"""
     try:
         student_id = get_jwt_identity()
-        data = request.get_json()
-        face_image = data.get('face_image')
         
-        if not face_image:
-            return jsonify({"error": "Face image is required"}), 400
+        # Check if image file is present
+        if 'image' not in request.files:
+            return jsonify({
+                "error": "No image file provided",
+                "details": "Please upload an image file",
+                "retry_available": True
+            }), 400
 
-        student = Student.query.get(student_id)
-        if not student:
-            logger.error(f"Student not found: {student_id}")
-            return jsonify({"error": "Student not found"}), 404
+        file = request.files['image']
+        if file.filename == '':
+            return jsonify({
+                "error": "No selected file",
+                "details": "Please select a file to upload",
+                "retry_available": True
+            }), 400
 
+        # Read and convert image file to numpy array
         try:
-            # Convert and validate image
-            logger.info("Converting base64 to image...")
-            image = base64_to_image(face_image)
+            filestr = file.read()
+            npimg = np.frombuffer(filestr, np.uint8)
+            image = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
             
-            # Convert to BGR for OpenCV
-            logger.info("Converting to BGR format...")
-            if len(image.shape) == 3 and image.shape[2] == 3:
-                image_bgr = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-            else:
+            if image is None:
                 return jsonify({
-                    "error": "Invalid image format",
-                    "details": "Image must be in RGB format",
+                    "error": "Invalid image file",
+                    "details": "Could not process the uploaded image",
                     "retry_available": True
                 }), 400
+
+            logger.info(f"Image loaded successfully. Shape: {image.shape}")
+
+            # Process image using ml_service
+            preprocessed = ml_service.preprocessor.preprocess_image(image)  # Fixed this line
             
-            # Preprocess image
-            logger.info("Starting image preprocessing...")
-            preprocessed = ml_service.preprocess_image(image_bgr)
             if preprocessed is None:
-                logger.error("Preprocessing failed - no face detected or poor quality")
                 return jsonify({
-                    "error": "Image quality check failed",
+                    "error": "Face registration failed",
                     "details": "Could not detect a clear face in the image",
                     "requirements": {
-                        "lighting": "Ensure even lighting",
-                        "clarity": "Image must be clear and sharp",
-                        "position": "Face must be centered",
-                        "distance": "Keep appropriate distance from camera"
+                        "face": "Ensure face is clearly visible",
+                        "lighting": "Good lighting conditions required",
+                        "position": "Face should be centered and not tilted"
                     },
                     "retry_available": True
                 }), 400
 
             # Check liveness
- #         if not liveness_result.get('live', False):
- #               logger.error(f"Liveness check failed: {liveness_result.get('explanation')}")
-  #              return jsonify({
-   #                "details": liveness_result.get('explanation', 'Could not verify live face'),
-    #                "requirements": {
-     #                   "movement": "Show natural movement",
-      #                  "eyes": "Blink naturally",
-       #                 "lighting": "Maintain good lighting"
-        ##           "retry_available": True
-          #      }), 400
-
-            # Get face encoding
-            logger.info("Getting face encoding...")
-            encoding_result = ml_service.get_face_encoding(preprocessed)
-            if not encoding_result.get('success', False):
-                logger.error(f"Face encoding failed: {encoding_result.get('message')}")
+            liveness_result = ml_service.liveness.analyze(preprocessed)
+            
+            if not liveness_result.get('live', False):
                 return jsonify({
-                    "error": "Face registration failed",
-                    "details": encoding_result.get('message', 'Could not generate face encoding'),
+                    "error": "Liveness check failed",
+                    "details": liveness_result.get('explanation', 'Liveness check failed'),
                     "requirements": {
-                        "face": "Ensure face is clearly visible",
-                        "position": "Face should be centered and not tilted",
-                        "lighting": "Good lighting conditions required"
+                        "movement": "Show natural movement",
+                        "lighting": "Ensure good lighting",
+                        "position": "Face the camera directly"
                     },
                     "retry_available": True
                 }), 400
 
-            # Store in database
-            logger.info("Storing face encoding in database...")
+            # Get face encoding
+            encoding_result = ml_service.recognizer.get_face_encoding_for_storage(preprocessed)
+            
+            if not encoding_result.get('success', False):
+                return jsonify({
+                    "error": "Face encoding failed",
+                    "details": encoding_result.get('message', 'Failed to generate face encoding'),
+                    "retry_available": True
+                }), 400
+
+            # Save to database
+            student = Student.query.get(student_id)
+            if not student:
+                return jsonify({"error": "Student not found"}), 404
+
             student.face_encoding = encoding_result.get('encoding')
             db.session.commit()
-            logger.info(f"Face encoding stored successfully for student {student_id}")
-
-            # Get performance metrics
-            metrics = ml_service.get_performance_metrics()
 
             return jsonify({
-                "message": "Face registration successful",
-                "student_id": student_id,
-                "registration_metrics": {
-                    "image_quality": "good",
-                    "liveness_score": liveness_result.get('score', 1.0),
-                    "liveness_details": liveness_result.get('explanation', ''),
-                    "encoding_quality": encoding_result.get('quality_metrics', {}),
-                    "system_metrics": metrics
+                "success": True,
+                "message": "Face registered successfully",
+                "details": {
+                    "liveness_score": liveness_result.get('score', 0),
+                    "quality_score": encoding_result.get('quality_score', 0)
                 }
             }), 200
 
-        except ValueError as ve:
-            logger.error(f"Value error in face processing: {str(ve)}")
+        except Exception as img_error:
+            logger.error(f"Image processing error: {str(img_error)}")
             return jsonify({
-                "error": "Invalid image format",
-                "details": str(ve),
-                "retry_available": True
-            }), 400
-        except Exception as e:
-            logger.error(f"Face processing error: {str(e)}")
-            return jsonify({
-                "error": "Face processing error",
-                "details": str(e),
+                "error": "Image processing failed",
+                "details": str(img_error),
                 "retry_available": True
             }), 400
 
     except Exception as e:
-        db.session.rollback()
         logger.error(f"Face registration error: {str(e)}")
+        db.session.rollback()
         return jsonify({
             "error": "Face processing error",
             "details": str(e),
@@ -374,4 +364,21 @@ def check_face_quality():
 
     except Exception as e:
         logger.error(f"Face quality check error: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+    
+@student_bp.route('/check-registration', methods=['GET'])
+@jwt_required()
+def check_registration():
+    try:
+        student_id = get_jwt_identity()
+        student = Student.query.get(student_id)
+        
+        if not student:
+            return jsonify({"error": "Student not found"}), 404
+            
+        return jsonify({
+            "has_face_encoding": student.face_encoding is not None,
+            "encoding_length": len(student.face_encoding) if student.face_encoding else 0
+        }), 200
+    except Exception as e:
         return jsonify({"error": str(e)}), 500

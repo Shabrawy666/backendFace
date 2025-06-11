@@ -8,6 +8,7 @@ import io
 import numpy as np
 from PIL import Image
 import logging
+import cv2
 
 # Configure logging
 logging.basicConfig(
@@ -32,127 +33,142 @@ def base64_to_image(base64_str):
 @attendance_bp.route('/mark', methods=['POST'])
 def mark_attendance():
     try:
-        data = request.get_json()
-        course_id = data.get('course_id')
-        image_base64 = data.get('image_base64')
+        # Log the start of attendance marking
+        logger.info("Starting attendance marking process")
 
-        # Validate input
-        if not course_id or not image_base64:
+        # Validate course_id
+        course_id = request.form.get('course_id')
+        if not course_id:
             return jsonify({
-                "error": "course_id and image_base64 are both required."
+                "error": "No course_id provided",
+                "details": "Course ID is required"
             }), 400
 
+        # Check if image file is present
+        if 'image' not in request.files:
+            return jsonify({
+                "error": "No image file provided",
+                "details": "Please provide a face image"
+            }), 400
+
+        file = request.files['image']
+        if file.filename == '':
+            return jsonify({
+                "error": "No selected file",
+                "details": "Please select an image file"
+            }), 400
+
+        # Read and convert image
+        logger.info("Processing uploaded image")
+        filestr = file.read()
+        npimg = np.frombuffer(filestr, np.uint8)
+        image = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+
+        if image is None:
+            return jsonify({
+                "error": "Invalid image file",
+                "details": "Could not process the image file"
+            }), 400
+
+        logger.info(f"Image processed successfully. Shape: {image.shape}")
+
+        # Process image
+        preprocessed = ml_service.preprocessor.preprocess_image(image)
+        if preprocessed is None:
+            return jsonify({
+                "error": "Image preprocessing failed",
+                "details": "Could not detect a clear face in the image",
+                "requirements": {
+                    "face": "Ensure face is clearly visible",
+                    "lighting": "Good lighting conditions required",
+                    "position": "Face must be centered"
+                }
+            }), 400
+
+        # Get course and check if it exists
         course = Course.query.get(course_id)
         if not course:
-            return jsonify({"error": "Course not found."}), 404
+            return jsonify({"error": "Course not found"}), 404
 
-        try:
-            # Convert and preprocess image
-            image = base64_to_image(image_base64)
+        # Get enrolled students directly from the course
+        enrolled_students = list(course.students)
+        logger.info(f"Checking {len(enrolled_students)} enrolled students")
+
+        # Find matching student
+        matched_student = None
+        highest_confidence = 0
+        verification_time = 0
+
+        for student in enrolled_students:
+            if not student.face_encoding:
+                logger.warning(f"Student {student.student_id} has no face encoding")
+                continue
             
-            # Check image quality
-            preprocessed = ml_service.preprocess_image(image)
-            if preprocessed is None:
-                return jsonify({
-                    "error": "Image quality check failed",
-                    "details": "Face image does not meet quality requirements",
-                    "requirements": {
-                        "lighting": "Ensure even lighting",
-                        "clarity": "Image must be clear and sharp",
-                        "position": "Face must be centered"
-                    }
-                }), 400
-
-            # Check face quality
-            quality_check = ml_service.check_face_quality(preprocessed)
-            if not quality_check:
-                return jsonify({
-                    "error": "Face quality check failed",
-                    "details": "Face image does not meet quality standards",
-                    "requirements": {
-                        "clarity": "Ensure image is clear",
-                        "brightness": "Check lighting conditions",
-                        "position": "Face must be clearly visible"
-                    }
-                }), 400
-
-            # Perform liveness detection
-            liveness_result = ml_service.check_liveness(preprocessed)
-            if not liveness_result.get('live', False):
-                return jsonify({
-                    "error": "Liveness check failed",
-                    "details": liveness_result.get('explanation', 'Liveness check failed'),
-                    "requirements": {
-                        "movement": "Show natural movement",
-                        "eyes": "Blink naturally",
-                        "lighting": "Maintain good lighting"
-                    }
-                }), 400
-
-            # Loop through all students and find a face match
-            matched_student = None
-            highest_confidence = 0
-            verification_time = 0
-
-            for student in Student.query.all():
-                if not student.face_encoding:
-                    continue
-                
-                # Verify student face using the correct method
-                result = ml_service.verify_student_identity(student.student_id, preprocessed)
-                
-                if result.get('success', False) and result.get('confidence_score', 0) > highest_confidence:
-                    matched_student = student
-                    highest_confidence = result.get('confidence_score', 0)
-                    verification_time = result.get('verification_time', 0)
-
-            if not matched_student:
-                return jsonify({
-                    "error": "Face verification failed",
-                    "details": "Face does not match any registered student",
-                    "suggestions": [
-                        "Ensure proper lighting",
-                        "Face the camera directly",
-                        "Make sure you're registered in the system"
-                    ]
-                }), 401
-
-            # Rest of your code for course registration check and attendance marking...
-            if not matched_student.courses.filter_by(course_id=course_id).first():
-                return jsonify({
-                    "error": "Student is not registered in this course",
-                    "details": "Please register for the course first"
-                }), 403
-
-            # Check for active session
-            session = AttendanceSession.query.filter_by(
-                course_id=course_id
-            ).order_by(AttendanceSession.session_number.desc()).first()
+            logger.info(f"Checking student {student.student_id}")
+            result = ml_service.verify_student_identity(student.student_id, preprocessed)
             
-            if not session:
-                return jsonify({
-                    "error": "No active session for this course",
-                    "details": "Please wait for teacher to start the session"
-                }), 404
-
-            # Check for existing attendance
-            existing_log = Attendancelog.query.filter_by(
-                student_id=matched_student.student_id,
-                session_id=session.id
-            ).first()
+            if isinstance(result, dict):
+                success = result.get('success', False)
+                confidence = result.get('confidence_score', 0)
+                ver_time = result.get('verification_time', 0)
+            else:
+                # If result is RecognitionResult object
+                success = result.success
+                confidence = result.confidence_score if hasattr(result, 'confidence_score') else 0
+                ver_time = result.verification_time if hasattr(result, 'verification_time') else 0
             
-            if existing_log:
-                return jsonify({
-                    "message": "Attendance already marked",
+            if success and confidence > highest_confidence:
+                matched_student = student
+                highest_confidence = confidence
+                verification_time = ver_time
+                logger.info(f"New best match: Student {student.student_id} with confidence {highest_confidence}")
+
+        if not matched_student:
+            return jsonify({
+                "error": "Face verification failed",
+                "details": "No matching student found",
+                "suggestions": [
+                    "Ensure you're registered in the system",
+                    "Try with better lighting",
+                    "Face the camera directly"
+                ]
+            }), 401
+
+        # Check for active session
+        session = AttendanceSession.query.filter_by(
+            course_id=course_id,
+            end_time=None
+        ).order_by(AttendanceSession.start_time.desc()).first()
+
+        if not session:
+            return jsonify({
+                "error": "No active session",
+                "details": "No active attendance session found for this course"
+            }), 404
+
+        # Check for existing attendance
+        existing_log = Attendancelog.query.filter_by(
+            student_id=matched_student.student_id,
+            session_id=session.id
+        ).first()
+
+        if existing_log:
+            return jsonify({
+                "message": "Attendance already marked",
+                "details": {
                     "student_id": matched_student.student_id,
-                    "session_id": session.id,
-                    "marked_time": existing_log.time.strftime("%H:%M:%S")
-                }), 200
+                    "student_name": matched_student.name,
+                    "marked_time": existing_log.time.strftime("%H:%M:%S"),
+                    "verification_score": highest_confidence
+                }
+            }), 200
 
-            # Mark attendance
-            now = datetime.now(pytz.timezone('Africa/Cairo'))
-            attendance_time = now.time().replace(tzinfo=None)
+        # Mark attendance
+        try:
+            now = datetime.now()
             student_ip = request.remote_addr
+            
+            # Determine connection strength
             connection_strength = 'strong' if session.ip_address == student_ip else 'weak'
 
             new_log = Attendancelog(
@@ -161,7 +177,7 @@ def mark_attendance():
                 teacher_id=session.teacher_id,
                 course_id=course_id,
                 date=now.date(),
-                time=attendance_time,
+                time=now.time(),
                 status='present',
                 connection_strength=connection_strength
             )
@@ -169,35 +185,33 @@ def mark_attendance():
             db.session.add(new_log)
             db.session.commit()
 
-            # Get final metrics
-            metrics = ml_service.get_performance_metrics()
-
             return jsonify({
                 "success": True,
                 "message": "Attendance marked successfully",
-                "student_id": matched_student.student_id,
-                "course_id": course_id,
-                "session_id": session.id,
-                "verification_metrics": {
-                    "confidence_score": highest_confidence,
-                    "verification_time": verification_time,
-                    "liveness_score": liveness_result.get('score', 1.0),
-                    "liveness_details": liveness_result.get('explanation', ''),
-                    "connection_type": connection_strength,
-                    "system_metrics": metrics
+                "details": {
+                    "student_id": matched_student.student_id,
+                    "student_name": matched_student.name,
+                    "course_id": course_id,
+                    "session_id": session.id,
+                    "marked_time": now.strftime("%H:%M:%S"),
+                    "verification_metrics": {
+                        "confidence_score": highest_confidence,
+                        "verification_time": verification_time,
+                        "connection_type": connection_strength
+                    }
                 }
             }), 200
 
-        except Exception as e:
-            logger.error(f"Face processing error: {str(e)}")
+        except Exception as db_error:
+            logger.error(f"Database error: {str(db_error)}")
+            db.session.rollback()
             return jsonify({
-                "error": "Face processing error",
-                "details": str(e)
-            }), 400
+                "error": "Database error",
+                "details": "Failed to save attendance record"
+            }), 500
 
     except Exception as e:
         logger.error(f"Attendance marking error: {str(e)}")
-        db.session.rollback()
         return jsonify({
             "error": "Failed to process attendance",
             "details": str(e)

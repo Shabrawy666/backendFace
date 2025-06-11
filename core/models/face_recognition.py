@@ -12,6 +12,7 @@ from core.utils.encoding_cache import EncodingCache
 from core.models.image_processor import ImagePreprocessor
 from core.models.liveness_detection import LivenessDetector
 from data.structures import RecognitionResult
+from models import db, Student, Attendancelog, Course
 
 class FaceRecognitionSystem:
     """Enhanced face recognition system with multiple encodings and improved accuracy."""
@@ -234,6 +235,75 @@ class FaceRecognitionSystem:
                 "encoding": None
             }
 
+    def verify_with_stored_encoding(self, student_id: str, captured_image: np.ndarray, stored_encoding: List[float]) -> RecognitionResult:
+        """Verify using stored database encoding"""
+        try:
+            start_time = time.time()
+            
+            # Preprocess captured image
+            preprocessed = self.image_preprocessor.preprocess_image(captured_image)
+            if preprocessed is None:
+                return RecognitionResult(
+                    success=False,
+                    error_message="Failed to preprocess captured image",
+                    verification_type="preprocessing"
+                )
+
+            # Convert stored encoding to numpy array
+            stored_embedding = np.array(stored_encoding)
+            
+            # Get encoding for captured image
+            temp_path = f"temp_verify_{int(time.time())}.jpg"
+            cv2.imwrite(temp_path, (preprocessed * 255).astype(np.uint8))
+
+            try:
+                live_repr = DeepFace.represent(
+                    img_path=temp_path,
+                    model_name="Facenet",
+                    enforce_detection=False
+                )
+                
+                if not live_repr:
+                    return RecognitionResult(
+                        success=False,
+                        error_message="Failed to generate encoding for captured image",
+                        verification_type="encoding"
+                    )
+
+                captured_embedding = np.array(live_repr[0]["embedding"])
+                similarity = self._calculate_similarity(captured_embedding, stored_embedding)
+                
+                # Get threshold
+                threshold = self._get_dynamic_threshold(student_id)
+                verified = similarity >= threshold
+
+                elapsed = time.time() - start_time
+
+                return RecognitionResult(
+                    success=verified,
+                    confidence_score=similarity,
+                    verification_time=elapsed,
+                    verification_type="face",
+                    data={
+                        "similarity": similarity,
+                        "threshold_used": threshold,
+                        "verification_time": elapsed
+                    }
+                )
+
+            finally:
+                if os.path.exists(temp_path):
+                    os.remove(temp_path)
+
+        except Exception as e:
+            logging.error(f"Error in direct verification: {str(e)}")
+            return RecognitionResult(
+                success=False,
+                error_message=str(e),
+                verification_type="error"
+            )
+
+    # Add it just before your verify_student method
     def verify_student(self, student_id: str, captured_image: np.ndarray) -> RecognitionResult:
         """Enhanced verification with multiple encodings and liveness"""
         start_time = time.time()
@@ -243,6 +313,19 @@ class FaceRecognitionSystem:
             print(f"[Verify] Student ID: {student_id}")
             print(f"[Verify] Image shape: {captured_image.shape}")
 
+            # Get student from database
+            from models import Student
+            student = Student.query.get(student_id)
+            
+            if not student or not student.face_encoding:
+                self.metrics["failures"] += 1
+                return RecognitionResult(
+                    success=False,
+                    error_message="No stored encoding found in database",
+                    verification_type="storage"
+                )
+
+            # Check liveness first
             live_result = self.liveness_detector.analyze(captured_image)
             print(f"[Verify] Liveness result: {live_result}")
             
@@ -255,99 +338,25 @@ class FaceRecognitionSystem:
                     data={"liveness_score": live_result.get("score", 0.0)}
                 )
 
-            stored_repr = self.get_student_encoding(student_id)
-            multiple_encodings = self.multiple_encodings.get(student_id, [])
-            
-            if stored_repr is None and not multiple_encodings:
-                self.metrics["failures"] += 1
-                return RecognitionResult(
-                    success=False,
-                    error_message="No stored profile found",
-                    verification_type="storage"
-                )
+            # Verify using stored encoding
+            result = self.verify_with_stored_encoding(
+                student_id, 
+                captured_image, 
+                student.face_encoding
+            )
 
-            preprocessed = self.image_preprocessor.preprocess_image(captured_image)
-            if preprocessed is None:
-                self.metrics["failures"] += 1
-                return RecognitionResult(
-                    success=False,
-                    error_message="Failed to preprocess image",
-                    verification_type="preprocessing"
-                )
-
-            temp_path = f"temp_verify_{int(time.time())}.jpg"
-            cv2.imwrite(temp_path, (preprocessed * 255).astype(np.uint8))
-
-            try:
-                live_repr = DeepFace.represent(
-                    img_path=temp_path,
-                    model_name="Facenet",
-                    enforce_detection=False
-                )
-            finally:
-                if os.path.exists(temp_path):
-                    os.remove(temp_path)
-
-            if not live_repr:
-                self.metrics["failures"] += 1
-                return RecognitionResult(
-                    success=False,
-                    error_message="Failed to generate encoding",
-                    verification_type="encoding"
-                )
-
-            best_similarity = 0.0
-            best_distance = 1.0
-            captured_embedding = np.array(live_repr[0]["embedding"])
-            
-            if stored_repr:
-                stored_embedding = np.array(stored_repr[0]["embedding"])
-                similarity = self._calculate_similarity(captured_embedding, stored_embedding)
-                best_similarity = max(best_similarity, similarity)
-                best_distance = min(best_distance, 1.0 - similarity)
-            
-            if multiple_encodings:
-                weights = self.encoding_weights.get(student_id, [1.0] * len(multiple_encodings))
-                weighted_similarities = []
-                
-                for encoding, weight in zip(multiple_encodings, weights):
-                    stored_embedding = np.array(encoding)
-                    similarity = self._calculate_similarity(captured_embedding, stored_embedding)
-                    weighted_similarities.append(similarity * weight)
-                
-                if weighted_similarities:
-                    avg_weighted_similarity = np.mean(weighted_similarities)
-                    best_similarity = max(best_similarity, avg_weighted_similarity)
-                    best_distance = min(best_distance, 1.0 - avg_weighted_similarity)
-
-            dynamic_threshold = self._get_dynamic_threshold(student_id)
-            verified = best_distance <= dynamic_threshold
-            
-            self._update_student_threshold(student_id, best_similarity, verified)
-
-            elapsed = time.time() - start_time
-            if verified:
+            # Update metrics
+            if result.success:
                 self.metrics["successes"] += 1
                 prev = self.metrics["successes"] - 1
                 if prev > 0:
-                    self.metrics["avg_time"] = ((self.metrics["avg_time"] * prev) + elapsed) / self.metrics["successes"]
+                    self.metrics["avg_time"] = ((self.metrics["avg_time"] * prev) + result.verification_time) / self.metrics["successes"]
                 else:
-                    self.metrics["avg_time"] = elapsed
+                    self.metrics["avg_time"] = result.verification_time
             else:
                 self.metrics["failures"] += 1
 
-            return RecognitionResult(
-                success=verified,
-                confidence_score=best_similarity,
-                verification_time=elapsed,
-                verification_type="face",
-                data={
-                    "distance": best_distance,
-                    "threshold_used": dynamic_threshold,
-                    "liveness_score": live_result.get("score", 1.0),
-                    "encodings_compared": len(multiple_encodings) + (1 if stored_repr else 0)
-                }
-            )
+            return result
 
         except Exception as e:
             logging.error(f"Verification error: {e}")
@@ -360,8 +369,39 @@ class FaceRecognitionSystem:
 
     def get_student_encoding(self, student_id: str) -> Optional[List]:
         """Get stored face encoding for a student"""
-        path = os.path.join(Config.STORED_IMAGES_DIR, f"{student_id}.jpg")
-        return self.encoding_cache.get_encoding(path) if os.path.exists(path) else None
+        try:
+            # First try to get from database
+            student = Student.query.get(student_id)
+            if student and student.face_encoding:
+                logging.info(f"Found database encoding for student {student_id}")
+                return [{"embedding": student.face_encoding}]
+
+            # If not in database, check file
+            path = os.path.join(Config.STORED_IMAGES_DIR, f"{student_id}.jpg")
+            logging.info(f"Checking encoding at path: {path}")
+            
+            if not os.path.exists(path):
+                logging.warning(f"No stored image found at {path}")
+                
+                # Check multiple encodings
+                if student_id in self.multiple_encodings:
+                    logging.info(f"Found multiple encodings for student {student_id}")
+                    return self.multiple_encodings[student_id]
+                    
+                return None
+                
+            # Try to get encoding from cache
+            encoding = self.encoding_cache.get_encoding(path)
+            if encoding:
+                logging.info(f"Found cached encoding for {student_id}")
+            else:
+                logging.warning(f"No cached encoding found for {student_id}")
+                
+            return encoding
+            
+        except Exception as e:
+            logging.error(f"Error getting student encoding: {str(e)}")
+            return None
 
     def get_performance_metrics(self) -> Dict:
         """Get current performance metrics"""
@@ -539,3 +579,4 @@ class FaceRecognitionSystem:
             
         except Exception as e:
             logging.error(f"Cleanup error: {e}")    
+            

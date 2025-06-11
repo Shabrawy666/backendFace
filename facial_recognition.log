@@ -270,3 +270,230 @@ WHERE teacher.teacher_id = %(teacher_id_1)s
 2025-06-11 08:44:45,109 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 2025-06-11 08:44:45,109 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:18:04,547 - INFO - DeepFace library loaded successfully
+2025-06-11 19:18:04,591 - INFO - ML Service initialized successfully
+2025-06-11 19:18:04,805 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 19:18:04,805 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:18:17,052 - INFO - 127.0.0.1 - - [11/Jun/2025 19:18:17] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 401 -
+2025-06-11 19:18:51,735 - INFO - Converting base64 to image...
+2025-06-11 19:18:51,802 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 19:18:51,802 - INFO - Converting to BGR format...
+2025-06-11 19:18:51,810 - INFO - Starting image preprocessing...
+2025-06-11 19:18:51,810 - INFO - Starting preprocessing - Image shape: (1080, 1920, 3)
+2025-06-11 19:18:51,810 - INFO - Enhanced image shape: (1080, 1920, 3)
+2025-06-11 19:18:51,852 - INFO - Converted to grayscale - Shape: (1080, 1920)
+2025-06-11 19:18:53,091 - INFO - Found 7 faces with scale=1.05, neighbors=2
+2025-06-11 19:18:53,091 - INFO - Selected face region: x=684, y=215, w=604, h=604
+2025-06-11 19:18:53,091 - INFO - Extracted face ROI shape: (644, 644, 3)
+2025-06-11 19:18:53,107 - INFO - Final resized face shape: (224, 224, 3)
+2025-06-11 19:18:53,132 - INFO - Face detected successfully - Face shape: (224, 224, 3)
+2025-06-11 19:18:53,135 - INFO - Final preprocessed shape: (224, 224, 3)
+2025-06-11 19:18:53,135 - INFO - Getting face encoding...
+2025-06-11 19:18:53,135 - INFO - Starting preprocessing - Image shape: (224, 224, 3)
+2025-06-11 19:18:53,135 - INFO - Enhanced image shape: (224, 224, 3)
+2025-06-11 19:18:53,189 - INFO - Converted to grayscale - Shape: (224, 224)
+2025-06-11 19:18:53,255 - ERROR - No faces detected with any parameters
+2025-06-11 19:18:53,255 - ERROR - Face detection failed - no face found
+2025-06-11 19:18:53,255 - ERROR - Face encoding failed: Preprocessing failed
+2025-06-11 19:18:53,330 - INFO - 127.0.0.1 - - [11/Jun/2025 19:18:53] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 19:20:38,020 - INFO - DeepFace library loaded successfully
+2025-06-11 19:20:38,053 - INFO - ML Service initialized successfully
+2025-06-11 19:20:38,143 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 19:20:38,143 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:20:50,146 - INFO - Converting base64 to image...
+2025-06-11 19:20:50,178 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 19:20:50,178 - INFO - Converting to BGR format...
+2025-06-11 19:20:50,178 - INFO - Starting image preprocessing...
+2025-06-11 19:20:50,178 - INFO - Starting preprocessing - Image shape: (1080, 1920, 3)
+2025-06-11 19:20:50,178 - INFO - Enhanced image shape: (1080, 1920, 3)
+2025-06-11 19:20:51,213 - INFO - Face detected successfully - Face shape: (224, 224, 3)
+2025-06-11 19:20:51,219 - INFO - Final preprocessed shape: (224, 224, 3)
+2025-06-11 19:20:51,219 - INFO - Getting face encoding...
+2025-06-11 19:20:51,219 - INFO - Starting preprocessing - Image shape: (224, 224, 3)
+2025-06-11 19:20:51,219 - INFO - Enhanced image shape: (224, 224, 3)
+2025-06-11 19:20:51,401 - ERROR - Face detection failed - no face found
+2025-06-11 19:20:51,401 - ERROR - Face encoding failed: Preprocessing failed
+2025-06-11 19:20:51,466 - INFO - 127.0.0.1 - - [11/Jun/2025 19:20:51] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 19:22:30,702 - INFO - DeepFace library loaded successfully
+2025-06-11 19:22:30,735 - INFO - ML Service initialized successfully
+2025-06-11 19:22:30,834 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 19:22:30,834 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:22:34,857 - INFO - Converting base64 to image...
+2025-06-11 19:22:34,901 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 19:22:34,901 - INFO - Converting to BGR format...
+2025-06-11 19:22:34,905 - INFO - Starting image preprocessing...
+2025-06-11 19:22:36,013 - INFO - Getting face encoding...
+2025-06-11 19:22:36,216 - ERROR - Preprocessing error: type object 'ImagePreprocessor' has no attribute 'simple_preprocess'
+2025-06-11 19:22:36,216 - ERROR - Face encoding failed: Preprocessing failed
+2025-06-11 19:22:36,289 - INFO - 127.0.0.1 - - [11/Jun/2025 19:22:36] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 19:24:33,820 - INFO - DeepFace library loaded successfully
+2025-06-11 19:24:33,852 - INFO - ML Service initialized successfully
+2025-06-11 19:24:33,944 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 19:24:33,944 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:24:37,813 - INFO - Converting base64 to image...
+2025-06-11 19:24:37,838 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 19:24:37,838 - INFO - Converting to BGR format...
+2025-06-11 19:24:37,838 - INFO - Starting image preprocessing...
+2025-06-11 19:24:38,828 - INFO - Getting face encoding...
+2025-06-11 19:24:50,916 - INFO - Storing face encoding in database...
+2025-06-11 19:24:51,083 - INFO - Face encoding stored successfully for student 20221442220
+2025-06-11 19:24:51,083 - ERROR - Face processing error: name 'liveness_result' is not defined
+2025-06-11 19:24:51,083 - INFO - 127.0.0.1 - - [11/Jun/2025 19:24:51] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 19:26:25,183 - INFO - DeepFace library loaded successfully
+2025-06-11 19:26:25,216 - INFO - ML Service initialized successfully
+2025-06-11 19:26:25,316 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 19:26:25,316 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:26:28,260 - INFO - Converting base64 to image...
+2025-06-11 19:26:28,301 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 19:26:28,301 - INFO - Converting to BGR format...
+2025-06-11 19:26:28,310 - INFO - Starting image preprocessing...
+2025-06-11 19:26:29,374 - INFO - Liveness check bypassed for testing
+2025-06-11 19:26:29,374 - INFO - Getting face encoding...
+2025-06-11 19:26:40,843 - INFO - Storing face encoding in database...
+2025-06-11 19:26:40,918 - INFO - Face encoding stored successfully for student 20221442220
+2025-06-11 19:26:40,918 - INFO - 127.0.0.1 - - [11/Jun/2025 19:26:40] "POST /api/student/register-face HTTP/1.1" 200 -
+2025-06-11 19:33:28,957 - INFO - DeepFace library loaded successfully
+2025-06-11 19:33:28,986 - INFO - ML Service initialized successfully
+2025-06-11 19:33:29,086 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 19:33:29,086 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:33:34,185 - INFO - Converting base64 to image...
+2025-06-11 19:33:34,211 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 19:33:34,211 - INFO - Converting to BGR format...
+2025-06-11 19:33:34,219 - INFO - Starting image preprocessing...
+2025-06-11 19:33:35,282 - INFO - Performing liveness check...
+2025-06-11 19:33:35,949 - INFO - Liveness result: {'live': np.False_, 'score': 0.9537362456321716, 'confidence': 0.9537362456321716, 'explanation': 'Model prediction: Fake (0.954)', 'message': 'Spoof detected', 'debug_info': {}}
+2025-06-11 19:33:35,949 - WARNING - Liveness check failed: Model prediction: Fake (0.954)
+2025-06-11 19:33:36,020 - INFO - 127.0.0.1 - - [11/Jun/2025 19:33:36] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 19:35:59,235 - INFO - DeepFace library loaded successfully
+2025-06-11 19:35:59,268 - INFO - ML Service initialized successfully
+2025-06-11 19:35:59,342 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 19:35:59,342 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:36:03,081 - INFO - Converting base64 to image...
+2025-06-11 19:36:03,113 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 19:36:03,113 - INFO - Converting to BGR format...
+2025-06-11 19:36:03,113 - INFO - Starting image preprocessing...
+2025-06-11 19:36:04,209 - INFO - Performing liveness check...
+2025-06-11 19:36:04,832 - INFO - Liveness result: {'live': np.False_, 'score': 0.9537362456321716, 'confidence': 0.9537362456321716, 'explanation': 'Model prediction: Fake (0.954)', 'message': 'Spoof detected', 'debug_info': {}}
+2025-06-11 19:36:04,832 - WARNING - Liveness check failed: Model prediction: Fake (0.954)
+2025-06-11 19:36:04,832 - WARNING - Liveness uncertain (confidence: 0.954), allowing registration
+2025-06-11 19:36:04,832 - INFO - Liveness check result: Allowed despite spoof detection (confidence: 0.954)
+2025-06-11 19:36:04,832 - INFO - Getting face encoding...
+2025-06-11 19:36:17,160 - INFO - Storing face encoding in database...
+2025-06-11 19:36:17,251 - INFO - Face encoding stored successfully for student 20221442220
+2025-06-11 19:36:17,259 - INFO - 127.0.0.1 - - [11/Jun/2025 19:36:17] "POST /api/student/register-face HTTP/1.1" 200 -
+2025-06-11 19:38:05,688 - INFO - 127.0.0.1 - - [11/Jun/2025 19:38:05] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 400 -
+2025-06-11 19:38:18,345 - INFO - 127.0.0.1 - - [11/Jun/2025 19:38:18] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 400 -
+2025-06-11 19:41:34,584 - INFO - DeepFace library loaded successfully
+2025-06-11 19:41:34,616 - INFO - ML Service initialized successfully
+2025-06-11 19:41:34,716 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 19:41:34,716 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:41:38,722 - INFO - Converting base64 to image...
+2025-06-11 19:41:38,753 - INFO - Image converted successfully. Shape: (1080, 1920, 3)
+2025-06-11 19:41:38,753 - INFO - Converting to BGR format...
+2025-06-11 19:41:38,753 - INFO - Starting image preprocessing...
+2025-06-11 19:41:39,926 - INFO - Checking face quality...
+2025-06-11 19:41:39,926 - WARNING - Face quality check failed, but proceeding with attendance
+2025-06-11 19:41:39,926 - INFO - Performing liveness check...
+2025-06-11 19:41:40,542 - WARNING - Liveness uncertain (confidence: 0.954), allowing attendance
+2025-06-11 19:41:40,542 - INFO - Starting face recognition...
+2025-06-11 19:41:41,116 - ERROR - Face processing error: 'RecognitionResult' object has no attribute 'get'
+2025-06-11 19:41:41,182 - INFO - 127.0.0.1 - - [11/Jun/2025 19:41:41] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 400 -
+2025-06-11 19:45:14,679 - INFO - DeepFace library loaded successfully
+2025-06-11 19:45:14,703 - INFO - ML Service initialized successfully
+2025-06-11 19:45:14,777 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 19:45:14,777 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 19:45:20,977 - INFO - Converting base64 to image...
+2025-06-11 19:45:21,020 - INFO - Image converted successfully. Shape: (1080, 1920, 3)
+2025-06-11 19:45:21,020 - INFO - Converting to BGR format...
+2025-06-11 19:45:21,027 - INFO - Starting image preprocessing...
+2025-06-11 19:45:22,119 - INFO - Checking face quality...
+2025-06-11 19:45:22,127 - WARNING - Face quality check failed, but proceeding with attendance
+2025-06-11 19:45:22,127 - INFO - Performing liveness check...
+2025-06-11 19:45:22,679 - WARNING - Liveness uncertain (confidence: 0.954), allowing attendance
+2025-06-11 19:45:22,679 - INFO - Starting face recognition...
+2025-06-11 19:45:23,188 - INFO - Verification result for 20221442260: {'success': False, 'confidence_score': None, 'verification_time': None, 'student_id': '20221442260', 'message': '', 'match_found': False, 'threshold_met': False}
+2025-06-11 19:45:23,693 - INFO - Verification result for 20221442240: {'success': False, 'confidence_score': None, 'verification_time': None, 'student_id': '20221442240', 'message': '', 'match_found': False, 'threshold_met': False}
+2025-06-11 19:45:24,165 - INFO - Verification result for 20221442230: {'success': False, 'confidence_score': None, 'verification_time': None, 'student_id': '20221442230', 'message': '', 'match_found': False, 'threshold_met': False}
+2025-06-11 19:45:24,662 - INFO - Verification result for 20221442220: {'success': False, 'confidence_score': None, 'verification_time': None, 'student_id': '20221442220', 'message': '', 'match_found': False, 'threshold_met': False}
+2025-06-11 19:45:24,737 - INFO - 127.0.0.1 - - [11/Jun/2025 19:45:24] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 401 -
+2025-06-11 19:56:39,669 - ml_service - INFO - DeepFace library loaded successfully
+2025-06-11 19:56:43,776 - ml_service - INFO - face_recognition library loaded successfully
+2025-06-11 19:56:43,784 - ml_service - WARNING - Using fallback face recognition
+2025-06-11 19:56:43,784 - ml_service - WARNING - Using fallback image processor
+2025-06-11 19:56:48,562 - ml_service - INFO - ML Service initialization complete
+2025-06-11 19:56:48,562 - ml_service - INFO - Components status: {'image_processor': False, 'liveness_detection': True, 'face_recognition': False, 'config': True, 'encoding_cache': True}
+2025-06-11 19:56:48,562 - ml_service - INFO - DeepFace available: True
+2025-06-11 19:56:48,562 - ml_service - INFO - face_recognition available: True
+2025-06-11 19:56:48,562 - ml_service - INFO - ML Service singleton created successfully
+2025-06-11 20:10:51,746 - INFO - DeepFace library loaded successfully
+2025-06-11 20:10:51,776 - INFO - ML Service initialized successfully
+2025-06-11 20:10:51,838 - ERROR - ML service initialization failed: 'MLService' object has no attribute 'init'
+2025-06-11 20:10:51,852 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 20:10:51,853 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 20:10:57,516 - INFO - Converting base64 to image...
+2025-06-11 20:10:57,553 - INFO - Image converted successfully. Shape: (1080, 1920, 3)
+2025-06-11 20:10:57,553 - INFO - Converting to BGR format...
+2025-06-11 20:10:57,556 - INFO - Starting image preprocessing...
+2025-06-11 20:10:58,406 - INFO - Checking face quality...
+2025-06-11 20:10:58,407 - WARNING - Face quality check failed, but proceeding with attendance
+2025-06-11 20:10:58,407 - INFO - Performing liveness check...
+2025-06-11 20:10:58,877 - WARNING - Liveness uncertain (confidence: 0.954), allowing attendance
+2025-06-11 20:10:58,877 - INFO - Starting face recognition...
+2025-06-11 20:10:59,371 - ERROR - Face processing error: 'RecognitionResult' object has no attribute 'get'
+2025-06-11 20:10:59,441 - INFO - 127.0.0.1 - - [11/Jun/2025 20:10:59] "[31m[1mPOST /api/attendance/mark HTTP/1.1[0m" 400 -
+2025-06-11 20:11:09,977 - INFO - 127.0.0.1 - - [11/Jun/2025 20:11:09] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 401 -
+2025-06-11 20:11:44,006 - INFO - 127.0.0.1 - - [11/Jun/2025 20:11:44] "POST /api/student/login HTTP/1.1" 200 -
+2025-06-11 20:12:07,771 - INFO - 127.0.0.1 - - [11/Jun/2025 20:12:07] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 20:12:17,564 - INFO - Converting base64 to image...
+2025-06-11 20:12:17,579 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 20:12:17,579 - INFO - Converting to BGR format...
+2025-06-11 20:12:17,581 - INFO - Starting image preprocessing...
+2025-06-11 20:12:18,360 - INFO - Performing liveness check...
+2025-06-11 20:12:18,848 - INFO - Liveness result: {'live': np.False_, 'score': 0.9537362456321716, 'confidence': 0.9537362456321716, 'explanation': 'Model prediction: Fake (0.954)', 'message': 'Spoof detected', 'debug_info': {}}
+2025-06-11 20:12:18,848 - WARNING - Liveness check failed: Model prediction: Fake (0.954)
+2025-06-11 20:12:18,848 - WARNING - Liveness uncertain (confidence: 0.954), allowing registration
+2025-06-11 20:12:18,848 - INFO - Liveness check result: Allowed despite spoof detection (confidence: 0.954)
+2025-06-11 20:12:18,848 - INFO - Getting face encoding...
+2025-06-11 20:12:29,562 - INFO - Storing face encoding in database...
+2025-06-11 20:12:29,633 - INFO - Face encoding stored successfully for student 20221442220
+2025-06-11 20:12:29,633 - INFO - 127.0.0.1 - - [11/Jun/2025 20:12:29] "POST /api/student/register-face HTTP/1.1" 200 -
+2025-06-11 20:13:56,181 - INFO - DeepFace library loaded successfully
+2025-06-11 20:13:56,215 - INFO - ML Service initialized successfully
+2025-06-11 20:13:56,294 - ERROR - ML service initialization failed: 'MLService' object has no attribute 'init'
+2025-06-11 20:13:56,311 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 20:13:56,311 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 20:14:13,845 - INFO - Converting base64 to image...
+2025-06-11 20:14:13,863 - INFO - Image decoded successfully. Shape: (1080, 1920, 3), dtype: uint8
+2025-06-11 20:14:13,863 - INFO - Converting to BGR format...
+2025-06-11 20:14:13,866 - INFO - Starting image preprocessing...
+2025-06-11 20:14:14,308 - INFO - Performing liveness check...
+2025-06-11 20:14:14,764 - INFO - Liveness result: {'live': np.False_, 'score': 0.9551523923873901, 'explanation': 'Model prediction: Fake (0.955)', 'message': 'Spoof detected'}
+2025-06-11 20:14:14,764 - WARNING - Liveness check failed: Model prediction: Fake (0.955)
+2025-06-11 20:14:14,764 - WARNING - Liveness uncertain (confidence: 0.000), allowing registration
+2025-06-11 20:14:14,764 - INFO - Liveness check result: Allowed despite spoof detection (confidence: 0.000)
+2025-06-11 20:14:14,764 - INFO - Getting face encoding...
+2025-06-11 20:14:14,855 - ERROR - Face encoding failed: Preprocessing failed
+2025-06-11 20:14:14,926 - INFO - 127.0.0.1 - - [11/Jun/2025 20:14:14] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
+2025-06-11 20:17:18,636 - ERROR - Face registration error: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'.
+2025-06-11 20:17:18,637 - INFO - 127.0.0.1 - - [11/Jun/2025 20:17:18] "[35m[1mPOST /api/student/register-face HTTP/1.1[0m" 500 -
+2025-06-11 20:21:45,747 - INFO - DeepFace library loaded successfully
+2025-06-11 20:21:45,777 - INFO - ML Service initialized successfully
+2025-06-11 20:21:45,855 - ERROR - ML service initialization failed: 'MLService' object has no attribute 'init'
+2025-06-11 20:21:45,878 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-11 20:21:45,879 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-11 20:21:48,827 - INFO - Starting image preprocessing...
+2025-06-11 20:21:49,374 - INFO - Performing liveness check...
+2025-06-11 20:21:49,938 - INFO - Getting face encoding...
+2025-06-11 20:21:50,013 - INFO - 127.0.0.1 - - [11/Jun/2025 20:21:50] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
