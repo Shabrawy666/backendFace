@@ -13,20 +13,18 @@ pg8000
 psycopg2-binary
 SQLAlchemy
 
-# DeepFace stack (FIXED VERSIONS)
-tensorflow
-tf-keras
-keras
-deepface
-opencv-python-headless
-numpy
+# DeepFace stack (CPU-ONLY VERSIONS - MUCH SMALLER)
+tensorflow-cpu==2.13.0
+deepface==0.0.79
+opencv-python-headless==4.8.0.74
+numpy==1.24.3
 
 # Utilities (unchanged)
 bcrypt
 pillow
 greenlet
 
-# For liveness detection (optional - large download)
-torch>=1.9.0
-torchvision>=0.10.0
-torchaudio>=0.9.0
+# PyTorch CPU-only (if you really need it)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.0.0+cpu
+torchvision==0.15.0+cpu
