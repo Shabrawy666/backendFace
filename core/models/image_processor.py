@@ -103,13 +103,21 @@ class ImagePreprocessor:
             if image is None or image.size == 0:
                 raise ValueError("Invalid input image")
 
+            logging.info(f"Starting preprocessing - Image shape: {image.shape}")
+            
             enhanced = ImagePreprocessor.adjust_brightness_contrast(image)
+            logging.info(f"Enhanced image shape: {enhanced.shape}")
+            
             face_img = ImagePreprocessor.detect_and_align_face(enhanced)
             
             if face_img is None:
+                logging.error("Face detection failed - no face found")
                 return None
-
+            
+            logging.info(f"Face detected successfully - Face shape: {face_img.shape}")
+            
             face_img = ImagePreprocessor.normalize_image(face_img)
+            logging.info(f"Final preprocessed shape: {face_img.shape}")
             return face_img
 
         except Exception as e:
