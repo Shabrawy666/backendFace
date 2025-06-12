@@ -65,13 +65,13 @@ def login_student():
             expires_delta=timedelta(hours=1)
         )
 
-        # Get registered courses
+        # Get registered courses using enrolled_courses
         registered_courses = []
-        for course in student.courses:
+        for course in student.enrolled_courses:  # Changed from courses to enrolled_courses
             registered_courses.append({
                 "course_id": course.course_id,
                 "course_name": course.course_name
-                            })
+            })
 
         # Check if face encoding exists
         if student.face_encoding:
@@ -301,10 +301,10 @@ def register_course():
         if not student or not course:
             return jsonify({"error": "Student or Course not found"}), 404
 
-        if course in student.courses:
+        if course in student.enrolled_courses:  # Changed from courses to enrolled_courses
             return jsonify({"message": "Already registered in this course"}), 200
 
-        student.courses.append(course)
+        student.enrolled_courses.append(course)  # Changed from courses to enrolled_courses
         db.session.commit()
 
         return jsonify({
@@ -406,7 +406,7 @@ def get_registered_courses():
             return jsonify({"error": "Student not found"}), 404
 
         registered_courses = []
-        for course in student.courses:
+        for course in student.enrolled_courses:  # Changed from courses to enrolled_courses
             # Count attendance for this course
             course_attendance = Attendancelog.query.filter_by(
                 student_id=student_id, 
