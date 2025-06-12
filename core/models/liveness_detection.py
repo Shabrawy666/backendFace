@@ -33,6 +33,14 @@ class LivenessDetector:
             os.path.join(self.model_dir, "2.7_80x80_MiniFASNetV2.pth"),
             os.path.join(self.model_dir, "4_0_0_80x80_MiniFASNetV1SE.pth")
         ]
+
+        # Check for specific model files
+        deploy_path = os.path.join(self.model_dir, "deploy.prototxt")
+        caffemodel_path = os.path.join(self.model_dir, "model.caffemodel")
+
+        if not os.path.exists(deploy_path) or not os.path.exists(caffemodel_path):
+            logger.error("Model files missing: Ensure deploy.prototxt and model.caffemodel exist.")
+            raise FileNotFoundError("Required model files are missing.")
         
         # Check if model files exist
         for model_file in self.model_files:
