@@ -236,14 +236,19 @@ def end_attendance_session():
         data = request.get_json()
         course_id = data.get('course_id')
 
+        # Add debug logging
+        logger.debug(f"Attempting to end session for course {course_id}")
+
         if not course_id:
             return jsonify({"error": "Course ID is required"}), 400
 
         if not teacher_owns_course(teacher_id, course_id):
             return jsonify({"error": "Unauthorized access to course"}), 403
 
+        # Find active session with explicit type casting
         session = AttendanceSession.query.filter_by(
-            course_id=course_id,
+            course_id=int(course_id),
+            teacher_id=teacher_id,  # Add teacher_id check
             end_time=None
         ).order_by(desc(AttendanceSession.id)).first()
 
@@ -252,6 +257,9 @@ def end_attendance_session():
 
         # Get all students registered in the course
         course = Course.query.get(course_id)
+        if not course:
+            return jsonify({"error": "Course not found"}), 404
+
         registered_students = course.students.all()
         
         # Get students who already marked attendance
@@ -264,16 +272,32 @@ def end_attendance_session():
         
         # Mark absent students
         absent_count = 0
+        current_time = datetime.utcnow()  # Use UTC time consistently
+        
         for student in registered_students:
             if student.student_id not in attended_student_ids:
-                # Student didn't mark attendance, mark as absent
-                # Note: For absent students, we don't create attendance records
-                # The absence is implied by the lack of a record
+                # Create absent record
+                absent_record = Attendancelog(
+                    student_id=student.student_id,
+                    course_id=course_id,
+                    session_id=session.id,
+                    status='absent',
+                    connection_strength='none',
+                    date=current_time.date(),
+                    time=current_time.time()
+                )
+                db.session.add(absent_record)
                 absent_count += 1
         
         # End the session
-        session.end_time = datetime.utcnow()
-        db.session.commit()
+        try:
+            session.end_time = current_time
+            db.session.commit()
+            logger.info(f"Session {session.id} ended successfully")
+        except Exception as db_error:
+            db.session.rollback()
+            logger.error(f"Database error while ending session: {str(db_error)}")
+            raise
 
         # Get session statistics
         total_registered = len(registered_students)
@@ -285,6 +309,7 @@ def end_attendance_session():
             "session_id": session.id,
             "session_number": session.session_number,
             "course_name": course.course_name,
+            "end_time": current_time.isoformat(),
             "session_stats": {
                 "total_registered": total_registered,
                 "students_present": present_count,
@@ -302,7 +327,10 @@ def end_attendance_session():
     except Exception as e:
         db.session.rollback()
         logger.error(f"End session error: {str(e)}")
-        return jsonify({"error": "An internal error occurred"}), 500
+        return jsonify({
+            "error": "An internal error occurred",
+            "details": str(e)
+        }), 500
 
 # Optional: Add endpoint to get session status during active session
 @teacher_bp.route('/session/<int:session_id>/live-status', methods=['GET'])
