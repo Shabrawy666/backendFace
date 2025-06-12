@@ -63,7 +63,54 @@ class MLService:
     
     def verify_student_identity(self, student_id: str, image: np.ndarray) -> dict:
         """Verify student identity using FaceRecognitionSystem"""
-        return self.recognizer.verify_student(student_id, image)
+        try:
+            logger.info(f"Starting verification for student: {student_id}")
+            
+            if student_id is None or not isinstance(student_id, str):
+                logger.error(f"Invalid student ID: {student_id}")
+                return {
+                    "success": False,
+                    "error": "Invalid student ID",
+                    "details": "Student ID must be provided"
+                }
+                
+            if image is None or not isinstance(image, np.ndarray):
+                logger.error("Invalid image data")
+                return {
+                    "success": False,
+                    "error": "Invalid image data",
+                    "details": "Image must be provided"
+                }
+                
+            result = self.recognizer.verify_student(student_id, image)
+            
+            if not result.success:
+                logger.error(f"Verification failed: {result.error_message}")
+                return {
+                    "success": False,
+                    "error": "Face verification failed",
+                    "details": result.error_message,
+                    "suggestions": [
+                        "Ensure you're registered in the system",
+                        "Try with better lighting",
+                        "Face the camera directly"
+                    ]
+                }
+                
+            return {
+                "success": True,
+                "confidence": result.confidence_score,
+                "verification_time": result.verification_time,
+                "details": result.data
+            }
+            
+        except Exception as e:
+            logger.error(f"Error in verify_student_identity: {str(e)}")
+            return {
+                "success": False,
+                "error": "Verification error",
+                "details": str(e)
+            }
     
     def check_liveness(self, image: np.ndarray) -> Dict:
         """Perform liveness detection using LivenessDetector"""
