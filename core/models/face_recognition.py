@@ -144,94 +144,90 @@ class FaceRecognitionSystem:
     def get_face_encoding_for_storage(self, img: np.ndarray, student_id: str = None) -> Dict:
         """Generate face encoding for registration with quality assessment"""
         try:
-            print(f"Input image shape: {img.shape}")
-            print(f"Input image dtype: {img.dtype}")
-            
-            quality_score = self._assess_image_quality(img)
-            if quality_score < 0.4:
+            # Ensure image is in correct format
+            if img is None:
                 return {
                     "success": False,
-                    "message": f"Image quality too low: {quality_score:.2f}",
-                    "encoding": None,
-                    "quality_score": quality_score
+                    "message": "No image provided",
+                    "encoding": None
                 }
-            
+
+            logger.info(f"Processing image for face encoding. Shape: {img.shape}")
+
+            # Preprocess image
             preprocessed = self.image_preprocessor.preprocess_image(img)
             if preprocessed is None:
                 return {
                     "success": False,
-                    "message": "Preprocessing failed",
+                    "message": "Failed to preprocess image",
                     "encoding": None
                 }
 
-            print(f"Preprocessed image shape: {preprocessed.shape}")
-            print(f"Preprocessed image dtype: {preprocessed.dtype}")
-
-            temp_path = f"temp_preprocessed_{int(time.time())}.jpg"
-            cv2.imwrite(temp_path, (preprocessed * 255).astype(np.uint8))
-            print(f"Saved temporary image to: {temp_path}")
-
-            try:
-                encodings = []
-                models = ["Facenet", "VGG-Face"]
-                
-                for model in models:
-                    try:
-                        encoding = DeepFace.represent(
-                            img_path=temp_path,
-                            model_name=model,
-                            enforce_detection=True
-                        )
-                        if encoding:
-                            emb = encoding[0]["embedding"]
-                            if isinstance(emb, np.ndarray):
-                                emb = emb.tolist()
-                            encodings.append({
-                                "model": model,
-                                "embedding": emb,
-                                "confidence": self._calculate_encoding_confidence(emb)
-                            })
-                    except Exception as model_error:
-                        print(f"Model {model} failed: {str(model_error)}")
-                        continue
-                
-                if encodings:
-                    best_encoding = max(encodings, key=lambda x: x["confidence"])
-                    
-                    if student_id:
-                        self._add_multiple_encoding(student_id, best_encoding["embedding"], quality_score)
-                    
-                    return {
-                        "success": True,
-                        "encoding": best_encoding["embedding"],
-                        "message": "OK",
-                        "quality_score": quality_score,
-                        "model_used": best_encoding["model"],
-                        "confidence": best_encoding["confidence"]
-                    }
-                else:
-                    return {
-                        "success": False,
-                        "message": "All models failed to generate encoding",
-                        "encoding": None
-                    }
-                
-            except Exception as deep_face_error:
-                print(f"DeepFace error: {str(deep_face_error)}")
+            # Check image quality
+            quality_score = self._assess_image_quality(preprocessed)
+            if quality_score < 0.4:
                 return {
                     "success": False,
-                    "message": f"DeepFace processing failed: {str(deep_face_error)}",
+                    "message": f"Image quality too low: {quality_score:.2f}",
+                    "quality_score": quality_score,
                     "encoding": None
                 }
+
+            # Save preprocessed image temporarily
+            temp_path = os.path.join(Config.TEMP_IMAGE_DIR, f"temp_face_{int(time.time())}.jpg")
+            cv2.imwrite(temp_path, cv2.cvtColor((preprocessed * 255).astype(np.uint8), cv2.COLOR_RGB2BGR))
+
+            try:
+                # Get face encoding using DeepFace
+                embedding = DeepFace.represent(
+                    img_path=temp_path,
+                    model_name="VGG-Face",
+                    enforce_detection=True
+                )
+
+                if not embedding or not embedding[0].get("embedding"):
+                    return {
+                        "success": False,
+                        "message": "Failed to generate face encoding",
+                        "encoding": None
+                    }
+
+                # Convert embedding to list
+                face_encoding = np.array(embedding[0]["embedding"]).tolist()
+
+                # Calculate confidence
+                confidence = self._calculate_encoding_confidence(face_encoding)
+
+                # Store in multiple encodings if student_id provided
+                if student_id:
+                    self._add_multiple_encoding(student_id, face_encoding, quality_score)
+
+                return {
+                    "success": True,
+                    "encoding": face_encoding,
+                    "quality_score": quality_score,
+                    "confidence": confidence,
+                    "message": "Face encoding generated successfully"
+                }
+
+            except Exception as e:
+                logger.error(f"Face encoding error: {str(e)}")
+                return {
+                    "success": False,
+                    "message": f"Face encoding failed: {str(e)}",
+                    "encoding": None
+                }
+
             finally:
+                # Cleanup temporary file
                 if os.path.exists(temp_path):
                     os.remove(temp_path)
 
         except Exception as e:
-            print(f"General error in face encoding: {str(e)}")
+            logger.error(f"General error in face encoding: {str(e)}")
             return {
                 "success": False,
-                "message": str(e),
+                "message": f"Error: {str(e)}",
                 "encoding": None
             }
 

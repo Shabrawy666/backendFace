@@ -118,12 +118,12 @@ def register_face():
     """Register face for current student"""
     try:
         student_id = get_jwt_identity()
-        
-        # Check if image file is present
+        logger.info(f"Starting face registration for student {student_id}")
+
+        # Process image
         if 'image' not in request.files:
             return jsonify({
                 "error": "No image file provided",
-                "details": "Please upload an image file",
                 "retry_available": True
             }), 400
 
@@ -131,20 +131,19 @@ def register_face():
         if file.filename == '':
             return jsonify({
                 "error": "No selected file",
-                "details": "Please select a file to upload",
                 "retry_available": True
             }), 400
 
-        # Read and convert image file to numpy array
+        # Read and process image
         try:
             filestr = file.read()
             npimg = np.frombuffer(filestr, np.uint8)
             image = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
             
             if image is None:
+                logger.error("Failed to decode image")
                 return jsonify({
                     "error": "Invalid image file",
-                    "details": "Could not process the uploaded image",
                     "retry_available": True
                 }), 400
 
@@ -181,12 +180,13 @@ def register_face():
                 }), 400
 
             # Get face encoding
-            encoding_result = ml_service.recognizer.get_face_encoding_for_storage(preprocessed)
+            encoding_result = ml_service.get_face_encoding(image)
             
-            if not encoding_result.get('success', False):
+            if not encoding_result["success"]:
+                logger.error(f"Face encoding failed: {encoding_result['message']}")
                 return jsonify({
                     "error": "Face encoding failed",
-                    "details": encoding_result.get('message', 'Failed to generate face encoding'),
+                    "details": encoding_result["message"],
                     "retry_available": True
                 }), 400
 
@@ -195,15 +195,17 @@ def register_face():
             if not student:
                 return jsonify({"error": "Student not found"}), 404
 
-            student.face_encoding = encoding_result.get('encoding')
+            student.face_encoding = encoding_result["encoding"]
             db.session.commit()
+
+            logger.info(f"Face encoding saved successfully for student {student_id}")
 
             return jsonify({
                 "success": True,
                 "message": "Face registered successfully",
                 "details": {
-                    "liveness_score": liveness_result.get('score', 0),
-                    "quality_score": encoding_result.get('quality_score', 0)
+                    "quality_score": encoding_result.get("quality_score", 0),
+                    "confidence": encoding_result.get("confidence", 0)
                 }
             }), 200
 
@@ -219,7 +221,7 @@ def register_face():
         logger.error(f"Face registration error: {str(e)}")
         db.session.rollback()
         return jsonify({
-            "error": "Face processing error",
+            "error": "Face registration failed",
             "details": str(e),
             "retry_available": True
         }), 500
