@@ -7,6 +7,15 @@ import re
 import json
 from sqlalchemy.dialects.postgresql import JSON
 from datetime import datetime
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    filename='models.log'
+)
+logger = logging.getLogger(__name__)
 
 bcrypt = Bcrypt()
 db = SQLAlchemy()
@@ -140,11 +149,12 @@ class Attendancelog(db.Model):
     @classmethod
     def exists(cls, student_id, session_id, course_id):
         """Check if an attendance record exists"""
-        return cls.query.filter_by(
+        result = db.session.query(cls).filter_by(
             student_id=student_id,
             session_id=session_id,
             course_id=course_id
-        ).first() is not None
+        ).first()
+        return bool(result)  # Convert to Python bool
 
     @property
     def is_verified(self):
@@ -224,23 +234,24 @@ class AttendanceSession(db.Model):
     def session_stats(self):
         """Get session statistics"""
         try:
-            # Get total students using the relationship
+            # Get total students directly from the course relationship
             total_students = self.course.students.count()
             
-            # Get attendance records for this session
-            attendance_records = Attendancelog.query.filter_by(session_id=self.id).all()
+            # Get attendance records
+            attendance_records = db.session.query(Attendancelog).filter_by(
+                session_id=self.id
+            ).all()
             
-            # Calculate statistics
-            present_count = len([log for log in attendance_records if log.status == 'present'])
-            verified_count = len([log for log in attendance_records if log.connection_strength == 'strong'])
+            present_count = sum(1 for log in attendance_records if log.status == 'present')
+            verified_count = sum(1 for log in attendance_records if log.connection_strength == 'strong')
             
             return {
                 'total_students': total_students,
                 'present_count': present_count,
                 'absent_count': total_students - present_count,
                 'verified_count': verified_count,
-                'attendance_rate': (present_count / total_students * 100) if total_students > 0 else 0,
-                'verification_rate': (verified_count / present_count * 100) if present_count > 0 else 0
+                'attendance_rate': float(present_count / total_students * 100) if total_students > 0 else 0.0,
+                'verification_rate': float(verified_count / present_count * 100) if present_count > 0 else 0.0
             }
         except Exception as e:
             logger.error(f"Error calculating session stats: {str(e)}")
@@ -249,9 +260,8 @@ class AttendanceSession(db.Model):
                 'present_count': 0,
                 'absent_count': 0,
                 'verified_count': 0,
-                'attendance_rate': 0,
-                'verification_rate': 0,
-                'error': str(e)
+                'attendance_rate': 0.0,
+                'verification_rate': 0.0
             }
 
     def __init__(self, **kwargs):

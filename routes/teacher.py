@@ -230,22 +230,10 @@ def start_attendance_session():
 @teacher_bp.route('/end_session', methods=['POST'])
 @jwt_required()
 def end_attendance_session():
-    """End an active attendance session and mark absent students"""
     try:
         teacher_id = get_jwt_identity()
         data = request.get_json()
-        course_id = data.get('course_id')
-
-        logger.info(f"Attempting to end session - Teacher: {teacher_id}, Course: {course_id}")
-
-        if not course_id:
-            return jsonify({"error": "Course ID is required"}), 400
-
-        # Convert course_id to integer if it's a string
-        try:
-            course_id = int(course_id)
-        except ValueError:
-            return jsonify({"error": "Invalid course ID format"}), 400
+        course_id = int(data.get('course_id'))  # Convert to int
 
         # Find active session
         session = AttendanceSession.query.filter_by(
@@ -257,80 +245,73 @@ def end_attendance_session():
         if not session:
             return jsonify({"error": "No active session found"}), 404
 
+        # Get registered students
+        registered_students = db.session.query(Student).join(
+            student_courses
+        ).filter(
+            student_courses.c.course_id == course_id
+        ).all()
+
+        # Get attended students
+        attended_students = db.session.query(Attendancelog).filter_by(
+            session_id=session.id,
+            course_id=course_id
+        ).all()
+
+        # Mark absent students
+        current_time = datetime.utcnow()
+        attended_ids = {a.student_id for a in attended_students}
+        absent_count = 0
+
+        for student in registered_students:
+            if student.student_id not in attended_ids:
+                absent_log = Attendancelog(
+                    student_id=student.student_id,
+                    course_id=course_id,
+                    session_id=session.id,
+                    teacher_id=teacher_id,
+                    status='absent',
+                    connection_strength='none',
+                    date=current_time.date(),
+                    time=current_time.time()
+                )
+                db.session.add(absent_log)
+                absent_count += 1
+
+        # End session
+        session.end_time = current_time
+        session.is_active = False
+        session.status = 'completed'
+
         try:
-            # Get all students registered in the course
-            course = Course.query.get(course_id)
-            if not course:
-                return jsonify({"error": "Course not found"}), 404
-
-            registered_students = course.students.all()
-            
-            # Get students who already marked attendance
-            attended_students = Attendancelog.query.filter_by(
-                session_id=session.id,
-                course_id=course_id
-            ).all()
-            
-            attended_student_ids = {record.student_id for record in attended_students}
-            
-            # Mark absent students
-            current_time = datetime.utcnow()
-            absent_count = 0
-            
-            for student in registered_students:
-                if student.student_id not in attended_student_ids:
-                    # Create absent record
-                    absent_log = Attendancelog(
-                        student_id=student.student_id,
-                        course_id=course_id,
-                        session_id=session.id,
-                        teacher_id=teacher_id,
-                        status='absent',
-                        connection_strength='none',
-                        date=current_time.date(),
-                        time=current_time.time()
-                    )
-                    db.session.add(absent_log)
-                    absent_count += 1
-
-            # End the session
-            session.end_time = current_time
-            session.is_active = False
-            session.status = 'completed'
-            
             db.session.commit()
-            logger.info(f"Session {session.id} ended successfully")
-
-            # Get final statistics
-            total_students = len(registered_students)
-            present_count = len(attended_students)
-            face_verified = len([record for record in attended_students if record.connection_strength == 'strong'])
-
-            return jsonify({
-                "message": "Attendance session ended successfully",
-                "session_id": session.id,
-                "session_number": session.session_number,
-                "course_name": course.course_name,
-                "end_time": current_time.isoformat(),
-                "session_stats": {
-                    "total_registered": total_students,
-                    "students_present": present_count,
-                    "students_absent": absent_count,
-                    "attendance_rate": (present_count / total_students * 100) if total_students > 0 else 0,
-                    "face_verified": face_verified,
-                    "verification_rate": (face_verified / present_count * 100) if present_count > 0 else 0
-                }
-            }), 200
-
-        except Exception as db_error:
+        except Exception as commit_error:
             db.session.rollback()
-            logger.error(f"Database error while ending session: {str(db_error)}")
-            return jsonify({
-                "error": "Database error",
-                "details": str(db_error)
-            }), 500
+            raise commit_error
+
+        # Calculate statistics
+        total_students = len(registered_students)
+        present_count = len(attended_students)
+        face_verified = sum(1 for record in attended_students if record.connection_strength == 'strong')
+
+        return jsonify({
+            "message": "Attendance session ended successfully",
+            "session_id": str(session.id),
+            "session_number": session.session_number,
+            "course_name": session.course.course_name,
+            "end_time": current_time.isoformat(),
+            "session_stats": {
+                "total_registered": total_students,
+                "students_present": present_count,
+                "students_absent": absent_count,
+                "attendance_rate": float(present_count / total_students * 100) if total_students > 0 else 0.0,
+                "face_verified": face_verified,
+                "verification_rate": float(face_verified / present_count * 100) if present_count > 0 else 0.0
+            }
+        }), 200
 
     except Exception as e:
+        db.session.rollback()
         logger.error(f"End session error: {str(e)}")
         return jsonify({
             "error": "An internal error occurred",

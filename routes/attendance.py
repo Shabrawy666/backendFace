@@ -245,11 +245,11 @@ def mark_attendance():
             connection_strength = calculate_connection_strength(
                 session=session,
                 student_ip=student_ip,
-                face_verification_score=highest_confidence,
-                liveness_score=liveness_result['score']
+                face_verification_score=float(highest_confidence),  # Convert to float
+                liveness_score=float(liveness_result['score'])  # Convert to float
             )
 
-            # Create attendance log
+            # Create new attendance log
             new_log = Attendancelog(
                 student_id=matched_student.student_id,
                 session_id=session.id,
@@ -260,25 +260,20 @@ def mark_attendance():
                 status='present',
                 connection_strength=connection_strength,
                 marking_ip=student_ip,
-                verification_score=highest_confidence,
-                liveness_score=liveness_result['score']
+                verification_score=float(highest_confidence),  # Convert to float
+                liveness_score=float(liveness_result['score'])  # Convert to float
             )
             
             db.session.add(new_log)
             db.session.commit()
 
-            # Prepare response
-            verification_metrics = {
-                "confidence_score": highest_confidence,
-                "verification_time": verification_time,
-                "connection_strength": connection_strength,
-                "liveness_score": liveness_result['score'],
-                "factors": {
-                    'ip_match': session.ip_address == student_ip,
-                    'face_verified': highest_confidence > 0.8,
-                    'time_valid': True,
-                    'liveness_verified': liveness_result['live']
-                }
+            # Prepare response with converted values
+            verification_factors = {
+                'ip_match': bool(session.ip_address == student_ip),  # Convert to Python bool
+                'face_verified': bool(highest_confidence > 0.8),
+                'time_valid': True,
+                'liveness_verified': bool(liveness_result['live']),
+                'liveness_score': float(liveness_result['score'])
             }
 
             return jsonify({
@@ -287,21 +282,48 @@ def mark_attendance():
                 "details": {
                     "student_id": matched_student.student_id,
                     "student_name": matched_student.name,
-                    "course_id": course_id,
-                    "session_id": session.id,
+                    "course_id": str(course_id),  # Convert to string
+                    "session_id": str(session.id),  # Convert to string
                     "marked_time": now.strftime("%H:%M:%S"),
-                    "verification_metrics": verification_metrics
+                    "verification_metrics": {
+                        "confidence_score": float(highest_confidence),
+                        "verification_time": float(verification_time),
+                        "connection_strength": connection_strength,
+                        "liveness_score": float(liveness_result['score']),
+                        "factors": verification_factors
+                    }
                 }
             }), 200
 
         except Exception as db_error:
-            logger.error(f"Database error: {str(db_error)}")
+            logger.error(f"Database error while marking attendance: {str(db_error)}")
             db.session.rollback()
-            return jsonify({
-                "error": "Database error",
-                "details": "Failed to save attendance record",
-                "debug_info": str(db_error)
-            }), 500
+            
+            # Check if attendance was saved
+            exists = Attendancelog.exists(
+                student_id=matched_student.student_id,
+                session_id=session.id,
+                course_id=course_id
+            )
+            
+            if exists:
+                return jsonify({
+                    "success": True,
+                    "message": "Attendance marked successfully (with warning)",
+                    "warning": "There was a minor issue, but attendance was recorded",
+                    "details": {
+                        "student_id": matched_student.student_id,
+                        "student_name": matched_student.name,
+                        "course_id": str(course_id),
+                        "session_id": str(session.id)
+                    }
+                }), 200
+            else:
+                return jsonify({
+                    "error": "Database error",
+                    "details": "Failed to save attendance record",
+                    "debug_info": str(db_error)
+                }), 500
 
     except Exception as e:
         logger.error(f"Attendance marking error: {str(e)}")
