@@ -14,6 +14,12 @@ from core.models.liveness_detection import LivenessDetector
 from data.structures import RecognitionResult
 from models import db, Student, Attendancelog, Course
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 class FaceRecognitionSystem:
     """Enhanced face recognition system with multiple encodings and improved accuracy."""
 
