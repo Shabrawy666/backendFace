@@ -255,9 +255,6 @@ def end_attendance_session():
         if not session:
             return jsonify({"error": "No active session found"}), 404
 
-        # Import student_courses at the top of the function to avoid global scope
-        from models import student_courses
-
         try:
             # Get registered students using a direct query
             registered_students = db.session.query(Student).join(
