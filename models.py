@@ -36,7 +36,12 @@ class Student(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
 
     # Many-to-many relationship with Course
-    courses = db.relationship('Course', secondary=student_courses, backref='students', lazy='dynamic')
+    enrolled_courses = db.relationship(
+        'Course',
+        secondary=student_courses,
+        backref=db.backref('enrolled_students', lazy='dynamic'),
+        lazy='dynamic'
+    )
 
     @property
     def password(self):
@@ -111,24 +116,20 @@ class Course(db.Model):
     # Add foreign key to link each course to a teacher
     teacher_id = db.Column(db.String(11), db.ForeignKey('teacher.teacher_id'), nullable=True)
     
-    # Relationships
+    # Relationship with teacher
     teacher = db.relationship('Teacher', back_populates='courses')
-    students = db.relationship('Student', 
-                             secondary=student_courses,
-                             backref=db.backref('courses', lazy='dynamic'),
-                             lazy='dynamic')
 
     def get_student_count(self):
         """Get total number of students in the course"""
-        return self.students.count()
+        return self.enrolled_students.count()  # Changed from students to enrolled_students
 
     def get_all_students(self):
         """Get list of all students in the course"""
-        return self.students.all()
+        return self.enrolled_students.all()  # Changed from students to enrolled_students
 
     def is_student_enrolled(self, student_id):
         """Check if a student is enrolled in the course"""
-        return self.students.filter_by(student_id=student_id).first() is not None
+        return self.enrolled_students.filter_by(student_id=student_id).first() is not None  # Changed from students to enrolled_students
 
 class Attendancelog(db.Model):
     __tablename__ = 'attendancelog'

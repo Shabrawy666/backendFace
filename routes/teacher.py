@@ -6,7 +6,7 @@ from models import (
     Student, 
     Course, 
     Teacher, 
-    student_courses  # Add this import
+    student_courses
 )
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from datetime import timedelta, datetime
@@ -70,7 +70,7 @@ def login_teacher():
         current_courses = []
         for course in courses:
             # Get students directly from the relationship
-            students = [student for student in course.students]
+            students = [student for student in course.enrolled_students]  # Changed from students to enrolled_students
             verified_students = sum(1 for student in students if student.face_encoding is not None)
             
             current_courses.append({
@@ -111,8 +111,9 @@ def get_teacher_profile():
         courses = Course.query.filter_by(teacher_id=teacher_id).all()
         course_list = []
         for course in courses:
-            total_students = course.students.count()
-            verified_students = course.students.filter(Student.face_encoding.isnot(None)).count()
+            total_students = course.enrolled_students.count()  # Changed from students to enrolled_students
+            verified_students = course.enrolled_students.filter(Student.face_encoding.isnot(None)).count()  # Changed from students to enrolled_students
+
             course_list.append({
                 "course_id": course.course_id,
                 "course_name": course.course_name,
@@ -259,7 +260,7 @@ def end_attendance_session():
             return jsonify({"error": "Course not found"}), 404
 
         # Get registered students using the existing relationship
-        registered_students = course.students.all()
+        registered_students = course.enrolled_students.all()
 
         # Get attended students
         attended_students = Attendancelog.query.filter_by(
@@ -548,7 +549,7 @@ def get_course_sessions(course_id):
         session_list = []
         for session in sessions:
             # Get attendance stats for each session
-            total_registered = course.students.count()
+            total_registered = course.enrolled_students.count()
             present_count = Attendancelog.query.filter_by(
                 session_id=session.id,
                 status='present'
@@ -601,7 +602,7 @@ def get_course_students(course_id):
             return jsonify({"error": "Course not found"}), 404
         
         # Get all students in this course
-        students = course.students.all()
+        students = course.enrolled_students.all()
         
         student_list = []
         for student in students:
@@ -661,7 +662,7 @@ def get_session_attendance(session_id):
         
         # Get all students registered in the course
         course = Course.query.get(session.course_id)
-        registered_students = course.students.all()
+        registered_students = course.enrolled_students.all()
         
         # Get attendance records for this session
         attendance_records = Attendancelog.query.filter_by(session_id=session_id).all()
