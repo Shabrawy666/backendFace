@@ -193,13 +193,14 @@ def mark_attendance():
             now = datetime.utcnow()
             student_ip = request.remote_addr
             
-            # Calculate connection strength using the enhanced method
+            # Calculate connection strength
             connection_strength = calculate_connection_strength(
                 session=session,
                 student_ip=student_ip,
                 face_verification_score=highest_confidence
             )
 
+            # Create new attendance log with only the fields that exist in your model
             new_log = Attendancelog(
                 student_id=matched_student.student_id,
                 session_id=session.id,
@@ -208,21 +209,19 @@ def mark_attendance():
                 date=now.date(),
                 time=now.time(),
                 status='present',
-                connection_strength=connection_strength,
-                verification_score=highest_confidence,
-                verification_method='face',
-                attendance_source='student'
+                connection_strength=connection_strength
             )
             
             db.session.add(new_log)
             db.session.commit()
 
-            # Prepare detailed response
+            logger.info(f"Attendance marked successfully for student {matched_student.student_id}")
+
+            # Prepare verification factors for response only
             verification_factors = {
                 'ip_match': session.ip_address == student_ip,
                 'face_verified': highest_confidence > 0.8,
-                'time_valid': True,  # From connection strength calculation
-                'verification_score': highest_confidence
+                'time_valid': True
             }
 
             return jsonify({
@@ -244,12 +243,35 @@ def mark_attendance():
             }), 200
 
         except Exception as db_error:
-            logger.error(f"Database error: {str(db_error)}")
-            db.session.rollback()
-            return jsonify({
-                "error": "Database error",
-                "details": "Failed to save attendance record"
-            }), 500
+            logger.error(f"Database error while marking attendance: {str(db_error)}")
+            # Don't rollback if the data was actually saved
+            if 'new_log' not in locals() or not new_log.id:
+                db.session.rollback()
+            
+            # Check if attendance was actually saved despite the error
+            existing_log = Attendancelog.query.filter_by(
+                student_id=matched_student.student_id,
+                session_id=session.id
+            ).first()
+            
+            if existing_log:
+                # Attendance was saved, return success
+                return jsonify({
+                    "success": True,
+                    "message": "Attendance marked successfully (with warning)",
+                    "warning": "There was a minor issue, but attendance was recorded",
+                    "details": {
+                        "student_id": matched_student.student_id,
+                        "student_name": matched_student.name,
+                        "marked_time": existing_log.time.strftime("%H:%M:%S")
+                    }
+                }), 200
+            else:
+                # Attendance wasn't saved, return error
+                return jsonify({
+                    "error": "Database error",
+                    "details": "Failed to save attendance record"
+                }), 500
 
     except Exception as e:
         logger.error(f"Attendance marking error: {str(e)}")
