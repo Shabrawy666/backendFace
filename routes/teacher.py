@@ -236,9 +236,7 @@ def end_attendance_session():
         data = request.get_json()
         course_id = data.get('course_id')
 
-        # Debug logging
         logger.info(f"Attempting to end session - Teacher: {teacher_id}, Course: {course_id}")
-        logger.info(f"Received data: {data}")
 
         if not course_id:
             return jsonify({"error": "Course ID is required"}), 400
@@ -249,16 +247,6 @@ def end_attendance_session():
         except ValueError:
             return jsonify({"error": "Invalid course ID format"}), 400
 
-        # Debug: Check course ownership
-        course = Course.query.get(course_id)
-        if not course:
-            return jsonify({"error": "Course not found"}), 404
-        
-        logger.info(f"Course teacher_id: {course.teacher_id}, Request teacher_id: {teacher_id}")
-        
-        if str(course.teacher_id) != str(teacher_id):
-            return jsonify({"error": "Unauthorized access to course"}), 403
-
         # Find active session
         session = AttendanceSession.query.filter_by(
             course_id=course_id,
@@ -266,29 +254,73 @@ def end_attendance_session():
             end_time=None
         ).first()
 
-        logger.info(f"Found session: {session.id if session else 'None'}")
-
         if not session:
             return jsonify({"error": "No active session found"}), 404
 
-        # Debug: Print current session state
-        logger.info(f"Current session state - ID: {session.id}, End time: {session.end_time}")
-
-        # End the session with explicit transaction
         try:
-            # Start a new transaction
-            db.session.begin_nested()
+            # Get all students registered in the course
+            course = Course.query.get(course_id)
+            if not course:
+                return jsonify({"error": "Course not found"}), 404
 
-            # Update session end time
-            current_time = datetime.utcnow()
-            session.end_time = current_time
+            registered_students = course.students.all()
             
-            # Debug: Print session state after update
-            logger.info(f"Updated session state - End time: {session.end_time}")
+            # Get students who already marked attendance
+            attended_students = Attendancelog.query.filter_by(
+                session_id=session.id,
+                course_id=course_id
+            ).all()
+            
+            attended_student_ids = {record.student_id for record in attended_students}
+            
+            # Mark absent students
+            current_time = datetime.utcnow()
+            absent_count = 0
+            
+            for student in registered_students:
+                if student.student_id not in attended_student_ids:
+                    # Create absent record
+                    absent_log = Attendancelog(
+                        student_id=student.student_id,
+                        course_id=course_id,
+                        session_id=session.id,
+                        teacher_id=teacher_id,
+                        status='absent',
+                        connection_strength='none',
+                        date=current_time.date(),
+                        time=current_time.time()
+                    )
+                    db.session.add(absent_log)
+                    absent_count += 1
 
-            # Commit the transaction
+            # End the session
+            session.end_time = current_time
+            session.is_active = False
+            session.status = 'completed'
+            
             db.session.commit()
-            logger.info("Session successfully ended in database")
+            logger.info(f"Session {session.id} ended successfully")
+
+            # Get final statistics
+            total_students = len(registered_students)
+            present_count = len(attended_students)
+            face_verified = len([record for record in attended_students if record.connection_strength == 'strong'])
+
+            return jsonify({
+                "message": "Attendance session ended successfully",
+                "session_id": session.id,
+                "session_number": session.session_number,
+                "course_name": course.course_name,
+                "end_time": current_time.isoformat(),
+                "session_stats": {
+                    "total_registered": total_students,
+                    "students_present": present_count,
+                    "students_absent": absent_count,
+                    "attendance_rate": (present_count / total_students * 100) if total_students > 0 else 0,
+                    "face_verified": face_verified,
+                    "verification_rate": (face_verified / present_count * 100) if present_count > 0 else 0
+                }
+            }), 200
 
         except Exception as db_error:
             db.session.rollback()
@@ -298,45 +330,7 @@ def end_attendance_session():
                 "details": str(db_error)
             }), 500
 
-        # Verify the session was actually ended
-        refreshed_session = AttendanceSession.query.get(session.id)
-        logger.info(f"Verified session end time: {refreshed_session.end_time}")
-
-        if refreshed_session.end_time is None:
-            return jsonify({
-                "error": "Failed to end session",
-                "details": "Session end time was not properly set"
-            }), 500
-
-        # Get final statistics
-        registered_students = course.students.all()
-        attended_students = Attendancelog.query.filter_by(
-            session_id=session.id,
-            course_id=course_id
-        ).all()
-
-        total_registered = len(registered_students)
-        present_count = len(attended_students)
-        face_verified = len([record for record in attended_students if record.connection_strength == 'strong'])
-
-        return jsonify({
-            "message": "Attendance session ended successfully",
-            "session_id": session.id,
-            "session_number": session.session_number,
-            "course_name": course.course_name,
-            "end_time": current_time.isoformat(),
-            "session_stats": {
-                "total_registered": total_registered,
-                "students_present": present_count,
-                "students_absent": total_registered - present_count,
-                "attendance_rate": (present_count / total_registered * 100) if total_registered > 0 else 0,
-                "face_verified": face_verified,
-                "verification_rate": (face_verified / present_count * 100) if present_count > 0 else 0
-            }
-        }), 200
-
     except Exception as e:
-        db.session.rollback()
         logger.error(f"End session error: {str(e)}")
         return jsonify({
             "error": "An internal error occurred",

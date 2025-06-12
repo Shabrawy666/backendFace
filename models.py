@@ -205,16 +205,9 @@ class AttendanceSession(db.Model):
     start_time = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     end_time = db.Column(db.DateTime, nullable=True)
     
-    # Session status and tracking
+    # Session status tracking
     is_active = db.Column(db.Boolean, default=True)
     status = db.Column(db.String(20), default='ongoing')  # 'ongoing', 'completed', 'cancelled'
-    verification_required = db.Column(db.Boolean, default=True)
-    liveness_check_required = db.Column(db.Boolean, default=True)
-    
-    # Session metrics
-    total_attempts = db.Column(db.Integer, default=0)
-    successful_verifications = db.Column(db.Integer, default=0)
-    failed_verifications = db.Column(db.Integer, default=0)
     
     # Relationships
     teacher = db.relationship('Teacher', backref='attendance_sessions')
@@ -229,35 +222,37 @@ class AttendanceSession(db.Model):
 
     @property
     def session_stats(self):
-        """Get comprehensive session statistics"""
-        total_students = len(self.course.students.all())
-        attendance_logs = list(self.attendancelog)
-        present_count = len([log for log in attendance_logs if log.status == 'present'])
-        verified_count = len([log for log in attendance_logs if log.is_verified])
-        
-        return {
-            'total_students': total_students,
-            'present_count': present_count,
-            'absent_count': total_students - present_count,
-            'verified_count': verified_count,
-            'attendance_rate': (present_count / total_students * 100) if total_students > 0 else 0,
-            'verification_rate': (verified_count / present_count * 100) if present_count > 0 else 0,
-            'verification_metrics': {
-                'total_attempts': self.total_attempts,
-                'successful': self.successful_verifications,
-                'failed': self.failed_verifications,
-                'success_rate': (self.successful_verifications / self.total_attempts * 100) 
-                               if self.total_attempts > 0 else 0
+        """Get session statistics"""
+        try:
+            # Get total students using the relationship
+            total_students = self.course.students.count()
+            
+            # Get attendance records for this session
+            attendance_records = Attendancelog.query.filter_by(session_id=self.id).all()
+            
+            # Calculate statistics
+            present_count = len([log for log in attendance_records if log.status == 'present'])
+            verified_count = len([log for log in attendance_records if log.connection_strength == 'strong'])
+            
+            return {
+                'total_students': total_students,
+                'present_count': present_count,
+                'absent_count': total_students - present_count,
+                'verified_count': verified_count,
+                'attendance_rate': (present_count / total_students * 100) if total_students > 0 else 0,
+                'verification_rate': (verified_count / present_count * 100) if present_count > 0 else 0
             }
-        }
-
-    def increment_verification_metrics(self, success: bool):
-        """Update verification metrics"""
-        self.total_attempts += 1
-        if success:
-            self.successful_verifications += 1
-        else:
-            self.failed_verifications += 1
+        except Exception as e:
+            logger.error(f"Error calculating session stats: {str(e)}")
+            return {
+                'total_students': 0,
+                'present_count': 0,
+                'absent_count': 0,
+                'verified_count': 0,
+                'attendance_rate': 0,
+                'verification_rate': 0,
+                'error': str(e)
+            }
 
     def __init__(self, **kwargs):
         super(AttendanceSession, self).__init__(**kwargs)
