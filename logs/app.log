@@ -376,3 +376,14 @@
 2025-06-12 06:40:09,357 - root - INFO - DeepFace library loaded successfully
 2025-06-12 06:40:09,467 - root - INFO - ML Service initialized successfully
 2025-06-12 06:40:09,467 - core.utils.logger - INFO - ML service imported successfully
+2025-06-12 13:09:16,727 - root - INFO - DeepFace library loaded successfully
+2025-06-12 13:09:16,792 - root - ERROR - Init failed: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
+2025-06-12 13:09:16,793 - core.utils.logger - ERROR - Error importing ML service: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
+2025-06-12 13:09:16,799 - root - INFO - DeepFace library loaded successfully
+2025-06-12 13:09:16,859 - root - ERROR - Init failed: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
+2025-06-12 13:11:35,724 - root - INFO - DeepFace library loaded successfully
+2025-06-12 13:11:35,854 - root - INFO - ML Service initialized successfully
+2025-06-12 13:11:35,854 - core.utils.logger - INFO - ML service imported successfully
+2025-06-12 13:12:04,076 - root - INFO - DeepFace library loaded successfully
+2025-06-12 13:12:04,176 - root - INFO - ML Service initialized successfully
+2025-06-12 13:12:04,178 - core.utils.logger - INFO - ML service imported successfully

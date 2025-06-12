@@ -172,15 +172,15 @@ def mark_attendance():
             connection_strength = 'strong' if session.ip_address == student_ip else 'weak'
 
             new_log = Attendancelog(
-                student_id=matched_student.student_id,
-                session_id=session.id,
-                teacher_id=session.teacher_id,
-                course_id=course_id,
-                date=now.date(),
-                time=now.time(),
-                status='present',
-                connection_strength=connection_strength
-            )
+            student_id=matched_student.student_id,
+            session_id=session.id,
+            course_id=course_id,
+            teacher_id=session.teacher_id,  # Get teacher_id from the session
+            date=now.date(),
+            time=now.time(),
+            status='present',
+            connection_strength=connection_strength
+)
             
             db.session.add(new_log)
             db.session.commit()

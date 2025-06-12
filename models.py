@@ -110,13 +110,15 @@ class Attendancelog(db.Model):
 
     student_id = db.Column(db.String(11), db.ForeignKey('student.student_id'), primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.course_id'), primary_key=True)
-    session_id = db.Column(db.Integer, db.ForeignKey('attendance_session.id'), primary_key=True)  # FIXED FOREIGN KEY
-    connection_strength = db.Column(db.String(20), nullable=False)  # INCREASED LENGTH FOR 'manual_edit', etc.
+    session_id = db.Column(db.Integer, db.ForeignKey('attendance_session.id'), primary_key=True)
+    teacher_id = db.Column(db.String(11), db.ForeignKey('teacher.teacher_id'), nullable=False)  # Add this line
+    connection_strength = db.Column(db.String(20), nullable=False)
     date = db.Column(db.Date)
     time = db.Column(db.Time)
-    status = db.Column(db.String(10), default='absent')  # CHANGED DEFAULT TO LOWERCASE
+    status = db.Column(db.String(10), default='absent')
 
-    # Relationships
+    # Add relationship for teacher
+    teacher = db.relationship('Teacher', backref=db.backref('attendancelog', lazy=True))  # Add this line
     course = db.relationship('Course', backref=db.backref('attendancelog', lazy=True))
     student = db.relationship('Student', backref=db.backref('attendancelog', lazy=True))
     session = db.relationship('AttendanceSession', backref=db.backref('attendancelog', lazy=True))
