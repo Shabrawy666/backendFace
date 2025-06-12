@@ -20,6 +20,38 @@ logger = logging.getLogger(__name__)
 
 attendance_bp = Blueprint('attendance', __name__, url_prefix='/api/attendance')
 
+def calculate_connection_strength(session, student_ip, face_verification_score=None):
+    """
+    Calculate connection strength based on multiple factors
+    Returns: 'strong', 'moderate', or 'weak'
+    """
+    factors = {
+        'ip_match': False,
+        'face_verified': False,
+        'time_valid': False
+    }
+    
+    # 1. Check IP address match
+    factors['ip_match'] = (session.ip_address == student_ip)
+    
+    # 2. Check face verification if available
+    if face_verification_score is not None:
+        factors['face_verified'] = (face_verification_score > 0.8)  # 80% confidence threshold
+    
+    # 3. Check if attendance is marked within valid timeframe
+    session_start = session.start_time
+    current_time = datetime.utcnow()
+    time_difference = (current_time - session_start).total_seconds() / 60  # in minutes
+    factors['time_valid'] = (time_difference <= 30)  # within 30 minutes of session start
+    
+    # Calculate strength based on factors
+    if all(factors.values()):
+        return 'strong'
+    elif sum(factors.values()) >= 2:
+        return 'moderate'
+    else:
+        return 'weak'
+
 def base64_to_image(base64_str):
     """Convert base64 to numpy image"""
     try:
@@ -33,10 +65,9 @@ def base64_to_image(base64_str):
 @attendance_bp.route('/mark', methods=['POST'])
 def mark_attendance():
     try:
-        # Log the start of attendance marking
         logger.info("Starting attendance marking process")
 
-        # Validate course_id
+        # Validate course_id and image
         course_id = request.form.get('course_id')
         if not course_id:
             return jsonify({
@@ -44,7 +75,6 @@ def mark_attendance():
                 "details": "Course ID is required"
             }), 400
 
-        # Check if image file is present
         if 'image' not in request.files:
             return jsonify({
                 "error": "No image file provided",
@@ -58,12 +88,10 @@ def mark_attendance():
                 "details": "Please select an image file"
             }), 400
 
-        # Read and convert image
-        logger.info("Processing uploaded image")
+        # Process image
         filestr = file.read()
         npimg = np.frombuffer(filestr, np.uint8)
         image = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
-
         if image is None:
             return jsonify({
                 "error": "Invalid image file",
@@ -72,7 +100,7 @@ def mark_attendance():
 
         logger.info(f"Image processed successfully. Shape: {image.shape}")
 
-        # Process image
+        # Preprocess image
         preprocessed = ml_service.preprocessor.preprocess_image(image)
         if preprocessed is None:
             return jsonify({
@@ -85,16 +113,15 @@ def mark_attendance():
                 }
             }), 400
 
-        # Get course and check if it exists
+        # Verify course and get students
         course = Course.query.get(course_id)
         if not course:
             return jsonify({"error": "Course not found"}), 404
 
-        # Get enrolled students directly from the course
         enrolled_students = list(course.students)
         logger.info(f"Checking {len(enrolled_students)} enrolled students")
 
-        # Find matching student
+        # Find matching student with highest confidence
         matched_student = None
         highest_confidence = 0
         verification_time = 0
@@ -104,7 +131,6 @@ def mark_attendance():
                 logger.warning(f"Student {student.student_id} has no face encoding")
                 continue
             
-            logger.info(f"Checking student {student.student_id}")
             result = ml_service.verify_student_identity(student.student_id, preprocessed)
             
             if isinstance(result, dict):
@@ -112,7 +138,6 @@ def mark_attendance():
                 confidence = result.get('confidence_score', 0)
                 ver_time = result.get('verification_time', 0)
             else:
-                # If result is RecognitionResult object
                 success = result.success
                 confidence = result.confidence_score if hasattr(result, 'confidence_score') else 0
                 ver_time = result.verification_time if hasattr(result, 'verification_time') else 0
@@ -134,7 +159,7 @@ def mark_attendance():
                 ]
             }), 401
 
-        # Check for active session
+        # Check active session
         session = AttendanceSession.query.filter_by(
             course_id=course_id,
             end_time=None
@@ -146,7 +171,7 @@ def mark_attendance():
                 "details": "No active attendance session found for this course"
             }), 404
 
-        # Check for existing attendance
+        # Check existing attendance
         existing_log = Attendancelog.query.filter_by(
             student_id=matched_student.student_id,
             session_id=session.id
@@ -163,27 +188,42 @@ def mark_attendance():
                 }
             }), 200
 
-        # Mark attendance
+        # Mark attendance with enhanced connection strength
         try:
-            now = datetime.now()
+            now = datetime.utcnow()
             student_ip = request.remote_addr
             
-            # Determine connection strength
-            connection_strength = 'strong' if session.ip_address == student_ip else 'weak'
+            # Calculate connection strength using the enhanced method
+            connection_strength = calculate_connection_strength(
+                session=session,
+                student_ip=student_ip,
+                face_verification_score=highest_confidence
+            )
 
             new_log = Attendancelog(
-            student_id=matched_student.student_id,
-            session_id=session.id,
-            course_id=course_id,
-            teacher_id=session.teacher_id,  # Get teacher_id from the session
-            date=now.date(),
-            time=now.time(),
-            status='present',
-            connection_strength=connection_strength
-)
+                student_id=matched_student.student_id,
+                session_id=session.id,
+                course_id=course_id,
+                teacher_id=session.teacher_id,
+                date=now.date(),
+                time=now.time(),
+                status='present',
+                connection_strength=connection_strength,
+                verification_score=highest_confidence,
+                verification_method='face',
+                attendance_source='student'
+            )
             
             db.session.add(new_log)
             db.session.commit()
+
+            # Prepare detailed response
+            verification_factors = {
+                'ip_match': session.ip_address == student_ip,
+                'face_verified': highest_confidence > 0.8,
+                'time_valid': True,  # From connection strength calculation
+                'verification_score': highest_confidence
+            }
 
             return jsonify({
                 "success": True,
@@ -197,7 +237,8 @@ def mark_attendance():
                     "verification_metrics": {
                         "confidence_score": highest_confidence,
                         "verification_time": verification_time,
-                        "connection_type": connection_strength
+                        "connection_strength": connection_strength,
+                        "factors": verification_factors
                     }
                 }
             }), 200
