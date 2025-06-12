@@ -393,3 +393,9 @@
 2025-06-12 13:52:44,917 - root - INFO - DeepFace library loaded successfully
 2025-06-12 13:52:45,009 - root - INFO - ML Service initialized successfully
 2025-06-12 13:52:45,009 - core.utils.logger - INFO - ML service imported successfully
+2025-06-12 14:22:01,495 - root - INFO - DeepFace library loaded successfully
+2025-06-12 14:22:01,650 - root - INFO - ML Service initialized successfully
+2025-06-12 14:22:01,650 - core.utils.logger - INFO - ML service imported successfully
+2025-06-12 14:22:27,409 - root - INFO - DeepFace library loaded successfully
+2025-06-12 14:22:27,522 - root - INFO - ML Service initialized successfully
+2025-06-12 14:22:27,523 - core.utils.logger - INFO - ML service imported successfully

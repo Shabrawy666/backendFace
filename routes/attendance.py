@@ -20,34 +20,39 @@ logger = logging.getLogger(__name__)
 
 attendance_bp = Blueprint('attendance', __name__, url_prefix='/api/attendance')
 
-def calculate_connection_strength(session, student_ip, face_verification_score=None):
-    """
-    Calculate connection strength based on multiple factors
-    Returns: 'strong', 'moderate', or 'weak'
-    """
+def calculate_connection_strength(session, student_ip, face_verification_score=None, liveness_score=None):
+    """Calculate connection strength based on multiple factors"""
     factors = {
         'ip_match': False,
         'face_verified': False,
-        'time_valid': False
+        'time_valid': False,
+        'liveness_verified': False
     }
     
-    # 1. Check IP address match
+    # Check IP address match
     factors['ip_match'] = (session.ip_address == student_ip)
     
-    # 2. Check face verification if available
+    # Check face verification
     if face_verification_score is not None:
-        factors['face_verified'] = (face_verification_score > 0.8)  # 80% confidence threshold
+        factors['face_verified'] = (face_verification_score > 0.8)
     
-    # 3. Check if attendance is marked within valid timeframe
+    # Check liveness
+    if liveness_score is not None:
+        factors['liveness_verified'] = (liveness_score > 0.8)
+    
+    # Check timeframe
     session_start = session.start_time
     current_time = datetime.utcnow()
-    time_difference = (current_time - session_start).total_seconds() / 60  # in minutes
-    factors['time_valid'] = (time_difference <= 30)  # within 30 minutes of session start
+    time_difference = (current_time - session_start).total_seconds() / 60
+    factors['time_valid'] = (time_difference <= 30)
     
-    # Calculate strength based on factors
-    if all(factors.values()):
+    # Calculate strength
+    valid_factors = sum(factors.values())
+    total_factors = len(factors)
+    
+    if valid_factors == total_factors:
         return 'strong'
-    elif sum(factors.values()) >= 2:
+    elif valid_factors >= total_factors - 1:
         return 'moderate'
     else:
         return 'weak'
@@ -89,29 +94,72 @@ def mark_attendance():
             }), 400
 
         # Process image
-        filestr = file.read()
-        npimg = np.frombuffer(filestr, np.uint8)
-        image = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
-        if image is None:
-            return jsonify({
-                "error": "Invalid image file",
-                "details": "Could not process the image file"
-            }), 400
+        try:
+            filestr = file.read()
+            npimg = np.frombuffer(filestr, np.uint8)
+            image = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+            if image is None:
+                return jsonify({
+                    "error": "Invalid image file",
+                    "details": "Could not process the image file"
+                }), 400
 
-        logger.info(f"Image processed successfully. Shape: {image.shape}")
+            logger.info(f"Image processed successfully. Shape: {image.shape}")
+        except Exception as img_error:
+            logger.error(f"Image processing error: {str(img_error)}")
+            return jsonify({
+                "error": "Image processing failed",
+                "details": "Could not process the uploaded image",
+                "suggestions": ["Try uploading a different image"]
+            }), 400
 
         # Preprocess image
-        preprocessed = ml_service.preprocessor.preprocess_image(image)
-        if preprocessed is None:
+        try:
+            preprocessed = ml_service.preprocessor.preprocess_image(image)
+            if preprocessed is None:
+                return jsonify({
+                    "error": "Image preprocessing failed",
+                    "details": "Could not detect a clear face in the image",
+                    "requirements": {
+                        "face": "Ensure face is clearly visible",
+                        "lighting": "Good lighting conditions required",
+                        "position": "Face must be centered"
+                    }
+                }), 400
+        except Exception as preprocess_error:
+            logger.error(f"Preprocessing error: {str(preprocess_error)}")
             return jsonify({
                 "error": "Image preprocessing failed",
-                "details": "Could not detect a clear face in the image",
-                "requirements": {
-                    "face": "Ensure face is clearly visible",
-                    "lighting": "Good lighting conditions required",
-                    "position": "Face must be centered"
-                }
+                "details": str(preprocess_error)
             }), 400
+
+        # Perform liveness check
+        try:
+            liveness_result = ml_service.liveness.analyze(preprocessed)
+            logger.info(f"Liveness check result: {liveness_result}")
+            
+            if not liveness_result['live']:
+                return jsonify({
+                    "error": "Liveness check failed",
+                    "details": liveness_result['explanation'],
+                    "message": liveness_result['message'],
+                    "score": liveness_result['score'],
+                    "suggestions": [
+                        "Ensure you are physically present",
+                        "Make natural movements",
+                        "Ensure proper lighting",
+                        "Face the camera directly"
+                    ]
+                }), 400
+        except Exception as liveness_error:
+            logger.error(f"Liveness check error: {str(liveness_error)}")
+            # Continue with reduced confidence
+            liveness_result = {
+                "live": True,
+                "score": 0.5,
+                "explanation": "Liveness check encountered an error",
+                "message": "Proceeding with reduced confidence"
+            }
 
         # Verify course and get students
         course = Course.query.get(course_id)
@@ -197,10 +245,11 @@ def mark_attendance():
             connection_strength = calculate_connection_strength(
                 session=session,
                 student_ip=student_ip,
-                face_verification_score=highest_confidence
+                face_verification_score=highest_confidence,
+                liveness_score=liveness_result['score']
             )
 
-            # Create new attendance log with only the fields that exist in your model
+            # Create attendance log
             new_log = Attendancelog(
                 student_id=matched_student.student_id,
                 session_id=session.id,
@@ -209,19 +258,27 @@ def mark_attendance():
                 date=now.date(),
                 time=now.time(),
                 status='present',
-                connection_strength=connection_strength
+                connection_strength=connection_strength,
+                marking_ip=student_ip,
+                verification_score=highest_confidence,
+                liveness_score=liveness_result['score']
             )
             
             db.session.add(new_log)
             db.session.commit()
 
-            logger.info(f"Attendance marked successfully for student {matched_student.student_id}")
-
-            # Prepare verification factors for response only
-            verification_factors = {
-                'ip_match': session.ip_address == student_ip,
-                'face_verified': highest_confidence > 0.8,
-                'time_valid': True
+            # Prepare response
+            verification_metrics = {
+                "confidence_score": highest_confidence,
+                "verification_time": verification_time,
+                "connection_strength": connection_strength,
+                "liveness_score": liveness_result['score'],
+                "factors": {
+                    'ip_match': session.ip_address == student_ip,
+                    'face_verified': highest_confidence > 0.8,
+                    'time_valid': True,
+                    'liveness_verified': liveness_result['live']
+                }
             }
 
             return jsonify({
@@ -233,45 +290,18 @@ def mark_attendance():
                     "course_id": course_id,
                     "session_id": session.id,
                     "marked_time": now.strftime("%H:%M:%S"),
-                    "verification_metrics": {
-                        "confidence_score": highest_confidence,
-                        "verification_time": verification_time,
-                        "connection_strength": connection_strength,
-                        "factors": verification_factors
-                    }
+                    "verification_metrics": verification_metrics
                 }
             }), 200
 
         except Exception as db_error:
-            logger.error(f"Database error while marking attendance: {str(db_error)}")
-            # Don't rollback if the data was actually saved
-            if 'new_log' not in locals() or not new_log.id:
-                db.session.rollback()
-            
-            # Check if attendance was actually saved despite the error
-            existing_log = Attendancelog.query.filter_by(
-                student_id=matched_student.student_id,
-                session_id=session.id
-            ).first()
-            
-            if existing_log:
-                # Attendance was saved, return success
-                return jsonify({
-                    "success": True,
-                    "message": "Attendance marked successfully (with warning)",
-                    "warning": "There was a minor issue, but attendance was recorded",
-                    "details": {
-                        "student_id": matched_student.student_id,
-                        "student_name": matched_student.name,
-                        "marked_time": existing_log.time.strftime("%H:%M:%S")
-                    }
-                }), 200
-            else:
-                # Attendance wasn't saved, return error
-                return jsonify({
-                    "error": "Database error",
-                    "details": "Failed to save attendance record"
-                }), 500
+            logger.error(f"Database error: {str(db_error)}")
+            db.session.rollback()
+            return jsonify({
+                "error": "Database error",
+                "details": "Failed to save attendance record",
+                "debug_info": str(db_error)
+            }), 500
 
     except Exception as e:
         logger.error(f"Attendance marking error: {str(e)}")
