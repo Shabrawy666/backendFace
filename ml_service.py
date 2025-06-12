@@ -12,7 +12,10 @@ from core.utils.config import Config
 from core.utils.encoding_cache import EncodingCache
 from core.utils.exceptions import SystemInitializationError
 
-# Get logger
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
 
 # Import components from core/ml
