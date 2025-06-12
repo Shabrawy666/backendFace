@@ -103,7 +103,6 @@ class Teacher(db.Model):
     def check_password(self, plaintext_password):
         return bcrypt.checkpw(plaintext_password.encode('utf-8'), self._password.encode('utf-8'))
 
-# Course model
 class Course(db.Model):
     course_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     course_name = db.Column(db.String(255), nullable=False)
@@ -111,7 +110,25 @@ class Course(db.Model):
 
     # Add foreign key to link each course to a teacher
     teacher_id = db.Column(db.String(11), db.ForeignKey('teacher.teacher_id'), nullable=True)
+    
+    # Relationships
     teacher = db.relationship('Teacher', back_populates='courses')
+    students = db.relationship('Student', 
+                             secondary=student_courses,
+                             backref=db.backref('courses', lazy='dynamic'),
+                             lazy='dynamic')
+
+    def get_student_count(self):
+        """Get total number of students in the course"""
+        return self.students.count()
+
+    def get_all_students(self):
+        """Get list of all students in the course"""
+        return self.students.all()
+
+    def is_student_enrolled(self, student_id):
+        """Check if a student is enrolled in the course"""
+        return self.students.filter_by(student_id=student_id).first() is not None
 
 class Attendancelog(db.Model):
     __tablename__ = 'attendancelog'

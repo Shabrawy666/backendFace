@@ -1,5 +1,13 @@
 from flask import Blueprint, request, jsonify
-from models import db, Attendancelog, AttendanceSession, Student, Teacher, Course
+from models import (
+    db, 
+    Attendancelog, 
+    AttendanceSession, 
+    Student, 
+    Course, 
+    Teacher, 
+    student_courses  # Add this import
+)
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from datetime import timedelta, datetime
 import logging
