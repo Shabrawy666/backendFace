@@ -161,12 +161,13 @@ def mark_attendance():
                 "message": "Proceeding with reduced confidence"
             }
 
-        # Verify course and get students
+        # Verify course and get enrolled students
         course = Course.query.get(course_id)
         if not course:
             return jsonify({"error": "Course not found"}), 404
 
-        enrolled_students = list(course.students)
+        # Change this line to use enrolled_students instead of students
+        enrolled_students = list(course.enrolled_students)
         logger.info(f"Checking {len(enrolled_students)} enrolled students")
 
         # Find matching student with highest confidence
@@ -174,7 +175,7 @@ def mark_attendance():
         highest_confidence = 0
         verification_time = 0
 
-        for student in enrolled_students:
+        for student in enrolled_students:  # This now uses the correct list
             if not student.face_encoding:
                 logger.warning(f"Student {student.student_id} has no face encoding")
                 continue
