@@ -36,3 +36,13 @@
 2025-06-12 15:16:38,173 - INFO - DeepFace library loaded successfully
 2025-06-12 15:16:38,277 - INFO - ML Service initialized successfully
 2025-06-12 15:16:38,277 - INFO - ML service imported successfully
+2025-06-12 16:19:20,766 - WARNING - From C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+2025-06-12 16:19:22,874 - INFO - DeepFace library loaded successfully
+2025-06-12 16:19:22,982 - INFO - ML Service initialized successfully
+2025-06-12 16:19:22,982 - INFO - ML service imported successfully
+2025-06-12 16:19:49,690 - WARNING - From C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+2025-06-12 16:19:50,579 - INFO - DeepFace library loaded successfully
+2025-06-12 16:19:50,670 - INFO - ML Service initialized successfully
+2025-06-12 16:19:50,670 - INFO - ML service imported successfully

@@ -144,13 +144,13 @@ class Attendancelog(db.Model):
     connection_strength = db.Column(db.String(20), nullable=False)
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.Time, nullable=False)
-    status = db.Column(db.String(10), default='absent')
+    status = db.Column(db.String(10), nullable=False)  # Remove default here
 
     # Verification fields
     marking_ip = db.Column(db.String(45), nullable=True)
     verification_score = db.Column(db.Float, nullable=True)
     liveness_score = db.Column(db.Float, nullable=True)
-    verification_method = db.Column(db.String(20), default='face')  # 'face', 'manual', 'system'
+    verification_method = db.Column(db.String(20), default='face')
     verification_timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     
     # Additional tracking
@@ -172,7 +172,7 @@ class Attendancelog(db.Model):
             session_id=session_id,
             course_id=course_id
         ).first()
-        return bool(result)  # Convert to Python bool
+        return bool(result)
 
     @property
     def is_verified(self):
@@ -209,15 +209,57 @@ class Attendancelog(db.Model):
         self.last_attempt = datetime.utcnow()
 
     def __init__(self, **kwargs):
-        super(Attendancelog, self).__init__(**kwargs)
-        if 'date' not in kwargs:
-            self.date = datetime.utcnow().date()
-        if 'time' not in kwargs:
-            self.time = datetime.utcnow().time()
-        if 'status' not in kwargs:
-            self.status = 'absent'
-        if 'verification_details' not in kwargs:
-            self.verification_details = {}
+        now = datetime.utcnow()
+        
+        # Set default values
+        defaults = {
+            'date': now.date(),
+            'time': now.time(),
+            'status': 'present',  # Default to present for new records
+            'verification_details': {},
+            'verification_timestamp': now,
+            'last_attempt': now,
+            'attempts_count': 1
+        }
+        
+        # Update defaults with provided values
+        defaults.update(kwargs)
+
+        # Ensure status is valid
+        if 'status' not in defaults:
+            defaults['status'] = 'present'
+        elif defaults['status'] not in ['present', 'absent']:
+            defaults['status'] = 'present'
+        
+        # Initialize with updated values
+        super(Attendancelog, self).__init__(**defaults)
+
+    @classmethod
+    def create_attendance(cls, student_id, course_id, session_id, teacher_id, **kwargs):
+        """Factory method to create attendance record"""
+        now = datetime.utcnow()
+        
+        # Set default values for attendance creation
+        attendance_data = {
+            'student_id': student_id,
+            'course_id': course_id,
+            'session_id': session_id,
+            'teacher_id': teacher_id,
+            'date': now.date(),
+            'time': now.time(),
+            'status': 'present',
+            'verification_timestamp': now,
+            'last_attempt': now,
+            'attempts_count': 1,
+            'verification_details': {}
+        }
+        
+        # Update with provided values, but ensure status remains 'present'
+        kwargs['status'] = 'present'  # Force status to be present
+        attendance_data.update(kwargs)
+        
+        # Create new attendance record
+        return cls(**attendance_data)
 
 
 class AttendanceSession(db.Model):
@@ -253,7 +295,7 @@ class AttendanceSession(db.Model):
         """Get session statistics"""
         try:
             # Get total students directly from the course relationship
-            total_students = self.course.students.count()
+            total_students = self.course.enrolled_students.count()
             
             # Get attendance records
             attendance_records = db.session.query(Attendancelog).filter_by(
