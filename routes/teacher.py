@@ -23,7 +23,7 @@ teacher_bp = Blueprint('teacher', __name__, url_prefix='/api/teacher')
 
 # Enhanced logging setup
 logging.basicConfig(
-    handlers=[logging.StreamHandler()],
+    filename='teacher_routes.log',
     level=logging.DEBUG,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )

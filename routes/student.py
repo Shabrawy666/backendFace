@@ -16,7 +16,7 @@ import cv2
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]
+    filename='student_routes.log'
 )
 logger = logging.getLogger(__name__)
 

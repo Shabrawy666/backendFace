@@ -11,14 +11,10 @@ import os
 from datetime import timedelta
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from core.utils.logger import setup_logging
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[logging.StreamHandler()]
-)
-logger = logging.getLogger(__name__)
+# Setup logging
+logger = setup_logging()
 
 # Critical optimization for face recognition in cloud
 os.environ['DISABLE_DLIB_AVX_INSTRUCTIONS'] = '1'

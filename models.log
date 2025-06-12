@@ -46,24 +46,3 @@
 2025-06-12 16:19:50,579 - INFO - DeepFace library loaded successfully
 2025-06-12 16:19:50,670 - INFO - ML Service initialized successfully
 2025-06-12 16:19:50,670 - INFO - ML service imported successfully
-2025-06-12 18:54:08,117 - WARNING - From C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
-
-2025-06-12 18:54:09,395 - INFO - DeepFace library loaded successfully
-2025-06-12 18:54:09,395 - ERROR - Init failed: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
-2025-06-12 18:54:09,395 - ERROR - Error importing ML service: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
-2025-06-12 18:54:09,411 - INFO - DeepFace library loaded successfully
-2025-06-12 18:54:09,411 - ERROR - Init failed: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
-2025-06-12 18:55:04,925 - WARNING - From C:\Users\Lenovo\Desktop\attendance_system\venv\Lib\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
-
-2025-06-12 18:55:05,417 - INFO - DeepFace library loaded successfully
-2025-06-12 18:55:11,981 - INFO - ML Service initialized successfully
-2025-06-12 18:55:11,981 - INFO - ML service imported successfully
-2025-06-12 18:55:12,072 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-2025-06-12 18:55:12,072 - INFO - [33mPress CTRL+C to quit[0m
-2025-06-12 18:55:32,186 - ERROR - 404 Error: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
-2025-06-12 18:55:32,186 - INFO - 127.0.0.1 - - [12/Jun/2025 18:55:32] "[33mPOST /api/student HTTP/1.1[0m" 404 -
-2025-06-12 18:56:01,826 - INFO - 127.0.0.1 - - [12/Jun/2025 18:56:01] "POST /api/student/login HTTP/1.1" 200 -
-2025-06-12 18:56:37,980 - INFO - Starting face registration for student 20221442210
-2025-06-12 18:56:38,048 - INFO - Image loaded successfully. Shape: (1080, 1920, 3)
-2025-06-12 18:56:39,550 - INFO - 127.0.0.1 - - [12/Jun/2025 18:56:39] "[31m[1mPOST /api/student/register-face HTTP/1.1[0m" 400 -
