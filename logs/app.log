@@ -353,3 +353,26 @@
 2025-06-11 22:27:21,914 - core.utils.logger - ERROR - Error importing ML service: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
 2025-06-11 22:27:21,926 - root - INFO - DeepFace library loaded successfully
 2025-06-11 22:27:21,987 - root - ERROR - Init failed: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
+2025-06-12 06:22:45,955 - root - INFO - DeepFace library loaded successfully
+2025-06-12 06:22:46,043 - root - ERROR - Init failed: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
+2025-06-12 06:22:46,045 - core.utils.logger - ERROR - Error importing ML service: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
+2025-06-12 06:22:46,065 - root - INFO - DeepFace library loaded successfully
+2025-06-12 06:22:46,130 - root - ERROR - Init failed: [WinError 3] The system cannot find the path specified: '/app/Silent-Face-Anti-Spoofing-master'
+2025-06-12 06:24:41,812 - root - INFO - DeepFace library loaded successfully
+2025-06-12 06:24:41,964 - root - INFO - ML Service initialized successfully
+2025-06-12 06:24:41,968 - core.utils.logger - INFO - ML service imported successfully
+2025-06-12 06:25:15,790 - root - INFO - DeepFace library loaded successfully
+2025-06-12 06:25:15,892 - root - INFO - ML Service initialized successfully
+2025-06-12 06:25:15,892 - core.utils.logger - INFO - ML service imported successfully
+2025-06-12 06:26:49,608 - root - INFO - DeepFace library loaded successfully
+2025-06-12 06:26:49,698 - root - INFO - ML Service initialized successfully
+2025-06-12 06:26:49,698 - core.utils.logger - INFO - ML service imported successfully
+2025-06-12 06:33:18,317 - root - INFO - DeepFace library loaded successfully
+2025-06-12 06:33:18,464 - root - INFO - ML Service initialized successfully
+2025-06-12 06:33:18,464 - core.utils.logger - INFO - ML service imported successfully
+2025-06-12 06:33:40,499 - root - INFO - DeepFace library loaded successfully
+2025-06-12 06:33:40,589 - root - INFO - ML Service initialized successfully
+2025-06-12 06:33:40,589 - core.utils.logger - INFO - ML service imported successfully
+2025-06-12 06:40:09,357 - root - INFO - DeepFace library loaded successfully
+2025-06-12 06:40:09,467 - root - INFO - ML Service initialized successfully
+2025-06-12 06:40:09,467 - core.utils.logger - INFO - ML service imported successfully
