@@ -60,7 +60,7 @@ class LivenessDetector:
                     print(f"Skipping missing model: {model_file}")
                     continue
                     
-                model_name = os.path.basename(model_file)
+                model_name = os.path.basename(model_file)  # Get just the filename for parse_model_name
                 h_input, w_input, model_type, scale = parse_model_name(model_name)
                 
                 param = {
@@ -78,8 +78,8 @@ class LivenessDetector:
                 img = self.image_cropper.crop(**param)
                 
                 # Use FULL PATH for prediction
-                prediction += self.model.predict(img, model_file)
-
+                prediction += self.model.predict(img, model_file)  # Use full path instead of just filename
+            
             # Change back to original directory
             os.chdir(current_dir)
             
@@ -87,33 +87,23 @@ class LivenessDetector:
             label = np.argmax(prediction)
             value = prediction[0][label]/2
             
-            # MODIFIED: More lenient thresholds for real-world conditions
+            is_live = label == 1  # 1 = real, 0 = fake
             confidence = float(value)
-            
-            # Always consider it live unless very high confidence of fake
-            is_live = True
-            if confidence > 0.99:  # Only mark as fake if extremely confident
-                is_live = label == 1
-            
-            explanation = "Real person detected"
-            if not is_live:
-                explanation = f"High confidence spoof detection: {confidence:.3f}"
             
             return {
                 "live": is_live,
                 "score": confidence,
-                "explanation": f"Model prediction: {explanation}",
-                "message": "Live person detected" if is_live else f"Spoof detected ({confidence:.3f})"
+                "explanation": f"Model prediction: {'Real' if is_live else 'Fake'} ({confidence:.3f})",
+                "message": "Live person detected" if is_live else "Spoof detected"
             }
             
         except Exception as e:
             # Change back to original directory in case of error
             os.chdir(original_cwd)
             print(f"Liveness detection error: {str(e)}")
-            # Fail open - assume live in case of errors
             return {
-                "live": True,
+                "live": True,  # Fail open
                 "score": 0.5,
                 "explanation": f"Model error: {str(e)}",
-                "message": "Liveness check skipped due to error"
+                "message": "Liveness check skipped"
             }
